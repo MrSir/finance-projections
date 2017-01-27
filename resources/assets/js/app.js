@@ -14,6 +14,11 @@ require('./bootstrap');
  */
 Vue.component('example', require('./components/Example.vue'));
 
+Vue.component(
+    'left_sidebar_menu',
+    require('./components/left_sidebar/menu.vue')
+);
+
 const app = new Vue({
     el: '#app'
 });

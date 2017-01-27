@@ -1,5 +1,5 @@
 @extends('layouts.master')
 
 @section('content')
-Test Home
+Test Transactions
 @endsection
