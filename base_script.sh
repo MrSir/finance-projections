@@ -6,6 +6,8 @@ alias fucking=sudo
 apt-get update
 apt-get -y install python-software-properties
 
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+
 # add needed repos and update #
 apt-get update
 
