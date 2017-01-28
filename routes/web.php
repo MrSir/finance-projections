@@ -18,3 +18,11 @@ Route::name('home')->get('/', function () {
 Route::name('transactions')->get('/transactions', function () {
     return view('transactions');
 });
+
+Route::name('accounts')->get('/accounts', function () {
+    return view('accounts');
+});
+
+Route::name('categories')->get('/categories', function () {
+    return view('categories');
+});

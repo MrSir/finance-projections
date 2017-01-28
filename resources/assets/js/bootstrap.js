@@ -18,6 +18,7 @@ require('admin-lte');
  */
 
 window.Vue = require('vue');
+window.Vue.use(require('vue-resource'));
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

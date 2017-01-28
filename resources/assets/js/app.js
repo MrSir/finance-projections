@@ -15,8 +15,13 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 
 Vue.component(
-    'left_sidebar_menu',
-    require('./components/left_sidebar/menu.vue')
+    'sidebar.left.menu',
+    require('./components/sidebar/left/menu.vue')
+);
+
+Vue.component(
+    'content.accounts.table',
+    require('./components/content/accounts/table.vue')
 );
 
 const app = new Vue({
