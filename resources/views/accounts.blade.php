@@ -7,7 +7,6 @@
         </div>
         <div class="box-body">
             <content.accounts.table></content.accounts.table>
-            <content.accounts.modals.create></content.accounts.modals.create>
         </div>
     </div>
 @endsection

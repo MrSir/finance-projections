@@ -28,12 +28,15 @@ Vue.component(
     'content.accounts.modals.create',
     require('./components/content/accounts/modals/create.vue')
 );
+Vue.component(
+    'content.accounts.modals.delete',
+    require('./components/content/accounts/modals/delete.vue')
+);
+Vue.component(
+    'content.accounts.modals.edit',
+    require('./components/content/accounts/modals/edit.vue')
+);
 
 const app = new Vue({
-    el: '#app',
-    data() {
-        return {
-            accounts: []
-        }
-    }
+    el: '#app'
 });
