@@ -10,6 +10,11 @@ class Account extends Model
 
     protected $fillable = [
         'name',
-        'balance'
+        'description'
     ];
+
+    public function accountBalances()
+    {
+        return $this->hasMany(AccountBalances::class);
+    }
 }

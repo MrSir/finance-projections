@@ -24,6 +24,16 @@ Vue.component(
     require('./components/content/accounts/table.vue')
 );
 
+Vue.component(
+    'content.accounts.modals.create',
+    require('./components/content/accounts/modals/create.vue')
+);
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data() {
+        return {
+            accounts: []
+        }
+    }
 });
