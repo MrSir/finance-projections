@@ -19,11 +19,15 @@ Vue.component(
     require('./components/sidebar/left/menu.vue')
 );
 
+// Accounts
+Vue.component(
+    'content.accounts.search',
+    require('./components/content/accounts/search.vue')
+);
 Vue.component(
     'content.accounts.table',
     require('./components/content/accounts/table.vue')
 );
-
 Vue.component(
     'content.accounts.modals.create',
     require('./components/content/accounts/modals/create.vue')

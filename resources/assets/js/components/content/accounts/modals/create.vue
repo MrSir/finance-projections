@@ -8,7 +8,7 @@
                     <h4 class="modal-title">Create Account</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="store-account-form" name="storeAccountForm" role="form">
+                    <form id="storeAccountForm" name="storeAccountForm" role="form">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="name">Name</label>

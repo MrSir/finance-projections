@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Category;
+use App\Http\Requests\Account\IndexRequest;
 use App\Http\Requests\Account\StoreRequest;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,30 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(IndexRequest $request)
     {
-        return response()->json(['accounts' => Account::all()]);
+        $accounts = Account::query();
+\Log::critical($request->all());
+        if($request->has('name')) {
+            $accounts = $accounts->where('name', 'LIKE', '%'.$request->get('name').'%');
+        }
+
+        if($request->has('description')) {
+            $accounts = $accounts->where('description', 'LIKE', '%'.$request->get('description').'%');
+        }
+
+        if($request->has('createdFrom')) {
+            $accounts = $accounts->where('created_at', '>=', $request->get('createdFrom').' 00:00:00');
+        }
+
+        if($request->has('createdAt')) {
+            $accounts = $accounts->where('created_at', '<=', $request->get('createdTo').' 23:59:59');
+        }
+
+        return response()->json(['accounts' => $accounts->get()]);
     }
 
 
