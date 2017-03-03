@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-use App\Category;
+use App\Http\Requests;
 use App\Http\Requests\Account\IndexRequest;
 use App\Http\Requests\Account\StoreRequest;
+use App\Http\Requests\Account\UpdateRequest;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
 
 class AccountController extends Controller
 {
@@ -43,7 +40,12 @@ class AccountController extends Controller
         return response()->json(['accounts' => $accounts->get()]);
     }
 
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreRequest $request)
     {
         $account = new Account($request->all());
@@ -80,11 +82,11 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateRequest $request
      * @param Account $account
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Account $account)
+    public function update(UpdateRequest $request, Account $account)
     {
         $account->fill($request->all());
         $account->save();

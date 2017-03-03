@@ -1,18 +1,18 @@
 <template>
-    <div id="delete-account-modal" class="modal">
+    <div id="delete-category-modal" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Account</h4>
+                    <h4 class="modal-title">Delete Category</h4>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this Account.
+                    Are you sure you want to delete this Category.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" v-on:click="destroyAccount">Delete</button>
+                    <button type="button" class="btn btn-success" v-on:click="destroyCategory">Delete</button>
                 </div>
             </div>
         </div>
@@ -22,17 +22,17 @@
 <script>
     export default {
         methods: {
-            destroyAccount: function () {
+            destroyCategory: function () {
                 this.$http.delete(
-                    'http://local-finance-projections.com/api/account/' + this.$parent.deletingAccount.id
+                    'http://local-finance-projections.com/api/category/' + this.$parent.deletingCategory.id
                 )
                     .then(
                         function (successResponse) {
-                            this.$parent.$parent.accounts = this.$parent.$parent.accounts.filter(
-                                account => account.id !== this.$parent.deletingAccount.id
+                            this.$parent.$parent.categories = this.$parent.$parent.categories.filter(
+                                category => category.id !== this.$parent.deletingCategory.id
                             );
 
-                            $('#delete-account-modal').modal('hide');
+                            $('#delete-category-modal').modal('hide');
                         },
                         function (failedResponse) {
                             console.log(failedResponse);

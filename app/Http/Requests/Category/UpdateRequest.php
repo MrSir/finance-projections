@@ -6,11 +6,11 @@
  * Time: 7:33 PM
  */
 
-namespace App\Http\Requests\Account;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'description' => 'required|string'
+            'name' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string'
         ];
     }
 }

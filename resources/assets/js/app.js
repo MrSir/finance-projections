@@ -45,6 +45,33 @@ Vue.component(
     require('./components/content/accounts/modals/edit.vue')
 );
 
+// Categories
+Vue.component(
+    'content.categories',
+    require('./components/content/categories/page.vue')
+);
+Vue.component(
+    'content.categories.search',
+    require('./components/content/categories/search.vue')
+);
+Vue.component(
+    'content.categories.table',
+    require('./components/content/categories/table.vue')
+);
+Vue.component(
+    'content.categories.modals.create',
+    require('./components/content/categories/modals/create.vue')
+);
+Vue.component(
+    'content.categories.modals.delete',
+    require('./components/content/categories/modals/delete.vue')
+);
+Vue.component(
+    'content.categories.modals.edit',
+    require('./components/content/categories/modals/edit.vue')
+);
+
+
 const app = new Vue({
     el: '#app'
 });

@@ -1,5 +1,5 @@
 @extends('layouts.master')
 
 @section('content')
-Test Categories
+    <content.categories></content.categories>
 @endsection

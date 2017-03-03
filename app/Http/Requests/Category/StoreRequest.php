@@ -6,7 +6,7 @@
  * Time: 7:33 PM
  */
 
-namespace App\Http\Requests\Account;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 

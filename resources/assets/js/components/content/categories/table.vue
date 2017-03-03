@@ -1,5 +1,5 @@
 <template>
-    <div id="accountsTableTemplate">
+    <div id="categoriesTableTemplate">
         <div class="box-body">
             <span v-if="loading" class="fa fa-refresh fa-spin"></span>
             <table v-if="!loading" class="table table-bordered table-striped">
@@ -12,27 +12,26 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-if="$parent.accounts.length > 0" v-for="account in $parent.accounts">
-                    <td>{{ account.name }}</td>
-                    <td>{{ account.description }}</td>
-                    <td>{{ account.created_at }}</td>
+                <tr v-if="$parent.categories.length > 0" v-for="category in $parent.categories">
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.description }}</td>
+                    <td>{{ category.created_at }}</td>
                     <td class="center">
-                        <span class="glyphicon glyphicon-edit action-icon" v-on:click="editAccount(account)"></span>
+                        <span class="glyphicon glyphicon-edit action-icon" v-on:click="editCategory(category)"></span>
 
-                        <span class="glyphicon glyphicon-remove action-icon" v-on:click="deleteAccount(account)"></span>
+                        <span class="glyphicon glyphicon-remove action-icon" v-on:click="deleteCategory(category)"></span>
 
                     </td>
                 </tr>
-                <tr v-if="$parent.accounts.length == 0">
-                    <td colspan="4">There are no Accounts in the system.</td>
+                <tr v-if="$parent.categories.length == 0">
+                    <td colspan="4">There are no Categories in the system.</td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div class="box-footer">
-            <button class="btn btn-success" v-if="!loading" data-toggle="modal" data-target="#create-account-modal"
-                    v-on:click="createAccount">
-                Create Account
+            <button class="btn btn-success" v-if="!loading" data-toggle="modal" data-target="#create-category-modal">
+                Create Category
             </button>
             <modals.create></modals.create>
             <modals.edit></modals.edit>
@@ -52,25 +51,22 @@
         data() {
             return {
                 loading: false,
-                editingAccount: {
+                editingCategory: {
                     id: 0,
                     name: '',
                     description: ''
                 },
-                deletingAccount: {}
+                deletingCategory: {}
             };
         },
         methods: {
-            createAccount: function () {
-                $('#createAccountForm input').attr('value', '');
+            editCategory: function (category) {
+                this.editingCategory = category;
+                $('#edit-category-modal').modal('show');
             },
-            editAccount: function (account) {
-                this.editingAccount = account;
-                $('#edit-account-modal').modal('show');
-            },
-            deleteAccount: function (account) {
-                this.deletingAccount = account;
-                $('#delete-account-modal').modal('show');
+            deleteCategory: function (category) {
+                this.deletingCategory = category;
+                $('#delete-category-modal').modal('show');
             }
         },
         components: {
