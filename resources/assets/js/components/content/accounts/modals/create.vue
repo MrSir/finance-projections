@@ -42,7 +42,7 @@
                 )
                     .then(
                         function (successResponse) {
-                            this.$parent.accounts.push(successResponse.body.account);
+                            this.$parent.$parent.accounts.push(successResponse.body.account);
                             $('#create-account-modal').modal('hide');
                         },
                         function (failedResponse) {

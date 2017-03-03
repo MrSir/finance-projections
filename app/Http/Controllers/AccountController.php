@@ -23,7 +23,7 @@ class AccountController extends Controller
     public function index(IndexRequest $request)
     {
         $accounts = Account::query();
-\Log::critical($request->all());
+
         if($request->has('name')) {
             $accounts = $accounts->where('name', 'LIKE', '%'.$request->get('name').'%');
         }

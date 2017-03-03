@@ -21,6 +21,10 @@ Vue.component(
 
 // Accounts
 Vue.component(
+    'content.accounts',
+    require('./components/content/accounts/page.vue')
+);
+Vue.component(
     'content.accounts.search',
     require('./components/content/accounts/search.vue')
 );

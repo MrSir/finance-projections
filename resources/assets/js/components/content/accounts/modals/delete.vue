@@ -29,7 +29,9 @@
                 )
                     .then(
                         function (successResponse) {
-                            this.$parent.accounts = this.$parent.accounts.filter(account => account.id !== this.account_id);
+                            this.$parent.$parent.accounts = this.$parent.$parent.accounts.filter(
+                                account => account.id !== this.account_id
+                            );
 
                             $('#delete-account-modal-' + this.account_id).modal('hide');
                         },

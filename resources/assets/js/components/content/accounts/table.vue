@@ -12,14 +12,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="account in accounts">
+                <tr v-for="account in $parent.accounts">
                     <td>{{ account.name }}</td>
                     <td>{{ account.description }}</td>
                     <td>{{ account.created_at }}</td>
                     <td class="center">
-                        <span class="glyphicon glyphicon-edit" v-on:click="editAccount(account)"></span>
+                        <span class="glyphicon glyphicon-edit action-icon" v-on:click="editAccount(account)"></span>
 
-                        <span class="glyphicon glyphicon-remove" data-toggle="modal"
+                        <span class="glyphicon glyphicon-remove action-icon" data-toggle="modal"
                               :data-target="'#delete-account-modal-' + account.id"></span>
                         <modals.delete :account_id="account.id"></modals.delete>
                     </td>
@@ -46,25 +46,9 @@
 
     // the main code
     export default {
-        mounted() {
-            this.$http.get('http://local-finance-projections.com/api/account')
-                .then(
-                    function (successResponse) {
-                        this.loading = false;
-                        this.accounts = successResponse.body.accounts;
-                    },
-                    function (failedResponse) {
-                        console.log(failedResponse);
-                    }
-                );
-        },
-        beforeMount() {
-            this.loading = true;
-        },
         data() {
             return {
                 loading: false,
-                accounts: [],
                 editingAccount: {
                     id: 0,
                     name: '',

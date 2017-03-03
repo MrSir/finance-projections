@@ -3,9 +3,12 @@
         <div class="box-header with-border">
             <h3 class="box-title">Search</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                </button>
             </div>
         </div>
         <div class="box-body">
@@ -37,7 +40,8 @@
             </div>
         </div>
         <div class="box-footer">
-            <button type="button" class="btn btn-info" v-on:click="searchAccounts">Search</button>
+            <button type="button" class="btn btn-primary" v-on:click="searchAccounts">Search</button>
+            <button type="button" class="btn btn-info" v-on:click="resetSearchAccounts">Reset</button>
         </div>
     </div>
 </template>
@@ -67,12 +71,17 @@
                 )
                     .then(
                         function (successResponse) {
-                            console.log(successResponse.body.accounts);
+                            this.$parent.accounts = successResponse.body.accounts;
                         },
                         function (failedResponse) {
                             console.log(failedResponse);
                         }
                     );
+            },
+            resetSearchAccounts: function () {
+                this.search = {};
+
+                this.searchAccounts();
             }
         }
     }
