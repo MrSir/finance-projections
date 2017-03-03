@@ -1,5 +1,5 @@
 <template>
-    <div id="accountsSearchTemplate" class="box box-info">
+    <div id="categoriesSearchTemplate" class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">Search</h3>
             <div class="box-tools pull-right">
@@ -40,8 +40,8 @@
             </div>
         </div>
         <div class="box-footer">
-            <button type="button" class="btn btn-primary" v-on:click="searchAccounts">Search</button>
-            <button type="button" class="btn btn-info" v-on:click="resetSearchAccounts">Reset</button>
+            <button type="button" class="btn btn-primary" v-on:click="searchCategories">Search</button>
+            <button type="button" class="btn btn-info" v-on:click="resetSearchCategories">Reset</button>
         </div>
     </div>
 </template>
@@ -62,26 +62,26 @@
             };
         },
         methods: {
-            searchAccounts: function () {
+            searchCategories: function () {
                 this.$http.get(
-                    'http://local-finance-projections.com/api/account',
+                    'http://local-finance-projections.com/api/category',
                     {
                         params: this.search
                     }
                 )
                     .then(
                         function (successResponse) {
-                            this.$parent.accounts = successResponse.body.accounts;
+                            this.$parent.categories = successResponse.body.categories;
                         },
                         function (failedResponse) {
                             console.log(failedResponse);
                         }
                     );
             },
-            resetSearchAccounts: function () {
+            resetSearchCategories: function () {
                 this.search = {};
 
-                this.searchAccounts();
+                this.searchCategories();
             }
         }
     }

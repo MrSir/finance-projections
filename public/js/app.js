@@ -13264,19 +13264,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        searchAccounts: function searchAccounts() {
-            this.$http.get('http://local-finance-projections.com/api/account', {
+        searchCategories: function searchCategories() {
+            this.$http.get('http://local-finance-projections.com/api/category', {
                 params: this.search
             }).then(function (successResponse) {
-                this.$parent.accounts = successResponse.body.accounts;
+                this.$parent.categories = successResponse.body.categories;
             }, function (failedResponse) {
                 console.log(failedResponse);
             });
         },
-        resetSearchAccounts: function resetSearchAccounts() {
+        resetSearchCategories: function resetSearchCategories() {
             this.search = {};
 
-            this.searchAccounts();
+            this.searchCategories();
         }
     }
 };
@@ -33796,9 +33796,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "categoriesPageTemplate"
     }
-  }, [_c('div', {
+  }, [_c('content.categories.search'), _vm._v(" "), _c('div', {
     staticClass: "box"
-  }, [_vm._m(0), _vm._v(" "), _c('content.categories.table')], 1)])
+  }, [_vm._m(0), _vm._v(" "), _c('content.categories.table')], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "box-header with-border"
@@ -33822,7 +33822,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "box box-info",
     attrs: {
-      "id": "accountsSearchTemplate"
+      "id": "categoriesSearchTemplate"
     }
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "box-body"
@@ -33944,7 +33944,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button"
     },
     on: {
-      "click": _vm.searchAccounts
+      "click": _vm.searchCategories
     }
   }, [_vm._v("Search")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-info",
@@ -33952,7 +33952,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button"
     },
     on: {
-      "click": _vm.resetSearchAccounts
+      "click": _vm.resetSearchCategories
     }
   }, [_vm._v("Reset")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

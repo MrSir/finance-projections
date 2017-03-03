@@ -1,6 +1,6 @@
 <template>
     <div id="categoriesPageTemplate">
-        <!--<content.categories.search></content.categories.search>-->
+        <content.categories.search></content.categories.search>
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Categories</h3>
