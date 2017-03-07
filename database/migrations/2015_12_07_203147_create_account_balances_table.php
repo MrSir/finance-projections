@@ -15,10 +15,14 @@ class CreateAccountBalancesTable extends Migration
     {
         Schema::create('account_balances', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('account_id')->index('account_balances_account_id_foreign');
-            $table->decimal('balance',21,2);
-            $table->dateTime('date');
+            $table->unsignedInteger('account_id')
+                ->index('account_balances_account_id_foreign');
+
+            $table->double('balance', 15, 3);
+            $table->dateTime('posted_at');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

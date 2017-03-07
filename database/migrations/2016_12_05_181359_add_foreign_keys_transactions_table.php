@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysTransactionTable extends Migration
+class AddForeignKeysTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,17 @@ class AddForeignKeysTransactionTable extends Migration
     public function up()
     {
         Schema::table('transactions', function ($table) {
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onUpdate('RESTRICT')
+                ->onDelete('RESTRICT');
+
+            $table->foreign('transaction_frequency_id')
+                ->references('id')
+                ->on('transaction_frequencies')
+                ->onUpdate('RESTRICT')
+                ->onDelete('RESTRICT');
         });
     }
 
@@ -27,6 +37,7 @@ class AddForeignKeysTransactionTable extends Migration
     {
         Schema::table('transactions', function ($table) {
             $table->dropForeign('transactions_category_id_foreign');
+            $table->dropForeign('transactions_transaction_frequency_id_foreign');
         });
     }
 }

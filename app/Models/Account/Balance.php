@@ -1,15 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models\Account;
 
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AccountBalances extends Model
+class Balance extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'account_balances';
 
     protected $dates = [
-        'date',
+        'posted_at',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -17,7 +21,7 @@ class AccountBalances extends Model
 
     protected $fillable = [
         'balance',
-        'date'
+        'posted_at'
     ];
 
     public function account()

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +14,24 @@ class CreateTransactionTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('category_id');
-            $table->enum('type', ['expense', 'saving']);
+            $table->unsignedInteger('category_id')
+                ->index('transactions_category_id_foreign');
+            $table->unsignedInteger('transaction_frequency_id')
+                ->index('transactions_transaction_frequency_id_foreign');
+
+            $table->boolean('is_credit')->default(false);
+            $table->boolean('is_debit')->default(false);
 
             $table->string('name');
             $table->string('description');
             $table->float('amount',10, 2);
-            $table->date('date');
 
-            $table->enum('frequency', ['once', 'weekly', 'biweekly', 'monthly', 'annual']);
-            $table->date('repeat_start');
-            $table->date('repeat_end');
+            $table->dateTime('occurred_at');
+            $table->dateTime('repeat_start_at')->nullable();
+            $table->dateTime('repeat_end_at')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

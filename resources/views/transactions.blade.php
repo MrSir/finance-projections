@@ -1,5 +1,5 @@
 @extends('layouts.master')
 
 @section('content')
-Test Transactions
+    <content.transactions></content.transactions>
 @endsection

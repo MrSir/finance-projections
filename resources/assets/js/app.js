@@ -72,6 +72,32 @@ Vue.component(
 );
 
 
+// Transactions
+Vue.component(
+    'content.transactions',
+    require('./components/content/transactions/page.vue')
+);
+Vue.component(
+    'content.transactions.search',
+    require('./components/content/transactions/search.vue')
+);
+Vue.component(
+    'content.transactions.table',
+    require('./components/content/transactions/table.vue')
+);
+Vue.component(
+    'content.transactions.modals.create',
+    require('./components/content/transactions/modals/create.vue')
+);
+Vue.component(
+    'content.transactions.modals.delete',
+    require('./components/content/transactions/modals/delete.vue')
+);
+Vue.component(
+    'content.transactions.modals.edit',
+    require('./components/content/transactions/modals/edit.vue')
+);
+
 const app = new Vue({
     el: '#app'
 });

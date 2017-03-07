@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\Category;
 use App\Http\Requests;
 use App\Http\Requests\Category\IndexRequest;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(IndexRequest $request)
     {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
+use App\Models\Account;
 use App\Http\Requests;
 use App\Http\Requests\Account\IndexRequest;
 use App\Http\Requests\Account\StoreRequest;
