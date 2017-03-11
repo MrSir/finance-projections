@@ -38,6 +38,8 @@ class TransactionController extends Controller
         $transactions = $transactions->get()
             ->load(
                 [
+                    'account',
+                    'destinationAccount',
                     'category',
                     'frequency'
                 ]

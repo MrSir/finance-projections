@@ -8,6 +8,8 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>Account</th>
+                    <th>Destination Account</th>
                     <th>Frequency</th>
                     <th>Amount</th>
                     <th>Occurred At</th>
@@ -20,6 +22,8 @@
                     <td>{{ transaction.name }}</td>
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.category.name }}</td>
+                    <td>{{ transaction.account.name }}</td>
+                    <td>{{ transaction.destinationAccount.name }}</td>
                     <td>{{ transaction.frequency.name }}</td>
                     <td v-if="transaction.is_credit" class="danger">{{ transaction.amount }}</td>
                     <td v-if="transaction.is_debit" class="success">{{ transaction.amount }}</td>
@@ -33,7 +37,7 @@
                     </td>
                 </tr>
                 <tr v-if="$parent.transactions.length == 0">
-                    <td colspan="8">There are no Transactions in the system.</td>
+                    <td colspan="10">There are no Transactions in the system.</td>
                 </tr>
                 </tbody>
             </table>
@@ -62,6 +66,8 @@
                 loading: false,
                 editingTransaction: {
                     id: 0,
+                    account_id: 0,
+                    destination_account_id: 0,
                     category_id: 0,
                     transaction_frequency_id: 0,
                     name: '',

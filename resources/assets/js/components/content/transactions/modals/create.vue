@@ -10,73 +10,98 @@
                 <div class="modal-body">
                     <form id="storeTransactionForm" name="storeTransactionForm" role="form">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="e.g. Mortgage"
-                                       v-model="transaction.name">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="e.g. That big payment every month."
-                                       v-model="transaction.description">
-                            </div>
-                            <div class="form-group">
-                                <label for="category">Category</label>
-                                <select id="category" name="category" class="form-control"
-                                        v-model="transaction.category_id">
-                                    <option v-bind:value="category.id" v-for="category in categories">
-                                        {{ category.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="frequency">Frequency</label>
-                                <select id="frequency" name="frequency" class="form-control"
-                                        v-model="transaction.transaction_frequency_id">
-                                       <option v-bind:value="frequency.id" v-for="frequency in frequencies">
-                                        {{ frequency.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="amount">Amount</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                    <input type="text" class="form-control" id="amount" name="amount"
-                                           placeholder="e.g. 10.25"
-                                           v-model="transaction.amount">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="occurredAt">Occurred At</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               placeholder="e.g. Mortgage"
+                                               v-model="transaction.name">
                                     </div>
-                                    <input type="date" class="form-control" id="occurredAt" name="occurredAt"
-                                           v-model="transaction.occurred_at">
-                                </div>
-                            </div>
-                            <div v-if="transaction.transaction_frequency_id > 1" class="form-group">
-                                <label for="repeatStartAt">Repeat Start At</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" name="description"
+                                               placeholder="e.g. That big payment every month."
+                                               v-model="transaction.description">
                                     </div>
-                                    <input type="date" class="form-control" id="repeatStartAt" name="repeatStartAt"
-                                           v-model="transaction.repeat_start_at">
-                                </div>
-                            </div>
-                            <div v-if="transaction.transaction_frequency_id > 1" class="form-group">
-                                <label for="repeatEndAt">Repeat End At</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                        <select id="category" name="category" class="form-control"
+                                                v-model="transaction.category_id">
+                                            <option v-bind:value="category.id" v-for="category in categories">
+                                                {{ category.name }}
+                                            </option>
+                                        </select>
                                     </div>
-                                    <input type="date" class="form-control" id="repeatEndAt" name="repeatEndAt"
-                                           v-model="transaction.repeat_end_at">
+                                    <div class="form-group">
+                                        <label for="category">Account</label>
+                                        <select id="account" name="account" class="form-control"
+                                                v-model="transaction.account_id">
+                                            <option v-bind:value="account.id" v-for="account in accounts">
+                                                {{ account.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div v-if="transaction.category_id == 1" class="form-group">
+                                        <label for="category">Destination Account</label>
+                                        <select id="category" name="category" class="form-control"
+                                                v-model="transaction.destination_account_id">
+                                            <option v-bind:value="account.id" v-for="account in accounts">
+                                                {{ account.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="frequency">Frequency</label>
+                                        <select id="frequency" name="frequency" class="form-control"
+                                                v-model="transaction.transaction_frequency_id">
+                                            <option v-bind:value="frequency.id" v-for="frequency in frequencies">
+                                                {{ frequency.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                            <input type="text" class="form-control" id="amount" name="amount"
+                                                   placeholder="e.g. 10.25"
+                                                   v-model="transaction.amount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="occurredAt">Occurred At</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control" id="occurredAt" name="occurredAt"
+                                                   v-model="transaction.occurred_at">
+                                        </div>
+                                    </div>
+                                    <div v-if="transaction.transaction_frequency_id > 1" class="form-group">
+                                        <label for="repeatStartAt">Repeat Start At</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control" id="repeatStartAt"
+                                                   name="repeatStartAt"
+                                                   v-model="transaction.repeat_start_at">
+                                        </div>
+                                    </div>
+                                    <div v-if="transaction.transaction_frequency_id > 1" class="form-group">
+                                        <label for="repeatEndAt">Repeat End At</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control" id="repeatEndAt" name="repeatEndAt"
+                                                   v-model="transaction.repeat_end_at">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,6 +119,17 @@
 <script>
     export default {
         mounted() {
+            // load the accounts
+            this.$http.get('http://local-finance-projections.com/api/account')
+                .then(
+                    function (successResponse) {
+                        this.accounts = successResponse.body.accounts;
+                    },
+                    function (failedResponse) {
+                        console.log(failedResponse);
+                    }
+                );
+
             // load the categories
             this.$http.get('http://local-finance-projections.com/api/category')
                 .then(
@@ -133,6 +169,8 @@
                     );
 
                 this.transaction = {
+                    account_id: 0,
+                    destination_account_id: 0,
                     category_id: 0,
                     transaction_frequency_id: 0,
                     name: '',
@@ -147,19 +185,29 @@
         data() {
             return {
                 transaction: {
+                    account_id: {
+                        selected: 0,
+                        options: [
+                            {id: 0, name: ''}
+                        ]
+                    },
+                    destination_account_id: {
+                        selected: 0,
+                        options: [
+                            {id: 0, name: ''}
+                        ]
+                    },
                     category_id: {
                         selected: 0,
                         options: [
                             {id: 0, name: ''}
                         ]
-
                     },
                     transaction_frequency_id: {
                         selected: 0,
                         options: [
                             {id: 0, name: ''}
                         ]
-
                     },
                     name: '',
                     description: '',
@@ -168,12 +216,9 @@
                     repeat_start_at: null,
                     repeat_end_at: null
                 },
-                categories: [
-                    {id: 0, name: ''}
-                ],
-                frequencies: [
-                    {id: 0, name: ''}
-                ]
+                accounts: [],
+                categories: [],
+                frequencies: []
             };
         }
     }

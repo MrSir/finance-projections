@@ -13389,9 +13389,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
+        // load the accounts
+        this.$http.get('http://local-finance-projections.com/api/account').then(function (successResponse) {
+            this.accounts = successResponse.body.accounts;
+        }, function (failedResponse) {
+            console.log(failedResponse);
+        });
+
         // load the categories
         this.$http.get('http://local-finance-projections.com/api/category').then(function (successResponse) {
             this.categories = successResponse.body.categories;
@@ -13417,6 +13449,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
 
             this.transaction = {
+                account_id: 0,
+                destination_account_id: 0,
                 category_id: 0,
                 transaction_frequency_id: 0,
                 name: '',
@@ -13431,15 +13465,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             transaction: {
+                account_id: {
+                    selected: 0,
+                    options: [{ id: 0, name: '' }]
+                },
+                destination_account_id: {
+                    selected: 0,
+                    options: [{ id: 0, name: '' }]
+                },
                 category_id: {
                     selected: 0,
                     options: [{ id: 0, name: '' }]
-
                 },
                 transaction_frequency_id: {
                     selected: 0,
                     options: [{ id: 0, name: '' }]
-
                 },
                 name: '',
                 description: '',
@@ -13448,8 +13488,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 repeat_start_at: null,
                 repeat_end_at: null
             },
-            categories: [{ id: 0, name: '' }],
-            frequencies: [{ id: 0, name: '' }]
+            accounts: [],
+            categories: [],
+            frequencies: []
         };
     }
 };
@@ -13760,6 +13801,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 // import the modals
 
@@ -13773,6 +13818,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             editingTransaction: {
                 id: 0,
+                account_id: 0,
+                destination_account_id: 0,
                 category_id: 0,
                 transaction_frequency_id: 0,
                 name: '',
@@ -36159,6 +36206,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "box-body"
   }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-6"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -36249,8 +36300,76 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": category.id
       }
-    }, [_vm._v("\n                                    " + _vm._s(category.name) + "\n                                ")])
+    }, [_vm._v("\n                                            " + _vm._s(category.name) + "\n                                        ")])
   }))]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "category"
+    }
+  }, [_vm._v("Account")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.transaction.account_id),
+      expression: "transaction.account_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "account",
+      "name": "account"
+    },
+    on: {
+      "change": function($event) {
+        _vm.transaction.account_id = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        })[0]
+      }
+    }
+  }, _vm._l((_vm.accounts), function(account) {
+    return _c('option', {
+      domProps: {
+        "value": account.id
+      }
+    }, [_vm._v("\n                                            " + _vm._s(account.name) + "\n                                        ")])
+  }))]), _vm._v(" "), (_vm.transaction.category_id == 1) ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "category"
+    }
+  }, [_vm._v("Destination Account")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.transaction.destination_account_id),
+      expression: "transaction.destination_account_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "category",
+      "name": "category"
+    },
+    on: {
+      "change": function($event) {
+        _vm.transaction.destination_account_id = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        })[0]
+      }
+    }
+  }, _vm._l((_vm.accounts), function(account) {
+    return _c('option', {
+      domProps: {
+        "value": account.id
+      }
+    }, [_vm._v("\n                                            " + _vm._s(account.name) + "\n                                        ")])
+  }))]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -36283,8 +36402,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": frequency.id
       }
-    }, [_vm._v("\n                                    " + _vm._s(frequency.name) + "\n                                ")])
-  }))]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                            " + _vm._s(frequency.name) + "\n                                        ")])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-6"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -36405,7 +36526,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.transaction.repeat_end_at = $event.target.value
       }
     }
-  })])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  })])]) : _vm._e()])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-danger pull-left",
@@ -37074,7 +37195,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e(), _vm._v(" "), (!_vm.loading) ? _c('table', {
     staticClass: "table table-bordered table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.$parent.transactions), function(transaction) {
-    return (_vm.$parent.transactions.length > 0) ? _c('tr', [_c('td', [_vm._v(_vm._s(transaction.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.category.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.frequency.name))]), _vm._v(" "), (transaction.is_credit) ? _c('td', {
+    return (_vm.$parent.transactions.length > 0) ? _c('tr', [_c('td', [_vm._v(_vm._s(transaction.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.category.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.account.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.destinationAccount.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(transaction.frequency.name))]), _vm._v(" "), (transaction.is_credit) ? _c('td', {
       staticClass: "danger"
     }, [_vm._v(_vm._s(transaction.amount))]) : _vm._e(), _vm._v(" "), (transaction.is_debit) ? _c('td', {
       staticClass: "success"
@@ -37097,7 +37218,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })])]) : _vm._e()
   }), _vm._v(" "), (_vm.$parent.transactions.length == 0) ? _c('tr', [_c('td', {
     attrs: {
-      "colspan": "8"
+      "colspan": "10"
     }
   }, [_vm._v("There are no Transactions in the system.")])]) : _vm._e()], 2)]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "box-footer"
@@ -37109,7 +37230,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n            Create Transaction\n        ")]) : _vm._e(), _vm._v(" "), _c('modals-create'), _vm._v(" "), _c('modals-edit'), _vm._v(" "), _c('modals-delete')], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Description")]), _vm._v(" "), _c('th', [_vm._v("Category")]), _vm._v(" "), _c('th', [_vm._v("Frequency")]), _vm._v(" "), _c('th', [_vm._v("Amount")]), _vm._v(" "), _c('th', [_vm._v("Occurred At")]), _vm._v(" "), _c('th', [_vm._v("Created At")]), _vm._v(" "), _c('th', [_vm._v("Actions")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Description")]), _vm._v(" "), _c('th', [_vm._v("Category")]), _vm._v(" "), _c('th', [_vm._v("Account")]), _vm._v(" "), _c('th', [_vm._v("Destination Account")]), _vm._v(" "), _c('th', [_vm._v("Frequency")]), _vm._v(" "), _c('th', [_vm._v("Amount")]), _vm._v(" "), _c('th', [_vm._v("Occurred At")]), _vm._v(" "), _c('th', [_vm._v("Created At")]), _vm._v(" "), _c('th', [_vm._v("Actions")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

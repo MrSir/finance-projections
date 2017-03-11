@@ -16,19 +16,23 @@ class CategorySeeder extends Seeder
             [
                 [
                     'name' => 'Transfer',
-                    'description' => ''
+                    'description' => 'This category is used for transactions that are transfers between accounts.'
+                ],
+                [
+                    'name' => 'Income',
+                    'description' => 'This category is used for transactions that are income related.'
                 ],
                 [
                     'name' => 'Home Expenses',
-                    'description' => ''
+                    'description' => 'This category is used for transactions that are part of home expenses.'
                 ],
                 [
                     'name' => 'Automobile Expenses',
-                    'description' => ''
+                    'description' => 'This category is used for transactions that are part of auto expenses.'
                 ],
                 [
                     'name' => 'Birthday/Anniversary',
-                    'description' => ''
+                    'description' => 'This category is used for transactions that are part of birthdays/anniversaries.'
                 ]
             ]
         )->each(
