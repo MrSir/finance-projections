@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Account\Balance;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,6 +19,11 @@ class Account extends Model
 
     public function accountBalances()
     {
-        return $this->hasMany(AccountBalances::class);
+        return $this->hasMany(Balance::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

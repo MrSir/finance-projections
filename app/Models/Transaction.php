@@ -21,6 +21,8 @@ class Transaction extends Model
     ];
 
     protected $fillable = [
+        'account_id',
+        'destination_account_id',
         'category_id',
         'transaction_frequency_id',
         'is_credit',
@@ -32,6 +34,16 @@ class Transaction extends Model
         'repeat_start_at',
         'repeat_end_at'
     ];
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    public function destinationAccount()
+    {
+        return $this->belongsTo(Account::class, 'destination_account_id');
+    }
 
     public function category()
     {

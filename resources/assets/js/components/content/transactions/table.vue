@@ -62,10 +62,8 @@
                 loading: false,
                 editingTransaction: {
                     id: 0,
-                    category: {},
-                    frequency: {},
-                    is_credit: false,
-                    is_debit: false,
+                    category_id: 0,
+                    transaction_frequency_id: 0,
                     name: '',
                     description: '',
                     amount: 0,

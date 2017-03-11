@@ -14,6 +14,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('account_id')
+                ->index('transactions_account_id_foreign');
+            $table->unsignedInteger('destination_account_id')
+                ->index('transactions_destination_account_id_foreign')
+                ->nullable();
             $table->unsignedInteger('category_id')
                 ->index('transactions_category_id_foreign');
             $table->unsignedInteger('transaction_frequency_id')

@@ -26,3 +26,7 @@ Route::name('accounts')->get('/accounts', function () {
 Route::name('categories')->get('/categories', function () {
     return view('categories');
 });
+
+Route::name('frequencies')->get('/frequencies', function () {
+    return view('frequencies');
+});

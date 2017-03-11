@@ -13365,6 +13365,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -13376,16 +13400,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
 
         // load the frequencies
-        //TODO
-        //            this.$http.get('http://local-finance-projections.com/api/category')
-        //                .then(
-        //                    function (successResponse) {
-        //                        this.categories = successResponse.body.categories;
-        //                    },
-        //                    function (failedResponse) {
-        //                        console.log(failedResponse);
-        //                    }
-        //                );
+        this.$http.get('http://local-finance-projections.com/api/frequency').then(function (successResponse) {
+            this.frequencies = successResponse.body.frequencies;
+        }, function (failedResponse) {
+            console.log(failedResponse);
+        });
     },
 
     methods: {
@@ -13398,19 +13417,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
 
             this.transaction = {
+                category_id: 0,
+                transaction_frequency_id: 0,
                 name: '',
-                description: ''
+                description: '',
+                amount: 0,
+                occurred_at: null,
+                repeat_start_at: null,
+                repeat_end_at: null
             };
         }
     },
     data: function data() {
         return {
             transaction: {
+                category_id: {
+                    selected: 0,
+                    options: [{ id: 0, name: '' }]
+
+                },
+                transaction_frequency_id: {
+                    selected: 0,
+                    options: [{ id: 0, name: '' }]
+
+                },
                 name: '',
-                description: ''
+                description: '',
+                amount: 0,
+                occurred_at: null,
+                repeat_start_at: null,
+                repeat_end_at: null
             },
-            categories: [],
-            frequencies: []
+            categories: [{ id: 0, name: '' }],
+            frequencies: [{ id: 0, name: '' }]
         };
     }
 };
@@ -13734,10 +13773,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             editingTransaction: {
                 id: 0,
-                category: {},
-                frequency: {},
-                is_credit: false,
-                is_debit: false,
+                category_id: 0,
+                transaction_frequency_id: 0,
                 name: '',
                 description: '',
                 amount: 0,
@@ -13773,6 +13810,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34894,7 +34936,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       active: _vm.active_route == 'categories'
     }
-  }, [_vm._m(3)]), _vm._v(" "), _vm._m(4)])
+  }, [_vm._m(3)]), _vm._v(" "), _c('li', {
+    class: {
+      active: _vm.active_route == 'frequencies'
+    }
+  }, [_vm._m(4)]), _vm._v(" "), _vm._m(5)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     attrs: {
@@ -34928,6 +34974,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-filter"
   }), _vm._v(" "), _c('span', [_vm._v("Categories")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    attrs: {
+      "href": "/frequencies"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-calendar"
+  }), _vm._v(" "), _c('span', [_vm._v("Frequencies")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', {
     staticClass: "treeview"
   }, [_c('a', {
@@ -34936,7 +34990,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-link"
-  }), _vm._v(" "), _c('span', [_vm._v("Multilevel")]), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c('span', [_vm._v("Reports")]), _vm._v(" "), _c('span', {
     staticClass: "pull-right-container"
   }, [_c('i', {
     staticClass: "fa fa-angle-left pull-right"
@@ -34946,11 +35000,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("Link in level 2")])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("Report 1")])]), _vm._v(" "), _c('li', [_c('a', {
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("Link in level 2")])])])])
+  }, [_vm._v("Report 2")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -36169,46 +36223,68 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "for": "category"
     }
   }, [_vm._v("Category")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.transaction.category_id),
+      expression: "transaction.category_id"
+    }],
     staticClass: "form-control",
     attrs: {
       "id": "category",
       "name": "category"
-    }
-  }, [_c('option', {
-    attrs: {
-      "id": "0",
-      "selected": "selected"
-    }
-  }), _vm._v(" "), _vm._l((_vm.categories), function(category) {
-    return _c('option', {
-      attrs: {
-        "id": "category.id"
+    },
+    on: {
+      "change": function($event) {
+        _vm.transaction.category_id = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        })[0]
       }
-    }, [_vm._v(_vm._s(category.name))])
-  })], 2)]), _vm._v(" "), _c('div', {
+    }
+  }, _vm._l((_vm.categories), function(category) {
+    return _c('option', {
+      domProps: {
+        "value": category.id
+      }
+    }, [_vm._v("\n                                    " + _vm._s(category.name) + "\n                                ")])
+  }))]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
       "for": "frequency"
     }
   }, [_vm._v("Frequency")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.transaction.transaction_frequency_id),
+      expression: "transaction.transaction_frequency_id"
+    }],
     staticClass: "form-control",
     attrs: {
       "id": "frequency",
       "name": "frequency"
-    }
-  }, [_c('option', {
-    attrs: {
-      "id": "0",
-      "selected": "selected"
-    }
-  }), _vm._v(" "), _vm._l((_vm.frequencies), function(frequency) {
-    return _c('option', {
-      attrs: {
-        "id": "frequency.id"
+    },
+    on: {
+      "change": function($event) {
+        _vm.transaction.transaction_frequency_id = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        })[0]
       }
-    }, [_vm._v(_vm._s(frequency.name) + "\n                                ")])
-  })], 2)]), _vm._v(" "), _c('div', {
+    }
+  }, _vm._l((_vm.frequencies), function(frequency) {
+    return _c('option', {
+      domProps: {
+        "value": frequency.id
+      }
+    }, [_vm._v("\n                                    " + _vm._s(frequency.name) + "\n                                ")])
+  }))]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -36269,7 +36345,67 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.transaction.occurred_at = $event.target.value
       }
     }
-  })])])])])]), _vm._v(" "), _c('div', {
+  })])]), _vm._v(" "), (_vm.transaction.transaction_frequency_id > 1) ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "repeatStartAt"
+    }
+  }, [_vm._v("Repeat Start At")]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(3), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.transaction.repeat_start_at),
+      expression: "transaction.repeat_start_at"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "date",
+      "id": "repeatStartAt",
+      "name": "repeatStartAt"
+    },
+    domProps: {
+      "value": _vm._s(_vm.transaction.repeat_start_at)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.transaction.repeat_start_at = $event.target.value
+      }
+    }
+  })])]) : _vm._e(), _vm._v(" "), (_vm.transaction.transaction_frequency_id > 1) ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "repeatEndAt"
+    }
+  }, [_vm._v("Repeat End At")]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(4), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.transaction.repeat_end_at),
+      expression: "transaction.repeat_end_at"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "date",
+      "id": "repeatEndAt",
+      "name": "repeatEndAt"
+    },
+    domProps: {
+      "value": _vm._s(_vm.transaction.repeat_end_at)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.transaction.repeat_end_at = $event.target.value
+      }
+    }
+  })])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-danger pull-left",
@@ -36308,6 +36444,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "input-group-addon"
   }, [_c('i', {
     staticClass: "fa fa-dollar"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-calendar"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-calendar"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {

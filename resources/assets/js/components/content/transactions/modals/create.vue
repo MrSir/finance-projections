@@ -19,20 +19,24 @@
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="e.g. That big payment every month." v-model="transaction.description">
+                                       placeholder="e.g. That big payment every month."
+                                       v-model="transaction.description">
                             </div>
                             <div class="form-group">
                                 <label for="category">Category</label>
-                                <select id="category" name="category" class="form-control">
-                                    <option id="0" selected="selected"></option>
-                                    <option id="category.id" v-for="category in categories">{{ category.name }}</option>
+                                <select id="category" name="category" class="form-control"
+                                        v-model="transaction.category_id">
+                                    <option v-bind:value="category.id" v-for="category in categories">
+                                        {{ category.name }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="frequency">Frequency</label>
-                                <select id="frequency" name="frequency" class="form-control">
-                                    <option id="0" selected="selected"></option>
-                                    <option id="frequency.id" v-for="frequency in frequencies">{{ frequency.name }}
+                                <select id="frequency" name="frequency" class="form-control"
+                                        v-model="transaction.transaction_frequency_id">
+                                       <option v-bind:value="frequency.id" v-for="frequency in frequencies">
+                                        {{ frequency.name }}
                                     </option>
                                 </select>
                             </div>
@@ -53,6 +57,26 @@
                                     </div>
                                     <input type="date" class="form-control" id="occurredAt" name="occurredAt"
                                            v-model="transaction.occurred_at">
+                                </div>
+                            </div>
+                            <div v-if="transaction.transaction_frequency_id > 1" class="form-group">
+                                <label for="repeatStartAt">Repeat Start At</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="date" class="form-control" id="repeatStartAt" name="repeatStartAt"
+                                           v-model="transaction.repeat_start_at">
+                                </div>
+                            </div>
+                            <div v-if="transaction.transaction_frequency_id > 1" class="form-group">
+                                <label for="repeatEndAt">Repeat End At</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="date" class="form-control" id="repeatEndAt" name="repeatEndAt"
+                                           v-model="transaction.repeat_end_at">
                                 </div>
                             </div>
                         </div>
@@ -82,16 +106,15 @@
                 );
 
             // load the frequencies
-            //TODO
-//            this.$http.get('http://local-finance-projections.com/api/category')
-//                .then(
-//                    function (successResponse) {
-//                        this.categories = successResponse.body.categories;
-//                    },
-//                    function (failedResponse) {
-//                        console.log(failedResponse);
-//                    }
-//                );
+            this.$http.get('http://local-finance-projections.com/api/frequency')
+                .then(
+                    function (successResponse) {
+                        this.frequencies = successResponse.body.frequencies;
+                    },
+                    function (failedResponse) {
+                        console.log(failedResponse);
+                    }
+                );
         },
         methods: {
             storeTransaction: function () {
@@ -110,19 +133,47 @@
                     );
 
                 this.transaction = {
+                    category_id: 0,
+                    transaction_frequency_id: 0,
                     name: '',
-                    description: ''
+                    description: '',
+                    amount: 0,
+                    occurred_at: null,
+                    repeat_start_at: null,
+                    repeat_end_at: null
                 };
             }
         },
         data() {
             return {
                 transaction: {
+                    category_id: {
+                        selected: 0,
+                        options: [
+                            {id: 0, name: ''}
+                        ]
+
+                    },
+                    transaction_frequency_id: {
+                        selected: 0,
+                        options: [
+                            {id: 0, name: ''}
+                        ]
+
+                    },
                     name: '',
-                    description: ''
+                    description: '',
+                    amount: 0,
+                    occurred_at: null,
+                    repeat_start_at: null,
+                    repeat_end_at: null
                 },
-                categories: [],
-                frequencies: []
+                categories: [
+                    {id: 0, name: ''}
+                ],
+                frequencies: [
+                    {id: 0, name: ''}
+                ]
             };
         }
     }

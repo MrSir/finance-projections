@@ -14,6 +14,18 @@ class AddForeignKeysTransactionsTable extends Migration
     public function up()
     {
         Schema::table('transactions', function ($table) {
+            $table->foreign('account_id')
+                ->references('id')
+                ->on('accounts')
+                ->onUpdate('RESTRICT')
+                ->onDelete('RESTRICT');
+
+            $table->foreign('destination_account_id')
+                ->references('id')
+                ->on('accounts')
+                ->onUpdate('RESTRICT')
+                ->onDelete('RESTRICT');
+
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
@@ -36,6 +48,8 @@ class AddForeignKeysTransactionsTable extends Migration
     public function down()
     {
         Schema::table('transactions', function ($table) {
+            $table->dropForeign('transactions_account_id_foreign');
+            $table->dropForeign('transactions_destination_account_id_foreign');
             $table->dropForeign('transactions_category_id_foreign');
             $table->dropForeign('transactions_transaction_frequency_id_foreign');
         });
