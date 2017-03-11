@@ -12,8 +12,6 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('example', require('./components/Example.vue'));
-
 Vue.component(
     'sidebar.left.menu',
     require('./components/sidebar/left/menu.vue')

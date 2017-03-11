@@ -7,6 +7,10 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Category</th>
+                    <th>Frequency</th>
+                    <th>Amount</th>
+                    <th>Occurred At</th>
                     <th>Created At</th>
                     <th>Actions</th>
                 </tr>
@@ -15,6 +19,11 @@
                 <tr v-if="$parent.transactions.length > 0" v-for="transaction in $parent.transactions">
                     <td>{{ transaction.name }}</td>
                     <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.category.name }}</td>
+                    <td>{{ transaction.frequency.name }}</td>
+                    <td v-if="transaction.is_credit" class="danger">{{ transaction.amount }}</td>
+                    <td v-if="transaction.is_debit" class="success">{{ transaction.amount }}</td>
+                    <td>{{ transaction.occurred_at }}</td>
                     <td>{{ transaction.created_at }}</td>
                     <td class="center">
                         <span class="glyphicon glyphicon-edit action-icon" v-on:click="editTransaction(transaction)"></span>
@@ -24,7 +33,7 @@
                     </td>
                 </tr>
                 <tr v-if="$parent.transactions.length == 0">
-                    <td colspan="4">There are no Transactions in the system.</td>
+                    <td colspan="8">There are no Transactions in the system.</td>
                 </tr>
                 </tbody>
             </table>
@@ -53,8 +62,16 @@
                 loading: false,
                 editingTransaction: {
                     id: 0,
+                    category: {},
+                    frequency: {},
+                    is_credit: false,
+                    is_debit: false,
                     name: '',
-                    description: ''
+                    description: '',
+                    amount: 0,
+                    occurred_at: null,
+                    repeat_start_at: null,
+                    repeat_end_at: null
                 },
                 deletingTransaction: {}
             };

@@ -35,7 +35,15 @@ class TransactionController extends Controller
             $transactions = $transactions->where('created_at', '<=', $request->get('createdTo') . ' 23:59:59');
         }
 
-        return response()->json(['transactions' => $transactions->get()]);
+        $transactions = $transactions->get()
+            ->load(
+                [
+                    'category',
+                    'frequency'
+                ]
+            );
+
+        return response()->json(['transactions' => $transactions]);
     }
 
     /**
