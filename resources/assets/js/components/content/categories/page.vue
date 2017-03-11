@@ -1,11 +1,11 @@
 <template>
     <div id="categoriesPageTemplate">
-        <content.categories.search></content.categories.search>
+        <search></search>
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Categories</h3>
             </div>
-            <content.categories.table></content.categories.table>
+            <categories-table></categories-table>
         </div>
     </div>
 </template>
@@ -38,5 +38,9 @@
                 categories: []
             };
         },
+        components: {
+            'search': Search,
+            'categories-table': Table
+        }
     }
 </script>

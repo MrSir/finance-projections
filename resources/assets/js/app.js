@@ -13,87 +13,32 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.component(
-    'sidebar.left.menu',
+    'sidebar-left-menu',
     require('./components/sidebar/left/menu.vue')
 );
 
 // Accounts
 Vue.component(
-    'content.accounts',
+    'content-accounts',
     require('./components/content/accounts/page.vue')
-);
-Vue.component(
-    'content.accounts.search',
-    require('./components/content/accounts/search.vue')
-);
-Vue.component(
-    'content.accounts.table',
-    require('./components/content/accounts/table.vue')
-);
-Vue.component(
-    'content.accounts.modals.create',
-    require('./components/content/accounts/modals/create.vue')
-);
-Vue.component(
-    'content.accounts.modals.delete',
-    require('./components/content/accounts/modals/delete.vue')
-);
-Vue.component(
-    'content.accounts.modals.edit',
-    require('./components/content/accounts/modals/edit.vue')
 );
 
 // Categories
 Vue.component(
-    'content.categories',
+    'content-categories',
     require('./components/content/categories/page.vue')
 );
-Vue.component(
-    'content.categories.search',
-    require('./components/content/categories/search.vue')
-);
-Vue.component(
-    'content.categories.table',
-    require('./components/content/categories/table.vue')
-);
-Vue.component(
-    'content.categories.modals.create',
-    require('./components/content/categories/modals/create.vue')
-);
-Vue.component(
-    'content.categories.modals.delete',
-    require('./components/content/categories/modals/delete.vue')
-);
-Vue.component(
-    'content.categories.modals.edit',
-    require('./components/content/categories/modals/edit.vue')
-);
 
+// Frequencies
+Vue.component(
+    'content-frequencies',
+    require('./components/content/frequencies/page.vue')
+);
 
 // Transactions
 Vue.component(
-    'content.transactions',
+    'content-transactions',
     require('./components/content/transactions/page.vue')
-);
-Vue.component(
-    'content.transactions.search',
-    require('./components/content/transactions/search.vue')
-);
-Vue.component(
-    'content.transactions.table',
-    require('./components/content/transactions/table.vue')
-);
-Vue.component(
-    'content.transactions.modals.create',
-    require('./components/content/transactions/modals/create.vue')
-);
-Vue.component(
-    'content.transactions.modals.delete',
-    require('./components/content/transactions/modals/delete.vue')
-);
-Vue.component(
-    'content.transactions.modals.edit',
-    require('./components/content/transactions/modals/edit.vue')
 );
 
 const app = new Vue({

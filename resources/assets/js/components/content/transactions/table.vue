@@ -42,9 +42,9 @@
             <button class="btn btn-success" v-if="!loading" data-toggle="modal" data-target="#create-transaction-modal">
                 Create Transaction
             </button>
-            <modals.create></modals.create>
-            <modals.edit></modals.edit>
-            <modals.delete></modals.delete>
+            <modals-create></modals-create>
+            <modals-edit></modals-edit>
+            <modals-delete></modals-delete>
         </div>
     </div>
 </template>
@@ -87,9 +87,9 @@
             }
         },
         components: {
-            'modals.create': ModalsCreate,
-            'modals.delete': ModalsDelete,
-            'modals.edit': ModalsEdit
+            'modals-create': ModalsCreate,
+            'modals-delete': ModalsDelete,
+            'modals-edit': ModalsEdit
         }
     }
 </script>

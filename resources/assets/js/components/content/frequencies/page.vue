@@ -1,11 +1,11 @@
 <template>
-    <div id="accountsPageTemplate">
+    <div id="frequenciesPageTemplate">
         <search></search>
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Accounts</h3>
+                <h3 class="box-title">Frequencies</h3>
             </div>
-            <accounts-table></accounts-table>
+            <frequencies-table></frequencies-table>
         </div>
     </div>
 </template>
@@ -18,11 +18,11 @@
     // the main code
     export default {
         mounted() {
-            this.$http.get('http://local-finance-projections.com/api/account')
+            this.$http.get('http://local-finance-projections.com/api/frequency')
                 .then(
                     function (successResponse) {
                         this.loading = false;
-                        this.accounts = successResponse.body.accounts;
+                        this.frequencies = successResponse.body.frequencies;
                     },
                     function (failedResponse) {
                         console.log(failedResponse);
@@ -35,12 +35,12 @@
         data() {
             return {
                 loading: false,
-                accounts: []
+                frequencies: []
             };
         },
         components: {
             'search': Search,
-            'accounts-table': Table
+            'frequencies-table': Table
         }
     }
 </script>

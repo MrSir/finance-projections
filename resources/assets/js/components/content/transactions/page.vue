@@ -1,11 +1,11 @@
 <template>
     <div id="transactionsPageTemplate">
-        <content.transactions.search></content.transactions.search>
+        <search></search>
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Transactions</h3>
             </div>
-            <content.transactions.table></content.transactions.table>
+            <transactions-table></transactions-table>
         </div>
     </div>
 </template>
@@ -38,5 +38,9 @@
                 transactions: []
             };
         },
+        components: {
+            'search': Search,
+            'transactions-table': Table
+        }
     }
 </script>

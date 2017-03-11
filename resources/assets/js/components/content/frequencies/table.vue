@@ -1,5 +1,5 @@
 <template>
-    <div id="categoriesTableTemplate">
+    <div id="frequenciesTableTemplate">
         <div class="box-body">
             <span v-if="loading" class="fa fa-refresh fa-spin"></span>
             <table v-if="!loading" class="table table-bordered table-striped">
@@ -12,25 +12,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-if="$parent.categories.length > 0" v-for="category in $parent.categories">
-                    <td>{{ category.name }}</td>
-                    <td>{{ category.description }}</td>
-                    <td>{{ category.created_at }}</td>
+                <tr v-if="$parent.frequencies.length > 0" v-for="frequency in $parent.frequencies">
+                    <td>{{ frequency.name }}</td>
+                    <td>{{ frequency.description }}</td>
+                    <td>{{ frequency.created_at }}</td>
                     <td class="center">
-                        <span class="glyphicon glyphicon-edit action-icon" v-on:click="editCategory(category)"></span>
+                        <span class="glyphicon glyphicon-edit action-icon" v-on:click="editCategory(frequency)"></span>
 
-                        <span class="glyphicon glyphicon-remove action-icon" v-on:click="deleteCategory(category)"></span>
+                        <span class="glyphicon glyphicon-remove action-icon" v-on:click="deleteCategory(frequency)"></span>
 
                     </td>
                 </tr>
-                <tr v-if="$parent.categories.length == 0">
-                    <td colspan="4">There are no Categories in the system.</td>
+                <tr v-if="$parent.frequencies.length == 0">
+                    <td colspan="4">There are no Frequencies in the system.</td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div class="box-footer">
-            <button class="btn btn-success" v-if="!loading" data-toggle="modal" data-target="#create-category-modal">
+            <button class="btn btn-success" v-if="!loading" data-toggle="modal" data-target="#create-frequency-modal">
                 Create Category
             </button>
             <modals-create></modals-create>
@@ -60,13 +60,13 @@
             };
         },
         methods: {
-            editCategory: function (category) {
-                this.editingCategory = category;
-                $('#edit-category-modal').modal('show');
+            editCategory: function (frequency) {
+                this.editingCategory = frequency;
+                $('#edit-frequency-modal').modal('show');
             },
-            deleteCategory: function (category) {
-                this.deletingCategory = category;
-                $('#delete-category-modal').modal('show');
+            deleteCategory: function (frequency) {
+                this.deletingCategory = frequency;
+                $('#delete-frequency-modal').modal('show');
             }
         },
         components: {
