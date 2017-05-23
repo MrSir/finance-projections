@@ -10,10 +10,16 @@ namespace App\Pipelines\Category;
 
 use App\Passables\Category\Index as PassableIndex;
 use App\Pipelines\Index as BaseIndex;
-use App\Tasks\Category\Format;
+use App\Tasks\Category\Format as CategoryFormat;
 use App\Tasks\Category\Paginate;
 use App\Tasks\Category\Search;
+use App\Tasks\Exception\Format as ExceptionFormat;
+use App\Tasks\Exception\Log as ExceptionLog;
 
+/**
+ * Class Index
+ * @package App\Pipelines\Category
+ */
 class Index extends BaseIndex
 {
     /**
@@ -35,6 +41,8 @@ class Index extends BaseIndex
 
     /**
      * This is the flush function, it executes the entire pipe
+     *
+     * @return PassableIndex
      */
     public function flush()
     {
@@ -43,12 +51,35 @@ class Index extends BaseIndex
                 [
                     Search::class,
                     Paginate::class,
-                    Format::class
+                    CategoryFormat::class
                 ]
             )
             ->then(
-                function ($response) {
-                    return $response;
+                function (PassableIndex $passable) {
+                    return $passable;
+                }
+            );
+    }
+
+    /**
+     * This is the burst function, it handles the exceptions from the pipeline
+     *
+     * @param PassableIndex $passable
+     *
+     * @return array
+     */
+    public function burst(PassableIndex $passable)
+    {
+        return $this->send($passable)
+            ->through(
+                [
+                    ExceptionLog::class,
+                    ExceptionFormat::class
+                ]
+            )
+            ->then(
+                function (PassableIndex $passable) {
+                    return $passable->getResponse();
                 }
             );
     }

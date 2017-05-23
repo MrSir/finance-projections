@@ -8,18 +8,12 @@
 
 namespace App\Passables;
 
-use App\Http\Requests\Category\IndexRequest;
-use App\Interfaces\Passable;
+use App\Interfaces\Passables\Index as PassableIndex;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Query\Builder;
 
-class Index implements Passable
+class Index extends Base implements PassableIndex
 {
-    /**
-     * @var IndexRequest
-     */
-    protected $request;
-
     /**
      * @var Builder
      */
@@ -44,22 +38,6 @@ class Index implements Passable
      * @var int
      */
     protected $totals;
-
-    /**
-     * @return IndexRequest
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * @param IndexRequest $request
-     */
-    public function setRequest($request)
-    {
-        $this->request = $request;
-    }
 
     /**
      * @return Builder

@@ -8,36 +8,55 @@
 
 namespace App\Tasks\Category;
 
-use Log;
 use App\Passables\Category\Index;
 use Closure;
+use Exception;
 
+/**
+ * Class Paginate
+ * @package App\Tasks\Category
+ */
 class Paginate
 {
+    /**
+     * @param Index   $passable
+     * @param Closure $next
+     *
+     * @return mixed
+     */
     public function handle(Index &$passable, Closure $next)
     {
-        $request = $passable->getRequest();
-        $query = $passable->getQuery();
+        if ($passable->getStatus() == 0) {
+            try {
+                $request = $passable->getRequest();
 
-        $total = $query->count();
-        $perPage = 25;
-        $page = 1;
+                $query = $passable->getQuery();
 
-        if ($request->has('per_page')) {
-            $perPage = $request->get('per_page');
+                $total = $query->count();
+                $perPage = 25;
+                $page = 1;
+
+                if ($request->has('per_page')) {
+                    $perPage = $request->get('per_page');
+                }
+
+                if ($request->has('page')) {
+                    $page = $request->get('page');
+                }
+
+                // add in the paginated filter
+                $query->take($perPage)
+                    ->skip(($page - 1) * $perPage);
+
+                $passable->setPerPage($perPage);
+                $passable->setPage($page);
+                $passable->setResults($query->get());
+                $passable->setTotals($total);
+            } catch (Exception $e) {
+                $passable->setStatus(2);
+                $passable->setException($e);
+            }
         }
-
-        if ($request->has('page')) {
-            $page = $request->get('page');
-        }
-
-        $query->take($perPage)
-            ->skip($page-1);
-
-        $passable->setPerPage($perPage);
-        $passable->setPage($page);
-        $passable->setResults($query->get());
-        $passable->setTotals($total);
 
         return $next($passable);
     }

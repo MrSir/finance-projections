@@ -6,13 +6,10 @@
  * Time: 11:09 AM
  */
 
-namespace App\Interfaces;
+namespace App\Interfaces\Passables;
 
-interface Passable
+interface Index extends Base
 {
-    public function getRequest();
-    public function setRequest($request);
-
     public function getQuery();
     public function setQuery($query);
 
