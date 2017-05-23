@@ -6,7 +6,7 @@
  * Time: 9:57 AM
  */
 
-namespace App\Steps\Category;
+namespace App\Steps\Category\Index;
 
 use App\Exceptions\Category\Format as ExceptionFormat;
 use App\Passables\Category\Index;
@@ -15,7 +15,7 @@ use Exception;
 
 /**
  * Class Format
- * @package App\Steps\Category
+ * @package App\Steps\Category\Index
  */
 class Format
 {

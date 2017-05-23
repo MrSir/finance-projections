@@ -10,10 +10,9 @@ namespace App\Pipelines\Category;
 
 use App\Passables\Category\Index as PassableIndex;
 use App\Pipelines\Index as BaseIndex;
-use App\Steps\Category\Format as CategoryFormat;
-use App\Steps\Category\Paginate;
-use App\Steps\Category\Search;
-use Exception;
+use App\Steps\Category\Index\Format as CategoryFormat;
+use App\Steps\Category\Index\Paginate;
+use App\Steps\Category\Index\Search;
 
 /**
  * Class Index
