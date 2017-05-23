@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\Category\IndexRequest;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
+use App\Pipelines\Category\Index;
 
 class CategoryController extends Controller
 {
@@ -18,25 +19,12 @@ class CategoryController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $categories = Category::query();
+        $pipe = app(Index::class);
 
-        if($request->has('name')) {
-            $categories = $categories->where('name', 'LIKE', '%'.$request->get('name').'%');
-        }
+        $result = $pipe->fill($request)
+            ->flush();
 
-        if($request->has('description')) {
-            $categories = $categories->where('description', 'LIKE', '%'.$request->get('description').'%');
-        }
-
-        if($request->has('createdFrom')) {
-            $categories = $categories->where('created_at', '>=', $request->get('createdFrom').' 00:00:00');
-        }
-
-        if($request->has('createdAt')) {
-            $categories = $categories->where('created_at', '<=', $request->get('createdTo').' 23:59:59');
-        }
-
-        return response()->json(['categories' => $categories->get()]);
+        return response()->json($result);
     }
 
     /**

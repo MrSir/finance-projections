@@ -3,7 +3,7 @@
         <search></search>
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Accounts</h3>
+                <h3 class="box-title">Accountss</h3>
             </div>
             <accounts-table></accounts-table>
         </div>
