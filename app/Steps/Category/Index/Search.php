@@ -12,6 +12,7 @@ use App\Exceptions\Category\Search as ExceptionSearch;
 use App\Models\Category;
 use App\Passables\Category\Index;
 use Closure;
+use Error;
 use Exception;
 
 /**
@@ -68,6 +69,12 @@ class Search
 
             $passable->setQuery($categories);
         } catch (Exception $e) {
+            throw new ExceptionSearch(
+                'Category search failed.',
+                500,
+                $e
+            );
+        } catch (Error $e) {
             throw new ExceptionSearch(
                 'Category search failed.',
                 500,
