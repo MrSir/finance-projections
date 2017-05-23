@@ -4,7 +4,7 @@ namespace App\Tests\Unit\Steps\Category\Index;
 
 use App\Passables\Category\Index;
 use App\Http\Requests\Category\Index as RequestIndex;
-use App\Steps\Category\Index\Search;
+use App\Pipes\Category\Index\Search;
 use App\Tests\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Exception;

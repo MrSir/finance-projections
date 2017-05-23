@@ -6,16 +6,16 @@
  * Time: 9:57 AM
  */
 
-namespace App\Steps\Exception;
+namespace App\Pipes\Exception;
 
 use Closure;
 use Exception;
 
 /**
- * Class Log
- * @package App\Steps
+ * Class Format
+ * @package App\Pipes
  */
-class Log
+class Format
 {
     /**
      * @param Exception $e
@@ -25,8 +25,11 @@ class Log
      */
     public function handle(Exception $e, Closure $next)
     {
-        //TODO implement logging
-
-        return $next($e);
+        return $next(
+            [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ]
+        );
     }
 }

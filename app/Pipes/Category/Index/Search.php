@@ -6,7 +6,7 @@
  * Time: 9:57 AM
  */
 
-namespace App\Steps\Category\Index;
+namespace App\Pipes\Category\Index;
 
 use App\Exceptions\Category\Search as ExceptionSearch;
 use App\Models\Category;
@@ -17,7 +17,7 @@ use Exception;
 
 /**
  * Class Search
- * @package App\Steps\Category\Index
+ * @package App\Pipes\Category\Index
  */
 class Search
 {

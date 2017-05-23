@@ -6,7 +6,7 @@
  * Time: 9:57 AM
  */
 
-namespace App\Steps;
+namespace App\Pipes;
 
 use App\Models\Category;
 use App\Passables\Category\Index;
@@ -14,19 +14,10 @@ use Closure;
 
 /**
  * Class Search
- * @package App\Steps
+ * @package App\Pipes
  */
 class Search
 {
-
-
-    /**
-     * Search constructor.
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * @param Index   $passable
      * @param Closure $next

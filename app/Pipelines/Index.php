@@ -8,8 +8,8 @@
 
 namespace App\Pipelines;
 
-use App\Steps\Exception\Format as ExceptionFormat;
-use App\Steps\Exception\Log as ExceptionLog;
+use App\Pipes\Exception\Format as ExceptionFormat;
+use App\Pipes\Exception\Log as ExceptionLog;
 use Closure;
 use Exception;
 use Illuminate\Pipeline\Pipeline;

@@ -6,7 +6,7 @@
  * Time: 9:57 AM
  */
 
-namespace App\Steps\Category\Index;
+namespace App\Pipes\Category\Index;
 
 use App\Passables\Category\Index;
 use App\Exceptions\Category\Paginate as ExceptionPaginate;
@@ -15,7 +15,7 @@ use Exception;
 
 /**
  * Class Paginate
- * @package App\Steps\Category\Index
+ * @package App\Pipes\Category\Index
  */
 class Paginate
 {
