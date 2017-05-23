@@ -6,8 +6,9 @@
  * Time: 9:57 AM
  */
 
-namespace App\Tasks\Category;
+namespace App\Steps\Category;
 
+use App\Exceptions\Category\Search as ExceptionSearch;
 use App\Models\Category;
 use App\Passables\Category\Index;
 use Closure;
@@ -15,15 +16,16 @@ use Exception;
 
 /**
  * Class Search
- * @package App\Tasks\Category
+ * @package App\Steps\Category
  */
 class Search
 {
     /**
-     * @param Index   $passable
+     * @param Index $passable
      * @param Closure $next
      *
      * @return mixed
+     * @throws ExceptionSearch
      */
     public function handle(Index &$passable, Closure $next)
     {
@@ -66,8 +68,11 @@ class Search
 
             $passable->setQuery($categories);
         } catch (Exception $e) {
-            $passable->setStatus(1);
-            $passable->setException($e);
+            throw new ExceptionSearch(
+                'Category search failed.',
+                500,
+                $e
+            );
         }
 
         return $next($passable);

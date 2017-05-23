@@ -6,7 +6,7 @@
  * Time: 9:57 AM
  */
 
-namespace App\Tasks;
+namespace App\Steps;
 
 use App\Models\Category;
 use App\Passables\Category\Index;
@@ -14,7 +14,7 @@ use Closure;
 
 /**
  * Class Search
- * @package App\Tasks
+ * @package App\Steps
  */
 class Search
 {

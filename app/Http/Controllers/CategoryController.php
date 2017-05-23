@@ -20,18 +20,17 @@ class CategoryController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        // instantiate the pipe
         $pipe = new Index();
+        $pipe->fill($request);
 
-        $result = $pipe->fill($request)
-            ->flush();
+        // flush the pipe
+        $result = $pipe->flush();
 
-        if ($result->getStatus() == 0) {
-            return response()->json($result->getResponse());
-        }
-
+        // handle the response
         return response()
-            ->setStatusCode(500)
-            ->json($pipe->burst($result));
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
