@@ -31,7 +31,6 @@ abstract class Paginate extends Pipe
     {
         try {
             $request = $passable->getRequest();
-
             $query = $passable->getQuery();
 
             $total = $query->count();

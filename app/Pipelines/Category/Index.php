@@ -48,6 +48,7 @@ class Index extends BaseIndex
             ->through(
                 [
                     Search::class,
+                    //TODO add sorting
                     Paginate::class,
                     Format::class
                 ]

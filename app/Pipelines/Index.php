@@ -14,7 +14,7 @@ use Closure;
 use Exception;
 use Illuminate\Pipeline\Pipeline;
 
-class Index extends Pipeline
+abstract class Index extends Pipeline
 {
     /**
      * @var Closure

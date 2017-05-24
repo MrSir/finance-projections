@@ -44,6 +44,78 @@ class SearchTest extends TestCase
      * @group App.Pipes.Category
      * @group App.Pipes.Category.Index
      * @group App.Pipes.Category.Index.Search
+     * @group App.Pipes.Category.Index.Search.Success
+     * @group App.Pipes.Category.Index.Search.Success.Name
+     */
+    public function testSearchByNameSuccess()
+    {
+        $passable = new Index();
+        $passable->setRequest(
+            new RequestIndex(
+                [
+                    'name' => 'ransfer',
+                ]
+            )
+        );
+
+        $searchStep = new Search();
+
+        $searchStep->handle(
+            $passable,
+            function (Index $passable) {
+                $results = $passable->getQuery();
+                $whereClauses = $results->getQuery()->wheres;
+
+                $this->assertEquals(Builder::class, get_class($results));
+                $this->assertEquals('name', $whereClauses[0]['column']);
+                $this->assertEquals('LIKE', $whereClauses[0]['operator']);
+                $this->assertEquals('%ransfer%', $whereClauses[0]['value']);
+            }
+        );
+    }
+
+    /**
+     * @group App
+     * @group App.Pipes
+     * @group App.Pipes.Category
+     * @group App.Pipes.Category.Index
+     * @group App.Pipes.Category.Index.Search
+     * @group App.Pipes.Category.Index.Search.Success
+     * @group App.Pipes.Category.Index.Search.Success.Description
+     */
+    public function testSearchByDescriptionSuccess()
+    {
+        $passable = new Index();
+        $passable->setRequest(
+            new RequestIndex(
+                [
+                    'description' => 'ransfer',
+                ]
+            )
+        );
+
+        $searchStep = new Search();
+
+        $searchStep->handle(
+            $passable,
+            function (Index $passable) {
+                $results = $passable->getQuery();
+                $whereClauses = $results->getQuery()->wheres;
+
+                $this->assertEquals(Builder::class, get_class($results));
+                $this->assertEquals('description', $whereClauses[0]['column']);
+                $this->assertEquals('LIKE', $whereClauses[0]['operator']);
+                $this->assertEquals('%ransfer%', $whereClauses[0]['value']);
+            }
+        );
+    }
+
+    /**
+     * @group App
+     * @group App.Pipes
+     * @group App.Pipes.Category
+     * @group App.Pipes.Category.Index
+     * @group App.Pipes.Category.Index.Search
      * @group App.Pipes.Category.Index.Search.Failure
      * @expectedExceptionCode 500
      * @expectedException Exception
