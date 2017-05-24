@@ -9,6 +9,10 @@ use App\Pipes\Transaction\Frequency\Index\Sort;
 use App\Tests\Unit\Pipes\Index\Sort as IndexSort;
 use Exception;
 
+/**
+ * Class SortTest
+ * @package App\Tests\Unit\Pipes\Transaction\Frequency\Index
+ */
 class SortTest extends IndexSort
 {
     /**

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Category\Index;
+namespace App\Tests\Unit\Pipes\Account\Index;
 
-use App\Http\Requests\Category\Index as RequestIndex;
-use App\Models\Category;
-use App\Passables\Category\Index;
-use App\Pipes\Category\Index\Sort;
+use App\Http\Requests\Account\Index as RequestIndex;
+use App\Models\Account;
+use App\Passables\Account\Index;
+use App\Pipes\Account\Index\Sort;
 use App\Tests\Unit\Pipes\Index\Sort as IndexSort;
 use Exception;
 
 /**
  * Class SortTest
- * @package App\Tests\Unit\Pipes\Category\Index
+ * @package App\Tests\Unit\Pipes\Account\Index
  */
 class SortTest extends IndexSort
 {
@@ -33,16 +33,16 @@ class SortTest extends IndexSort
         $this->setPassable(Index::class);
         $this->setRequest(RequestIndex::class);
         $this->setPipe(Sort::class);
-        $this->setModel(Category::class);
+        $this->setModel(Account::class);
     }
 
     /**
      * @group App
      * @group App.Pipes
-     * @group App.Pipes.Category
-     * @group App.Pipes.Category.Index
-     * @group App.Pipes.Category.Index.Sort
-     * @group App.Pipes.Category.Index.Sort.Success
+     * @group App.Pipes.Account
+     * @group App.Pipes.Account.Index
+     * @group App.Pipes.Account.Index.Sort
+     * @group App.Pipes.Account.Index.Sort.Success
      */
     public function testSortSuccess()
     {
@@ -52,11 +52,11 @@ class SortTest extends IndexSort
     /**
      * @group App
      * @group App.Pipes
-     * @group App.Pipes.Category
-     * @group App.Pipes.Category.Index
-     * @group App.Pipes.Category.Index.Sort
-     * @group App.Pipes.Category.Index.Sort.Success
-     * @group App.Pipes.Category.Index.Sort.Success.Column
+     * @group App.Pipes.Account
+     * @group App.Pipes.Account.Index
+     * @group App.Pipes.Account.Index.Sort
+     * @group App.Pipes.Account.Index.Sort.Success
+     * @group App.Pipes.Account.Index.Sort.Success.Column
      */
     public function testSortColumnSuccess()
     {
@@ -66,11 +66,11 @@ class SortTest extends IndexSort
     /**
      * @group App
      * @group App.Pipes
-     * @group App.Pipes.Category
-     * @group App.Pipes.Category.Index
-     * @group App.Pipes.Category.Index.Sort
-     * @group App.Pipes.Category.Index.Sort.Success
-     * @group App.Pipes.Category.Index.Sort.Success.Direction
+     * @group App.Pipes.Account
+     * @group App.Pipes.Account.Index
+     * @group App.Pipes.Account.Index.Sort
+     * @group App.Pipes.Account.Index.Sort.Success
+     * @group App.Pipes.Account.Index.Sort.Success.Direction
      */
     public function testSortDirectionSuccess()
     {
@@ -80,13 +80,13 @@ class SortTest extends IndexSort
     /**
      * @group                    App
      * @group                    App.Pipes
-     * @group                    App.Pipes.Category
-     * @group                    App.Pipes.Category.Index
-     * @group                    App.Pipes.Category.Index.Sort
-     * @group                    App.Pipes.Category.Index.Sort.Failure
+     * @group                    App.Pipes.Account
+     * @group                    App.Pipes.Account.Index
+     * @group                    App.Pipes.Account.Index.Sort
+     * @group                    App.Pipes.Account.Index.Sort.Failure
      * @expectedExceptionCode    500
      * @expectedException Exception
-     * @expectedExceptionMessage Category sort failed.
+     * @expectedExceptionMessage Account sort failed.
      */
     public function testSortFailure()
     {

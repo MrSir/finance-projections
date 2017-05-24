@@ -6,11 +6,36 @@ use App\Http\Requests\Transaction\Frequency\Index as RequestIndex;
 use App\Models\Transaction\Frequency;
 use App\Passables\Transaction\Frequency\Index;
 use App\Pipes\Transaction\Frequency\Index\Paginate;
-use App\Tests\TestCase;
+use App\Tests\Unit\Pipes\Index\Paginate as IndexPaginate;
 use Exception;
 
-class PaginateTest extends TestCase
+/**
+ * Class PaginateTest
+ * @package App\Tests\Unit\Pipes\Transaction\Frequency\Index
+ */
+class PaginateTest extends IndexPaginate
 {
+    /**
+     * PaginateTest constructor.
+     *
+     * @param null   $name
+     * @param array  $data
+     * @param string $dataName
+     */
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct(
+            $name,
+            $data,
+            $dataName
+        );
+
+        $this->setPassable(Index::class);
+        $this->setRequest(RequestIndex::class);
+        $this->setPipe(Paginate::class);
+        $this->setModel(Frequency::class);
+    }
+
     /**
      * @group App
      * @group App.Pipes
@@ -22,31 +47,7 @@ class PaginateTest extends TestCase
      */
     public function testPaginateSuccess()
     {
-        $passable = new Index();
-        $passable->setRequest(
-            new RequestIndex()
-        );
-        $passable->setQuery(Frequency::query());
-
-        $paginateStep = new Paginate();
-
-        $paginateStep->handle(
-            $passable,
-            function ($passable) {
-                $results = $passable->getQuery();
-                $limit = $results->getQuery()->limit;
-                $offset = $results->getQuery()->offset;
-
-                $this->assertEquals(
-                    25,
-                    $limit
-                );
-                $this->assertEquals(
-                    0,
-                    $offset
-                );
-            }
-        );
+        $this->paginateSuccess();
     }
 
     /**
@@ -61,35 +62,7 @@ class PaginateTest extends TestCase
      */
     public function testPaginatePerPageSuccess()
     {
-        $passable = new Index();
-        $passable->setRequest(
-            new RequestIndex(
-                [
-                    'per_page' => 10,
-                ]
-            )
-        );
-        $passable->setQuery(Frequency::query());
-
-        $paginateStep = new Paginate();
-
-        $paginateStep->handle(
-            $passable,
-            function ($passable) {
-                $results = $passable->getQuery();
-                $limit = $results->getQuery()->limit;
-                $offset = $results->getQuery()->offset;
-
-                $this->assertEquals(
-                    10,
-                    $limit
-                );
-                $this->assertEquals(
-                    0,
-                    $offset
-                );
-            }
-        );
+        $this->paginatePerPageSuccess();
     }
 
     /**
@@ -104,35 +77,7 @@ class PaginateTest extends TestCase
      */
     public function testPaginatePageSuccess()
     {
-        $passable = new Index();
-        $passable->setRequest(
-            new RequestIndex(
-                [
-                    'page' => 2,
-                ]
-            )
-        );
-        $passable->setQuery(Frequency::query());
-
-        $paginateStep = new Paginate();
-
-        $paginateStep->handle(
-            $passable,
-            function ($passable) {
-                $results = $passable->getQuery();
-                $limit = $results->getQuery()->limit;
-                $offset = $results->getQuery()->offset;
-
-                $this->assertEquals(
-                    25,
-                    $limit
-                );
-                $this->assertEquals(
-                    25,
-                    $offset
-                );
-            }
-        );
+        $this->paginatePageSuccess();
     }
 
     /**
@@ -149,14 +94,6 @@ class PaginateTest extends TestCase
      */
     public function testPaginateFailure()
     {
-        $passable = new Index();
-
-        $paginateStep = new Paginate();
-
-        $paginateStep->handle(
-            $passable,
-            function ($passable) {
-            }
-        );
+        $this->paginateFailure();
     }
 }
