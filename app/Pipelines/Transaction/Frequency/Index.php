@@ -13,6 +13,7 @@ use App\Pipelines\Index as BaseIndex;
 use App\Pipes\Transaction\Frequency\Index\Format;
 use App\Pipes\Transaction\Frequency\Index\Paginate;
 use App\Pipes\Transaction\Frequency\Index\Search;
+use App\Pipes\Transaction\Frequency\Index\Sort;
 
 /**
  * Class Index
@@ -48,6 +49,7 @@ class Index extends BaseIndex
             ->through(
                 [
                     Search::class,
+                    Sort::class,
                     Paginate::class,
                     Format::class
                 ]

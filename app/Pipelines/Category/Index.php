@@ -13,6 +13,7 @@ use App\Pipelines\Index as BaseIndex;
 use App\Pipes\Category\Index\Format;
 use App\Pipes\Category\Index\Paginate;
 use App\Pipes\Category\Index\Search;
+use App\Pipes\Category\Index\Sort;
 
 /**
  * Class Index
@@ -48,7 +49,7 @@ class Index extends BaseIndex
             ->through(
                 [
                     Search::class,
-                    //TODO add sorting
+                    Sort::class,
                     Paginate::class,
                     Format::class
                 ]
