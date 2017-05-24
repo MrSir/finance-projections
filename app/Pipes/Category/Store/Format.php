@@ -6,16 +6,16 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Category\Index;
+namespace App\Pipes\Category\Store;
 
-use App\Exceptions\Category\Index\Format as ExceptionFormat;
-use App\Pipes\Index\Format as IndexFormat;
+use App\Exceptions\Category\Store\Format as ExceptionFormat;
+use App\Pipes\Store\Format as StoreFormat;
 
 /**
  * Class Format
- * @package App\Pipes\Category\Index
+ * @package App\Pipes\Category\Store
  */
-class Format extends IndexFormat
+class Format extends StoreFormat
 {
     /**
      * Format constructor.

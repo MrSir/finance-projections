@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Category\Index;
 
-use App\Exceptions\Category\Search as ExceptionSearch;
+use App\Exceptions\Category\Index\Search as ExceptionSearch;
 use App\Models\Category;
 use App\Passables\Category\Index;
 use App\Pipes\Index\Search as IndexSearch;

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\Index as RequestIndex;
-use App\Http\Requests\Category\StoreRequest;
+use App\Http\Requests\Category\Store as RequestStore;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
 use App\Pipelines\Category\Index;
+use App\Pipelines\Category\Store;
 
 class CategoryController extends Controller
 {
@@ -33,31 +34,25 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param RequestStore $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreRequest $request)
+    public function store(RequestStore $request)
     {
-        $category = new Category($request->all());
-        $category->save();
+        // instantiate the pipe
+        $pipe = new Store();
+        $pipe->fill($request);
 
-        return response()->json(
-            [
-                'message' => 'Successfully stored Category.',
-                'category' => $category,
-            ]
-        );
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**

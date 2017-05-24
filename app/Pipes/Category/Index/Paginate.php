@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Category\Index;
 
-use App\Exceptions\Category\Paginate as ExceptionPaginate;
+use App\Exceptions\Category\Index\Paginate as ExceptionPaginate;
 use App\Pipes\Index\Paginate as IndexPaginate;
 
 /**

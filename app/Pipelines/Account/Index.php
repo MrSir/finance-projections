@@ -9,7 +9,7 @@
 namespace App\Pipelines\Account;
 
 use App\Passables\Account\Index as PassableIndex;
-use App\Pipelines\Index as BaseIndex;
+use App\Pipelines\Pipeline;
 use App\Pipes\Account\Index\Format;
 use App\Pipes\Account\Index\Paginate;
 use App\Pipes\Account\Index\Search;
@@ -19,7 +19,7 @@ use App\Pipes\Account\Index\Sort;
  * Class Index
  * @package App\Pipelines\Account
  */
-class Index extends BaseIndex
+class Index extends Pipeline
 {
     /**
      * This is the fill function, it initializes the pipeline

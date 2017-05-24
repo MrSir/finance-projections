@@ -12,9 +12,9 @@ use App\Pipes\Exception\Format as ExceptionFormat;
 use App\Pipes\Exception\Log as ExceptionLog;
 use Closure;
 use Exception;
-use Illuminate\Pipeline\Pipeline;
+use Illuminate\Pipeline\Pipeline as IlluminatePipeline;
 
-abstract class Index extends Pipeline
+abstract class Pipeline extends IlluminatePipeline
 {
     /**
      * @var Closure
@@ -72,8 +72,8 @@ abstract class Index extends Pipeline
      * $pipeline->send($passable)
      *      ->through(
      *          [
-     *              Step1::class,
-     *              Step2::class,
+     *              Pipe1::class,
+     *              Pipe2::class,
      *          ]
      *       )
      *      ->onBurst(

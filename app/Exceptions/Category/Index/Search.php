@@ -6,11 +6,11 @@
  * Time: 2:31 PM
  */
 
-namespace App\Exceptions\Category;
+namespace App\Exceptions\Category\Index;
 
 use Exception;
 
-class Paginate extends Exception
+class Search extends Exception
 {
 
 }

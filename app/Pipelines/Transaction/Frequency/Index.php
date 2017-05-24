@@ -9,7 +9,7 @@
 namespace App\Pipelines\Transaction\Frequency;
 
 use App\Passables\Transaction\Frequency\Index as PassableIndex;
-use App\Pipelines\Index as BaseIndex;
+use App\Pipelines\Pipeline;
 use App\Pipes\Transaction\Frequency\Index\Format;
 use App\Pipes\Transaction\Frequency\Index\Paginate;
 use App\Pipes\Transaction\Frequency\Index\Search;
@@ -19,7 +19,7 @@ use App\Pipes\Transaction\Frequency\Index\Sort;
  * Class Index
  * @package App\Pipelines\Transaction\Frequency
  */
-class Index extends BaseIndex
+class Index extends Pipeline
 {
     /**
      * This is the fill function, it initializes the pipeline
