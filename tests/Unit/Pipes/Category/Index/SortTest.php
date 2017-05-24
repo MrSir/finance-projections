@@ -5,21 +5,21 @@ namespace App\Tests\Unit\Pipes\Category\Index;
 use App\Http\Requests\Category\Index as RequestIndex;
 use App\Models\Category;
 use App\Passables\Category\Index;
-use App\Pipes\Category\Index\Paginate;
+use App\Pipes\Category\Index\Sort;
 use App\Tests\TestCase;
 use Exception;
 
-class PaginateTest extends TestCase
+class SortTest extends TestCase
 {
     /**
      * @group App
      * @group App.Pipes
      * @group App.Pipes.Category
      * @group App.Pipes.Category.Index
-     * @group App.Pipes.Category.Index.Paginate
-     * @group App.Pipes.Category.Index.Paginate.Success
+     * @group App.Pipes.Category.Index.Sort
+     * @group App.Pipes.Category.Index.Sort.Success
      */
-    public function testPaginateSuccess()
+    public function testSortSuccess()
     {
         $passable = new Index();
         $passable->setRequest(
@@ -27,22 +27,21 @@ class PaginateTest extends TestCase
         );
         $passable->setQuery(Category::query());
 
-        $paginateStep = new Paginate();
+        $paginateStep = new Sort();
 
         $paginateStep->handle(
             $passable,
             function ($passable) {
                 $results = $passable->getQuery();
-                $limit = $results->getQuery()->limit;
-                $offset = $results->getQuery()->offset;
+                $orders = $results->getQuery()->orders;
 
                 $this->assertEquals(
-                    25,
-                    $limit
+                    'id',
+                    $orders[0]['column']
                 );
                 $this->assertEquals(
-                    0,
-                    $offset
+                    'asc',
+                    $orders[0]['direction']
                 );
             }
         );
@@ -53,38 +52,37 @@ class PaginateTest extends TestCase
      * @group App.Pipes
      * @group App.Pipes.Category
      * @group App.Pipes.Category.Index
-     * @group App.Pipes.Category.Index.Paginate
-     * @group App.Pipes.Category.Index.Paginate.Success
-     * @group App.Pipes.Category.Index.Paginate.Success.PerPage
+     * @group App.Pipes.Category.Index.Sort
+     * @group App.Pipes.Category.Index.Sort.Success
+     * @group App.Pipes.Category.Index.Sort.Success.Column
      */
-    public function testPaginatePerPageSuccess()
+    public function testSortColumnSuccess()
     {
         $passable = new Index();
         $passable->setRequest(
             new RequestIndex(
                 [
-                    'per_page' => 10,
+                    'order_column' => 'name',
                 ]
             )
         );
         $passable->setQuery(Category::query());
 
-        $paginateStep = new Paginate();
+        $paginateStep = new Sort();
 
         $paginateStep->handle(
             $passable,
             function ($passable) {
                 $results = $passable->getQuery();
-                $limit = $results->getQuery()->limit;
-                $offset = $results->getQuery()->offset;
+                $orders = $results->getQuery()->orders;
 
                 $this->assertEquals(
-                    10,
-                    $limit
+                    'name',
+                    $orders[0]['column']
                 );
                 $this->assertEquals(
-                    0,
-                    $offset
+                    'asc',
+                    $orders[0]['direction']
                 );
             }
         );
@@ -95,59 +93,58 @@ class PaginateTest extends TestCase
      * @group App.Pipes
      * @group App.Pipes.Category
      * @group App.Pipes.Category.Index
-     * @group App.Pipes.Category.Index.Paginate
-     * @group App.Pipes.Category.Index.Paginate.Success
-     * @group App.Pipes.Category.Index.Paginate.Success.Page
+     * @group App.Pipes.Category.Index.Sort
+     * @group App.Pipes.Category.Index.Sort.Success
+     * @group App.Pipes.Category.Index.Sort.Success.Direction
      */
-    public function testPaginatePageSuccess()
+    public function testSortDirectionSuccess()
     {
         $passable = new Index();
         $passable->setRequest(
             new RequestIndex(
                 [
-                    'page' => 2,
+                    'order_direction' => 'desc',
                 ]
             )
         );
         $passable->setQuery(Category::query());
 
-        $paginateStep = new Paginate();
+        $paginateStep = new Sort();
 
         $paginateStep->handle(
             $passable,
             function ($passable) {
                 $results = $passable->getQuery();
-                $limit = $results->getQuery()->limit;
-                $offset = $results->getQuery()->offset;
+                $orders = $results->getQuery()->orders;
 
                 $this->assertEquals(
-                    25,
-                    $limit
+                    'id',
+                    $orders[0]['column']
                 );
                 $this->assertEquals(
-                    25,
-                    $offset
+                    'desc',
+                    $orders[0]['direction']
                 );
             }
         );
     }
 
     /**
-     * @group                    App
-     * @group                    App.Pipes
-     * @group                    App.Pipes.Category
-     * @group                    App.Pipes.Category.Index
-     * @group                    App.Pipes.Category.Index.Paginate
-     * @group                    App.Pipes.Category.Index.Paginate.Failure
-     * @expectedExceptionCode    500
+     * @group App
+     * @group App.Pipes
+     * @group App.Pipes.Category
+     * @group App.Pipes.Category.Index
+     * @group App.Pipes.Category.Index.Sort
+     * @group App.Pipes.Category.Index.Sort.Failure
+     * @expectedExceptionCode 500
      * @expectedException Exception
-     * @expectedExceptionMessage Category paginate failed.
+     * @expectedExceptionMessage Category sort failed.
      */
-    public function testPaginateFailure()
+    public function testSortFailure()
     {
         $passable = new Index();
 
-        $paginateStep = new Paginate();
+        $paginateStep = new Sort();
 
         $paginateStep->handle(
             $passable,

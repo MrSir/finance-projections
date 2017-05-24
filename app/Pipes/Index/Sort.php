@@ -40,8 +40,8 @@ abstract class Sort extends Pipe
                 $orderColumn = $request->get('order_column');
             }
 
-            if ($request->has('order_dir')) {
-                $orderDirection = $request->get('order_dir');
+            if ($request->has('order_direction')) {
+                $orderDirection = $request->get('order_direction');
             }
 
             // add in the sorter
