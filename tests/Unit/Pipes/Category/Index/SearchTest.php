@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Steps\Category\Index;
+namespace App\Tests\Unit\Pipes\Category\Index;
 
 use App\Passables\Category\Index;
 use App\Http\Requests\Category\Index as RequestIndex;
@@ -13,11 +13,11 @@ class SearchTest extends TestCase
 {
     /**
      * @group App
-     * @group App.Steps
-     * @group App.Steps.Category
-     * @group App.Steps.Category.Index
-     * @group App.Steps.Category.Index.Search
-     * @group App.Steps.Category.Index.Search.Success
+     * @group App.Pipes
+     * @group App.Pipes.Category
+     * @group App.Pipes.Category.Index
+     * @group App.Pipes.Category.Index.Search
+     * @group App.Pipes.Category.Index.Search.Success
      */
     public function testSearchSuccess()
     {
@@ -40,11 +40,11 @@ class SearchTest extends TestCase
 
     /**
      * @group App
-     * @group App.Steps
-     * @group App.Steps.Category
-     * @group App.Steps.Category.Index
-     * @group App.Steps.Category.Index.Search
-     * @group App.Steps.Category.Index.Search.Failure
+     * @group App.Pipes
+     * @group App.Pipes.Category
+     * @group App.Pipes.Category.Index
+     * @group App.Pipes.Category.Index.Search
+     * @group App.Pipes.Category.Index.Search.Failure
      * @expectedExceptionCode 500
      * @expectedException Exception
      * @expectedExceptionMessage Category search failed.

@@ -6,17 +6,17 @@
  * Time: 8:18 AM
  */
 
-namespace App\Pipelines\Category;
+namespace App\Pipelines\Transaction\Frequency;
 
-use App\Passables\Category\Index as PassableIndex;
+use App\Passables\Transaction\Frequency\Index as PassableIndex;
 use App\Pipelines\Index as BaseIndex;
-use App\Pipes\Category\Index\Format;
-use App\Pipes\Category\Index\Paginate;
-use App\Pipes\Category\Index\Search;
+use App\Pipes\Transaction\Frequency\Index\Format;
+use App\Pipes\Transaction\Frequency\Index\Paginate;
+use App\Pipes\Transaction\Frequency\Index\Search;
 
 /**
  * Class Index
- * @package App\Pipelines\Category
+ * @package App\Pipelines\Transaction\Frequency
  */
 class Index extends BaseIndex
 {

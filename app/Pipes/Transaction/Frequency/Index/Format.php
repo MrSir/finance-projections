@@ -6,14 +6,14 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Category\Index;
+namespace App\Pipes\Transaction\Frequency\Index;
 
-use App\Exceptions\Category\Format as ExceptionFormat;
+use App\Exceptions\Transaction\Frequency\Format as ExceptionFormat;
 use App\Pipes\Index\Format as IndexFormat;
 
 /**
  * Class Format
- * @package App\Pipes\Category\Index
+ * @package App\Pipes\Transaction\Frequency\Index
  */
 class Format extends IndexFormat
 {
@@ -24,7 +24,7 @@ class Format extends IndexFormat
     {
         parent::__construct(
             ExceptionFormat::class,
-            'Category format failed.'
+            'Frequency format failed.'
         );
     }
 }

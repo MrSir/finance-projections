@@ -6,14 +6,14 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Category\Index;
+namespace App\Pipes\Transaction\Frequency\Index;
 
-use App\Exceptions\Category\Paginate as ExceptionPaginate;
+use App\Exceptions\Transaction\Frequency\Paginate as ExceptionPaginate;
 use App\Pipes\Index\Paginate as IndexPaginate;
 
 /**
  * Class Paginate
- * @package App\Pipes\Category\Index
+ * @package App\Pipes\Transaction\Frequency\Index
  */
 class Paginate extends IndexPaginate
 {
@@ -24,7 +24,7 @@ class Paginate extends IndexPaginate
     {
         parent::__construct(
             ExceptionPaginate::class,
-            'Category paginate failed.'
+            'Frequency paginate failed.'
         );
     }
 }

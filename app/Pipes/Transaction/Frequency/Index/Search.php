@@ -6,18 +6,18 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Category\Index;
+namespace App\Pipes\Transaction\Frequency\Index;
 
-use App\Exceptions\Category\Search as ExceptionSearch;
-use App\Models\Category;
-use App\Passables\Category\Index;
+use App\Exceptions\Transaction\Frequency\Search as ExceptionSearch;
+use App\Models\Transaction\Frequency;
+use App\Passables\Transaction\Frequency\Index;
 use App\Pipes\Index\Search as IndexSearch;
 use Closure;
 use Throwable;
 
 /**
  * Class Search
- * @package App\Pipes\Category\Index
+ * @package App\Pipes\Transaction\Frequency\Index
  */
 class Search extends IndexSearch
 {
@@ -28,10 +28,10 @@ class Search extends IndexSearch
     {
         parent::__construct(
             ExceptionSearch::class,
-            'Category search failed.'
+            'Frequency search failed.'
         );
 
-        $this->setModel(Category::class);
+        $this->setModel(Frequency::class);
     }
 
     /**

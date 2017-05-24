@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Transaction;
 
+use App\Http\Controllers\Controller;
 use App\Models\Transaction\Frequency;
 use App\Http\Requests;
 use App\Http\Requests\Frequency\IndexRequest;
 use App\Http\Requests\Frequency\StoreRequest;
 use App\Http\Requests\Frequency\UpdateRequest;
+use App\Pipelines\Transaction\Frequency\Index;
 
 class FrequencyController extends Controller
 {
@@ -18,25 +20,17 @@ class FrequencyController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $frequencies = Frequency::query();
+        // instantiate the pipe
+        $pipe = new Index();
+        $pipe->fill($request);
 
-        if($request->has('name')) {
-            $frequencies = $frequencies->where('name', 'LIKE', '%'.$request->get('name').'%');
-        }
+        // flush the pipe
+        $result = $pipe->flush();
 
-        if($request->has('description')) {
-            $frequencies = $frequencies->where('description', 'LIKE', '%'.$request->get('description').'%');
-        }
-
-        if($request->has('createdFrom')) {
-            $frequencies = $frequencies->where('created_at', '>=', $request->get('createdFrom').' 00:00:00');
-        }
-
-        if($request->has('createdAt')) {
-            $frequencies = $frequencies->where('created_at', '<=', $request->get('createdTo').' 23:59:59');
-        }
-
-        return response()->json(['frequencies' => $frequencies->get()]);
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
