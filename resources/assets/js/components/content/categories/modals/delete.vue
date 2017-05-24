@@ -1,44 +1,38 @@
-<template>
-    <div id="delete-category-modal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Category</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this Category.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" v-on:click="destroyCategory">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<template lang="pug">
+  #delete-category-modal.modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4.modal-title Delete Category
+        .modal-body
+          | Are you sure you want to delete this Category.
+        .modal-footer
+          button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') Close
+          button.btn.btn-success(type='button', v-on:click='destroyCategory') Delete
 </template>
 
 <script>
-    export default {
-        methods: {
-            destroyCategory: function () {
-                this.$http.delete(
-                    'http://local-finance-projections.com/api/category/' + this.$parent.deletingCategory.id
-                )
-                    .then(
-                        function (successResponse) {
-                            this.$parent.$parent.categories = this.$parent.$parent.categories.filter(
-                                category => category.id !== this.$parent.deletingCategory.id
-                            );
+  export default {
+    methods: {
+      destroyCategory: function () {
+        this.$http.delete(
+            'http://local-finance-projections.com/api/category/' + this.$parent.deletingCategory.id
+          )
+          .then(
+            function (successResponse) {
+              this.$parent.$parent.categories = this.$parent.$parent.categories.filter(
+                category => category.id !== this.$parent.deletingCategory.id
+              );
 
-                            $('#delete-category-modal').modal('hide');
-                        },
-                        function (failedResponse) {
-                            console.log(failedResponse);
-                        }
-                    );
+              $('#delete-category-modal').modal('hide');
+            },
+            function (failedResponse) {
+              console.log(failedResponse);
             }
-        }
+          );
+      }
     }
+  }
 </script>

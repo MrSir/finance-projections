@@ -1,54 +1,42 @@
-<template>
-    <div id="edit-category-modal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Category</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="edit-category-form" name="editCategoryForm" role="form">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name"
-                                       v-model="$parent.editingCategory.name">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="Description" v-model="$parent.editingCategory.description">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" v-on:click="updateCategory">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<template lang="pug">
+  #edit-category-modal.modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4.modal-title Edit Category
+        .modal-body
+          form#edit-category-form(name='editCategoryForm', role='form')
+            .box-body
+              .form-group
+                label(for='name') Name
+                input#name.form-control(type='text', name='name', placeholder='Name', v-model='$parent.editingCategory.name')
+              .form-group
+                label(for='description') Description
+                input#description.form-control(type='text', name='description', placeholder='Description', v-model='$parent.editingCategory.description')
+        .modal-footer
+          button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') Close
+          button.btn.btn-success(type='button', v-on:click='updateCategory') Save
 </template>
 
 <script>
-    export default {
-        methods: {
-            updateCategory: function () {
-                this.$http.put(
-                    'http://local-finance-projections.com/api/category/' + this.$parent.editingCategory.id,
-                    this.$parent.editingCategory
-                )
-                    .then(
-                        function (successResponse) {
-                            $('#edit-category-modal').modal('hide');
-                        },
-                        function (failedResponse) {
-                            console.log(failedResponse);
-                        }
-                    );
+  export default {
+    methods: {
+      updateCategory: function () {
+        this.$http.put(
+            'http://local-finance-projections.com/api/category/' + this.$parent.editingCategory.id,
+            this.$parent.editingCategory
+          )
+          .then(
+            function (successResponse) {
+              $('#edit-category-modal').modal('hide');
+            },
+            function (failedResponse) {
+              console.log(failedResponse);
             }
-        }
+          );
+      }
     }
+  }
 </script>

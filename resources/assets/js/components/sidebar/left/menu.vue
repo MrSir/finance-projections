@@ -1,43 +1,43 @@
-<template>
-    <ul class="sidebar-menu">
-        <li v-bind:class="{ active: active_route == 'home' }">
-            <a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
-        </li>
-        <li v-bind:class="{ active: active_route == 'transactions' }">
-            <a href="/transactions"><i class="fa fa-dollar"></i> <span>Transactions</span></a>
-        </li>
-        <li v-bind:class="{ active: active_route == 'accounts' }">
-            <a href="/accounts"><i class="fa fa-bank"></i> <span>Accounts</span></a>
-        </li>
-        <li v-bind:class="{ active: active_route == 'categories' }">
-            <a href="/categories">
-                <i class="fa fa-filter"></i> <span>Categories</span>
-            </a>
-        </li>
-        <li v-bind:class="{ active: active_route == 'frequencies' }">
-            <a href="/frequencies">
-                <i class="fa fa-calendar"></i> <span>Frequencies</span>
-            </a>
-        </li>
-        <li class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>Reports</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="#">Report 1</a></li>
-                <li><a href="#">Report 2</a></li>
-            </ul>
-        </li>
-    </ul>
+<template lang="pug">
+  ul.sidebar-menu
+    li(v-bind:class="{ active: active_route == 'home' }")
+      a(href='/')
+        i.fa.fa-home
+        span Home
+    li(v-bind:class="{ active: active_route == 'transactions' }")
+      a(href='/transactions')
+        i.fa.fa-dollar
+        span Transactions
+    li(v-bind:class="{ active: active_route == 'accounts' }")
+      a(href='/accounts')
+        i.fa.fa-bank
+        span Accounts
+    li(v-bind:class="{ active: active_route == 'categories' }")
+      a(href='/categories')
+        i.fa.fa-filter
+        span Categories
+    li(v-bind:class="{ active: active_route == 'frequencies' }")
+      a(href='/frequencies')
+        i.fa.fa-calendar
+        span Frequencies
+    li.treeview
+      a(href='#')
+        i.fa.fa-link
+        span Reports
+        span.pull-right-container
+          i.fa.fa-angle-left.pull-right
+      ul.treeview-menu
+        li
+          a(href='#') Report 1
+        li
+          a(href='#') Report 2
 </template>
 
 <script>
-    export default {
-        mounted() {
+  export default {
+    mounted() {
 
-        },
-        props: ['active_route']
-    }
+    },
+    props: ['active_route']
+  }
 </script>

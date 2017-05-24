@@ -1,44 +1,38 @@
-<template>
-    <div id="delete-account-modal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Account</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this Account.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" v-on:click="destroyAccount">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<template lang="pug">
+  #delete-account-modal.modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4.modal-title Delete Account
+        .modal-body
+          | Are you sure you want to delete this Account.
+        .modal-footer
+          button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') Close
+          button.btn.btn-success(type='button', v-on:click='destroyAccount') Delete
 </template>
 
 <script>
-    export default {
-        methods: {
-            destroyAccount: function () {
-                this.$http.delete(
-                    'http://local-finance-projections.com/api/account/' + this.$parent.deletingAccount.id
-                )
-                    .then(
-                        function (successResponse) {
-                            this.$parent.$parent.accounts = this.$parent.$parent.accounts.filter(
-                                account => account.id !== this.$parent.deletingAccount.id
-                            );
+  export default {
+    methods: {
+      destroyAccount: function () {
+        this.$http.delete(
+            'http://local-finance-projections.com/api/account/' + this.$parent.deletingAccount.id
+          )
+          .then(
+            function (successResponse) {
+              this.$parent.$parent.accounts = this.$parent.$parent.accounts.filter(
+                account => account.id !== this.$parent.deletingAccount.id
+              );
 
-                            $('#delete-account-modal').modal('hide');
-                        },
-                        function (failedResponse) {
-                            console.log(failedResponse);
-                        }
-                    );
+              $('#delete-account-modal').modal('hide');
+            },
+            function (failedResponse) {
+              console.log(failedResponse);
             }
-        }
+          );
+      }
     }
+  }
 </script>
