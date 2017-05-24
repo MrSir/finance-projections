@@ -12507,7 +12507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     storeCategory: function storeCategory() {
       this.$http.post('http://local-finance-projections.com/api/category', this.category).then(function (successResponse) {
-        this.$parent.$parent.categories.push(successResponse.body.category);
+        this.$parent.$parent.categories.push(successResponse.body.results);
         $('#create-category-modal').modal('hide');
       }, function (failedResponse) {
         console.log(failedResponse);

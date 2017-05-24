@@ -30,7 +30,7 @@
           )
           .then(
             function (successResponse) {
-              this.$parent.$parent.categories.push(successResponse.body.category);
+              this.$parent.$parent.categories.push(successResponse.body.results);
               $('#create-category-modal').modal('hide');
             },
             function (failedResponse) {
