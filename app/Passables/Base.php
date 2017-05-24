@@ -9,13 +9,13 @@
 namespace App\Passables;
 
 use Exception;
-use App\Http\Requests\Category\Index;
+use Illuminate\Foundation\Http\FormRequest;
 use App\Interfaces\Passables\Base as PassableBase;
 
 class Base implements PassableBase
 {
     /**
-     * @var Index
+     * @var FormRequest
      */
     protected $request;
 
@@ -35,7 +35,7 @@ class Base implements PassableBase
     protected $response;
 
     /**
-     * @return Index
+     * @return FormRequest
      */
     public function getRequest()
     {
@@ -43,7 +43,7 @@ class Base implements PassableBase
     }
 
     /**
-     * @param Index $request
+     * @param FormRequest $request
      */
     public function setRequest($request)
     {

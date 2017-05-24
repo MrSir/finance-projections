@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Requests\Category\Index as IndexRequest;
+use App\Http\Requests\Category\Index as RequestIndex;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
@@ -14,11 +14,11 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param IndexRequest $request
+     * @param RequestIndex $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(IndexRequest $request)
+    public function index(RequestIndex $request)
     {
         // instantiate the pipe
         $pipe = new Index();

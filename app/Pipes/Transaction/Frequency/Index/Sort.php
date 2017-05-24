@@ -24,7 +24,7 @@ class Sort extends IndexSort
     {
         parent::__construct(
             ExceptionSort::class,
-            'Category sort failed.'
+            'Frequency sort failed.'
         );
     }
 }

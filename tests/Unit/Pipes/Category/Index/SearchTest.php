@@ -2,15 +2,38 @@
 
 namespace App\Tests\Unit\Pipes\Category\Index;
 
+use App\Tests\Unit\Pipes\Index\Search as IndexSearch;
 use App\Passables\Category\Index;
 use App\Http\Requests\Category\Index as RequestIndex;
 use App\Pipes\Category\Index\Search;
-use App\Tests\TestCase;
-use Illuminate\Database\Eloquent\Builder;
 use Exception;
 
-class SearchTest extends TestCase
+/**
+ * Class SearchTest
+ * @package App\Tests\Unit\Pipes\Category\Index
+ */
+class SearchTest extends IndexSearch
 {
+    /**
+     * SearchTest constructor.
+     *
+     * @param null   $name
+     * @param array  $data
+     * @param string $dataName
+     */
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct(
+            $name,
+            $data,
+            $dataName
+        );
+
+        $this->setPassable(Index::class);
+        $this->setRequest(RequestIndex::class);
+        $this->setPipe(Search::class);
+    }
+
     /**
      * @group App
      * @group App.Pipes
@@ -21,21 +44,7 @@ class SearchTest extends TestCase
      */
     public function testSearchSuccess()
     {
-        $passable = new Index();
-        $passable->setRequest(
-            new RequestIndex()
-        );
-
-        $searchStep = new Search();
-
-        $searchStep->handle(
-            $passable,
-            function ($passable) {
-                $results = $passable->getQuery();
-
-                $this->assertEquals(Builder::class, get_class($results));
-            }
-        );
+        $this->searchSuccess();
     }
 
     /**
@@ -49,29 +58,7 @@ class SearchTest extends TestCase
      */
     public function testSearchByNameSuccess()
     {
-        $passable = new Index();
-        $passable->setRequest(
-            new RequestIndex(
-                [
-                    'name' => 'ransfer',
-                ]
-            )
-        );
-
-        $searchStep = new Search();
-
-        $searchStep->handle(
-            $passable,
-            function (Index $passable) {
-                $results = $passable->getQuery();
-                $whereClauses = $results->getQuery()->wheres;
-
-                $this->assertEquals(Builder::class, get_class($results));
-                $this->assertEquals('name', $whereClauses[0]['column']);
-                $this->assertEquals('LIKE', $whereClauses[0]['operator']);
-                $this->assertEquals('%ransfer%', $whereClauses[0]['value']);
-            }
-        );
+        $this->searchByNameSuccess();
     }
 
     /**
@@ -85,29 +72,7 @@ class SearchTest extends TestCase
      */
     public function testSearchByDescriptionSuccess()
     {
-        $passable = new Index();
-        $passable->setRequest(
-            new RequestIndex(
-                [
-                    'description' => 'ransfer',
-                ]
-            )
-        );
-
-        $searchStep = new Search();
-
-        $searchStep->handle(
-            $passable,
-            function (Index $passable) {
-                $results = $passable->getQuery();
-                $whereClauses = $results->getQuery()->wheres;
-
-                $this->assertEquals(Builder::class, get_class($results));
-                $this->assertEquals('description', $whereClauses[0]['column']);
-                $this->assertEquals('LIKE', $whereClauses[0]['operator']);
-                $this->assertEquals('%ransfer%', $whereClauses[0]['value']);
-            }
-        );
+        $this->searchByDescriptionSuccess();
     }
 
     /**
@@ -123,17 +88,6 @@ class SearchTest extends TestCase
      */
     public function testSearchFailure()
     {
-        $passable = new Index();
-
-        $searchStep = new Search();
-
-        $searchStep->handle(
-            $passable,
-            function ($passable) {
-                $results = $passable->getQuery();
-
-                $this->assertEquals(Builder::class, get_class($results));
-            }
-        );
+        $this->searchFailure();
     }
 }

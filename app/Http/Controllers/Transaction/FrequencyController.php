@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction\Frequency;
 use App\Http\Requests;
-use App\Http\Requests\Frequency\IndexRequest;
+use App\Http\Requests\Transaction\Frequency\Index as RequestIndex;
 use App\Http\Requests\Frequency\StoreRequest;
 use App\Http\Requests\Frequency\UpdateRequest;
 use App\Pipelines\Transaction\Frequency\Index;
@@ -15,10 +15,11 @@ class FrequencyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param IndexRequest $request
+     * @param RequestIndex $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(IndexRequest $request)
+    public function index(RequestIndex $request)
     {
         // instantiate the pipe
         $pipe = new Index();
