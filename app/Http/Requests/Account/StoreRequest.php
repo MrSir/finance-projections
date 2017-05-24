@@ -6,7 +6,7 @@
  * Time: 7:33 PM
  */
 
-namespace App\Http\Requests\Account;
+namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 

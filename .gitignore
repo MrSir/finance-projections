@@ -1,7 +1,5 @@
 vendor/
 node_modules/
-
-# Laravel 5 & Lumen specific
 bootstrap/cache/
 storage/
 .idea/
@@ -9,3 +7,4 @@ storage/
 .env.*.php
 .env.php
 .env
+build
