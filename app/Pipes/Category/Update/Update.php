@@ -25,10 +25,7 @@ class Update extends UpdateUpdate
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionUpdate::class,
-            'Category update failed.'
-        );
+        parent::__construct(ExceptionUpdate::class);
     }
 
     /**
@@ -45,11 +42,7 @@ class Update extends UpdateUpdate
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 
-            throw new $exceptionType(
-                $this->getExceptionMessage(),
-                500,
-                $e
-            );
+            throw new $exceptionType($e);
         }
 
         return $next($passable);

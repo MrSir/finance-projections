@@ -22,9 +22,6 @@ class Format extends StoreFormat
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionFormat::class,
-            'Account format failed.'
-        );
+        parent::__construct(ExceptionFormat::class);
     }
 }

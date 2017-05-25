@@ -9,8 +9,25 @@
 namespace App\Exceptions\Account\Store;
 
 use Exception;
+use Throwable;
 
+/**
+ * Class Create
+ * @package App\Exceptions\Account\Store
+ */
 class Create extends Exception
 {
-
+    /**
+     * Create constructor.
+     *
+     * @param Throwable|null $previous
+     */
+    public function __construct(Throwable $previous = null)
+    {
+        parent::__construct(
+            'Account create failed.',
+            500,
+            $previous
+        );
+    }
 }

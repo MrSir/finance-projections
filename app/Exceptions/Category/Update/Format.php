@@ -9,8 +9,25 @@
 namespace App\Exceptions\Category\Update;
 
 use Exception;
+use Throwable;
 
+/**
+ * Class Format
+ * @package App\Exceptions\Category\Update
+ */
 class Format extends Exception
 {
-
+    /**
+     * Format constructor.
+     *
+     * @param Throwable|null $previous
+     */
+    public function __construct(Throwable $previous = null)
+    {
+        parent::__construct(
+            'Category format failed.',
+            500,
+            $previous
+        );
+    }
 }
