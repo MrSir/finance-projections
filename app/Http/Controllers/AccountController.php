@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Account\StoreRequest;
-use App\Http\Requests\Account\UpdateRequest;
 use App\Http\Requests\Account\Index as RequestIndex;
+use App\Http\Requests\Account\Store as RequestStore;
+use App\Http\Requests\Account\UpdateRequest;
 use App\Models\Account;
 use App\Pipelines\Account\Index;
+use App\Pipelines\Account\Store;
 
 class AccountController extends Controller
 {
@@ -35,45 +36,23 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param RequestStore $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreRequest $request)
+    public function store(RequestStore $request)
     {
-        $account = new Account($request->all());
-        $account->save();
+        // instantiate the pipe
+        $pipe = new Store();
+        $pipe->fill($request);
 
-        return response()->json(
-            [
-                'message' => 'Successfully stored Account.',
-                'account' => $account,
-            ]
-        );
-    }
+        // flush the pipe
+        $result = $pipe->flush();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
