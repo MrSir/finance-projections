@@ -6,16 +6,16 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Transaction\Frequency\Index;
+namespace App\Pipes\Transaction\Frequency\Store;
 
-use App\Exceptions\Transaction\Frequency\Index\Format as ExceptionFormat;
-use App\Pipes\Index\Format as IndexFormat;
+use App\Exceptions\Transaction\Frequency\Store\Format as ExceptionFormat;
+use App\Pipes\Store\Format as StoreFormat;
 
 /**
  * Class Format
- * @package App\Pipes\Transaction\Frequency\Index
+ * @package App\Pipes\Transaction\Frequency\Store
  */
-class Format extends IndexFormat
+class Format extends StoreFormat
 {
     /**
      * Format constructor.

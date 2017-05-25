@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Account\Index;
 
-use App\Exceptions\Account\Format as ExceptionFormat;
+use App\Exceptions\Account\Index\Format as ExceptionFormat;
 use App\Pipes\Index\Format as IndexFormat;
 
 /**

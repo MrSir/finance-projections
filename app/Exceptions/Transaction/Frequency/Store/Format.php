@@ -6,11 +6,11 @@
  * Time: 2:31 PM
  */
 
-namespace App\Exceptions\Account;
+namespace App\Exceptions\Transaction\Frequency\Store;
 
 use Exception;
 
-class Sort extends Exception
+class Format extends Exception
 {
 
 }

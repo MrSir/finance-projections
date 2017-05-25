@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Transaction\Frequency\Index;
 
-use App\Exceptions\Transaction\Frequency\Search as ExceptionSearch;
+use App\Exceptions\Transaction\Frequency\Index\Search as ExceptionSearch;
 use App\Models\Transaction\Frequency;
 use App\Passables\Transaction\Frequency\Index;
 use App\Pipes\Index\Search as IndexSearch;

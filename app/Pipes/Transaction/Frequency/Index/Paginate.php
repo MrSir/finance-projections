@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Transaction\Frequency\Index;
 
-use App\Exceptions\Transaction\Frequency\Paginate as ExceptionPaginate;
+use App\Exceptions\Transaction\Frequency\Index\Paginate as ExceptionPaginate;
 use App\Pipes\Index\Paginate as IndexPaginate;
 
 /**

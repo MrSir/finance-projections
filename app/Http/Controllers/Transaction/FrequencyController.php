@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaction\Frequency;
 use App\Http\Requests;
 use App\Http\Requests\Transaction\Frequency\Index as RequestIndex;
-use App\Http\Requests\Frequency\StoreRequest;
+use App\Http\Requests\Transaction\Frequency\Store as RequestStore;
 use App\Http\Requests\Frequency\UpdateRequest;
 use App\Pipelines\Transaction\Frequency\Index;
+use App\Pipelines\Transaction\Frequency\Store;
 
 class FrequencyController extends Controller
 {
@@ -35,52 +36,24 @@ class FrequencyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param RequestStore $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreRequest $request)
+    public function store(RequestStore $request)
     {
-        $frequency = new Frequency($request->all());
-        $frequency->save();
+        // instantiate the pipe
+        $pipe = new Store();
+        $pipe->fill($request);
 
-        return response()->json([
-            'message' => 'Successfully stored Frequency.',
-            'frequency' => $frequency
-        ]);
-    }
+        // flush the pipe
+        $result = $pipe->flush();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**

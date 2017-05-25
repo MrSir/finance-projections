@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Transaction\Frequency\Index;
 
-use App\Exceptions\Transaction\Frequency\Sort as ExceptionSort;
+use App\Exceptions\Transaction\Frequency\Index\Sort as ExceptionSort;
 use App\Pipes\Index\Sort as IndexSort;
 
 /**

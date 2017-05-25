@@ -6,11 +6,11 @@
  * Time: 2:31 PM
  */
 
-namespace App\Exceptions\Transaction\Frequency;
+namespace App\Exceptions\Transaction\Frequency\Store;
 
 use Exception;
 
-class Paginate extends Exception
+class Create extends Exception
 {
 
 }

@@ -6,11 +6,11 @@
  * Time: 7:33 PM
  */
 
-namespace App\Http\Requests\Frequency;
+namespace App\Http\Requests\Transaction\Frequency;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class Store extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -8,7 +8,7 @@
 
 namespace App\Pipes\Account\Index;
 
-use App\Exceptions\Account\Sort as ExceptionSort;
+use App\Exceptions\Account\Index\Sort as ExceptionSort;
 use App\Pipes\Index\Sort as IndexSort;
 
 /**

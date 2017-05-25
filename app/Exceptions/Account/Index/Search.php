@@ -6,7 +6,7 @@
  * Time: 2:31 PM
  */
 
-namespace App\Exceptions\Transaction\Frequency;
+namespace App\Exceptions\Account\Index;
 
 use Exception;
 
