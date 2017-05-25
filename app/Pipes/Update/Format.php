@@ -30,20 +30,19 @@ abstract class Format extends Pipe
     public function handle(Update &$passable, Closure $next)
     {
         try {
+            $model = $passable->getModel();
+
             $response = [
                 'code' => 200,
-                'results' => $passable->getModel(),
+                'id' => (int)$model->id,
+                'results' => $model,
             ];
 
             $passable->setResponse($response);
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 
-            throw new $exceptionType(
-                $this->getExceptionMessage(),
-                500,
-                $e
-            );
+            throw new $exceptionType($e);
         }
 
         return $next($passable);

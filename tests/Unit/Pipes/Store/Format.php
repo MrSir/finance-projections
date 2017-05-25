@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Index;
+namespace App\Tests\Unit\Pipes\Store;
 
 use App\Tests\TestCase;
 use Exception;
 
 /**
  * Class Format
- * @package App\Tests\Unit\Pipes\Index
+ * @package App\Tests\Unit\Pipes\Store
  */
 class Format extends TestCase
 {
@@ -83,17 +83,8 @@ class Format extends TestCase
         $pipeClass = $this->getPipe();
         $modelClass = $this->getModel();
 
-        $results = collect(
-            [
-                $modelClass::find(2),
-            ]
-        );
-
         $passable = new $passableClass();
-        $passable->setResults($results);
-        $passable->setPerPage(10);
-        $passable->setPage(3);
-        $passable->setTotals(1);
+        $passable->setModel($modelClass::find(2));
 
         $pipe = new $pipeClass();
 
@@ -107,20 +98,8 @@ class Format extends TestCase
                     $results['code']
                 );
                 $this->assertEquals(
-                    1,
-                    $results['totals']
-                );
-                $this->assertEquals(
-                    10,
-                    $results['per_page']
-                );
-                $this->assertEquals(
-                    3,
-                    $results['page']
-                );
-                $this->assertEquals(
                     2,
-                    $results['results'][0]->id
+                    $results['results']->id
                 );
             }
         );
@@ -137,7 +116,7 @@ class Format extends TestCase
         $passable = new $passableClass();
 
         // force the page getter to throw an exception
-        $passable->setPage(
+        $passable->setModel(
             function () {
                 throw new Exception('test');
             }
@@ -148,6 +127,7 @@ class Format extends TestCase
             $passable,
             function ($passable) {
                 //do nothing
+                dd((int)$passable->getModel());
             }
         );
     }

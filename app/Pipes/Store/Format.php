@@ -30,9 +30,12 @@ abstract class Format extends Pipe
     public function handle(Store &$passable, Closure $next)
     {
         try {
+            $model = $passable->getModel();
+
             $response = [
                 'code' => 200,
-                'results' => $passable->getModel(),
+                'id' => (int)$model->id,
+                'results' => $model,
             ];
 
             $passable->setResponse($response);

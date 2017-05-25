@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Category\Store;
+namespace App\Tests\Unit\Pipes\Account\Store;
 
-use App\Http\Requests\Category\Store as RequestStore;
-use App\Models\Category;
-use App\Passables\Category\Store;
-use App\Pipes\Category\Store\Create;
+use App\Http\Requests\Account\Store as RequestStore;
+use App\Models\Account;
+use App\Passables\Account\Store;
+use App\Pipes\Account\Store\Create;
 use App\Tests\Unit\Pipes\Store\Create as StoreCreate;
 use Exception;
 
 /**
  * Class SearchTest
- * @package App\Tests\Unit\Pipes\Category\Store
+ * @package App\Tests\Unit\Pipes\Account\Store
  */
-class StoreTest extends StoreCreate
+class CreateTest extends StoreCreate
 {
     /**
      * SearchTest constructor.
@@ -38,21 +38,21 @@ class StoreTest extends StoreCreate
     /**
      * @group App
      * @group App.Pipes
-     * @group App.Pipes.Category
-     * @group App.Pipes.Category.Store
-     * @group App.Pipes.Category.Store.Create
-     * @group App.Pipes.Category.Store.Create.Success
+     * @group App.Pipes.Account
+     * @group App.Pipes.Account.Store
+     * @group App.Pipes.Account.Store.Create
+     * @group App.Pipes.Account.Store.Create.Success
      */
     public function testCreateSuccess()
     {
         $params = [
             'name' => 'Testing',
-            'description' => 'A category built for testing',
+            'description' => 'An account built for testing',
         ];
         $this->setParams($params);
 
         $responseModel = $this->createSuccess();
-        $dbModel = Category::find($responseModel->id);
+        $dbModel = Account::find($responseModel->id);
 
         $this->assertEquals(
             $params['name'],
@@ -76,13 +76,13 @@ class StoreTest extends StoreCreate
     /**
      * @group                    App
      * @group                    App.Pipes
-     * @group                    App.Pipes.Category
-     * @group                    App.Pipes.Category.Store
-     * @group                    App.Pipes.Category.Store.Create
-     * @group                    App.Pipes.Category.Store.Create.Failure
+     * @group                    App.Pipes.Account
+     * @group                    App.Pipes.Account.Store
+     * @group                    App.Pipes.Account.Store.Create
+     * @group                    App.Pipes.Account.Store.Create.Failure
      * @expectedExceptionCode    500
      * @expectedException Exception
-     * @expectedExceptionMessage Category create failed.
+     * @expectedExceptionMessage Account create failed.
      */
     public function testCreateFailure()
     {

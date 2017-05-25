@@ -13,7 +13,7 @@ use Exception;
  * Class SearchTest
  * @package App\Tests\Unit\Pipes\Transaction\Frequency\Store
  */
-class StoreTest extends StoreCreate
+class CreateTest extends StoreCreate
 {
     /**
      * SearchTest constructor.
