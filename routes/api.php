@@ -13,6 +13,51 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')
+    ->get(
+        '/user',
+        function (Request $request) {
+            return $request->user();
+        }
+    );
+
+Route::resource(
+    '/account',
+    'AccountController',
+    [
+        'only' => [
+            'index',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);
+Route::resource(
+    '/category',
+    'CategoryController',
+    [
+        'only' => [
+            'index',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);
+Route::resource(
+    '/transaction/frequency',
+    'Transaction\FrequencyController',
+    [
+        'only' => [
+            'index',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
+);
+Route::resource(
+    '/transaction',
+    'TransactionController'
+);

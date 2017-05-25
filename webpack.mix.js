@@ -12,4 +12,8 @@ const { mix } = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css')
+
+    //Admin LTE
+    .copy('node_modules/admin-lte/dist/css/AdminLTE.css', 'public/css')
+    .copy('node_modules/admin-lte/dist/css/skins/skin-purple.css', 'public/css');

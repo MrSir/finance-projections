@@ -1,0 +1,1 @@
+<sidebar-left-menu active_route="{{ Route::currentRouteName() }}"></sidebar-left-menu>

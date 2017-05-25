@@ -12,8 +12,34 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component(
+    'sidebar-left-menu',
+    require('./components/sidebar/left/menu.vue')
+);
 
-Vue.component('example', require('./components/Example.vue'));
+// Accounts
+Vue.component(
+    'content-accounts',
+    require('./components/content/accounts/page.vue')
+);
+
+// Categories
+Vue.component(
+    'content-categories',
+    require('./components/content/categories/page.vue')
+);
+
+// Frequencies
+Vue.component(
+    'content-frequencies',
+    require('./components/content/frequencies/page.vue')
+);
+
+// Transactions
+Vue.component(
+    'content-transactions',
+    require('./components/content/transactions/page.vue')
+);
 
 const app = new Vue({
     el: '#app'

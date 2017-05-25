@@ -6,6 +6,8 @@ alias fucking=sudo
 apt-get update
 apt-get -y install python-software-properties
 
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+
 # add needed repos and update #
 apt-get update
 
@@ -44,10 +46,10 @@ apt-get -y install mysql-server php-mysql
 mysql -uroot -pTest1234 -e "CREATE USER 'root'@'%' IDENTIFIED BY 'Test1234'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;"
 
 # create promo2016 db #
-mysql -uroot -pTest1234 -e "CREATE DATABASE finance-projections CHARSET utf8 COLLATE utf8_unicode_ci;"
+mysql -uroot -pTest1234 -e "CREATE DATABASE finance_projections CHARSET utf8 COLLATE utf8_unicode_ci;"
 
 # add permissions to root for promo2016 tables #
-mysql -uroot -pTest1234 -e "GRANT ALL PRIVILEGES ON finance-projections.* TO 'root'@'localhost';"
+mysql -uroot -pTest1234 -e "GRANT ALL PRIVILEGES ON finance_projections.* TO 'root'@'localhost';"
 
 # change mysql config  #
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
