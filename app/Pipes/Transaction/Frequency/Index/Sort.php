@@ -22,9 +22,6 @@ class Sort extends IndexSort
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionSort::class,
-            'Frequency sort failed.'
-        );
+        parent::__construct(ExceptionSort::class);
     }
 }

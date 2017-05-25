@@ -26,10 +26,7 @@ class Search extends IndexSearch
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionSearch::class,
-            'Category search failed.'
-        );
+        parent::__construct(ExceptionSearch::class);
 
         $this->setModel(Category::class);
     }
@@ -69,11 +66,7 @@ class Search extends IndexSearch
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 
-            throw new $exceptionType(
-                $this->getExceptionMessage(),
-                500,
-                $e
-            );
+            throw new $exceptionType($e);
         }
 
         return $next($passable);

@@ -22,9 +22,6 @@ class Format extends IndexFormat
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionFormat::class,
-            'Category format failed.'
-        );
+        parent::__construct(ExceptionFormat::class);
     }
 }
