@@ -10,7 +10,16 @@ namespace App\Passables\Account;
 
 use App\Passables\Store as BaseStore;
 
+/**
+ * Class Store
+ * @package App\Passables\Account
+ */
 class Store extends BaseStore
 {
-
+    /**
+     * Store constructor.
+     */
+    public function __construct()
+    {
+    }
 }

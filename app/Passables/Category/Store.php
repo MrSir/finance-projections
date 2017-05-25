@@ -16,5 +16,10 @@ use App\Passables\Store as BaseStore;
  */
 class Store extends BaseStore
 {
-
+    /**
+     * Store constructor.
+     */
+    public function __construct()
+    {
+    }
 }

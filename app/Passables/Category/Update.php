@@ -16,5 +16,10 @@ use App\Passables\Update as BaseUpdate;
  */
 class Update extends BaseUpdate
 {
-
+    /**
+     * Update constructor.
+     */
+    public function __construct()
+    {
+    }
 }

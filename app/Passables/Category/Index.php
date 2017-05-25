@@ -16,5 +16,10 @@ use App\Passables\Index as PassableIndex;
  */
 class Index extends PassableIndex
 {
-
+    /**
+     * Index constructor.
+     */
+    public function __construct()
+    {
+    }
 }

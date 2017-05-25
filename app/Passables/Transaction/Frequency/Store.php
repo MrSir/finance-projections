@@ -10,7 +10,16 @@ namespace App\Passables\Transaction\Frequency;
 
 use App\Passables\Store as BaseStore;
 
+/**
+ * Class Store
+ * @package App\Passables\Transaction\Frequency
+ */
 class Store extends BaseStore
 {
-
+    /**
+     * Store constructor.
+     */
+    public function __construct()
+    {
+    }
 }

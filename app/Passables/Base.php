@@ -8,9 +8,9 @@
 
 namespace App\Passables;
 
+use App\Interfaces\Passables\Base as PassableBase;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Interfaces\Passables\Base as PassableBase;
 
 /**
  * Class Base
@@ -22,16 +22,6 @@ class Base implements PassableBase
      * @var FormRequest
      */
     protected $request;
-
-    /**
-     * @var int
-     */
-    protected $status;
-
-    /**
-     * @var Exception
-     */
-    protected $exception;
 
     /**
      * @var array
@@ -52,38 +42,6 @@ class Base implements PassableBase
     public function setRequest($request)
     {
         $this->request = $request;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return Exception
-     */
-    public function getException()
-    {
-        return $this->exception;
-    }
-
-    /**
-     * @param Exception $exception
-     */
-    public function setException($exception)
-    {
-        $this->exception = $exception;
     }
 
     /**

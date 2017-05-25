@@ -13,12 +13,6 @@ interface Base
     public function getRequest();
     public function setRequest($request);
 
-    public function getStatus();
-    public function setStatus($status);
-
-    public function getException();
-    public function setException($exception);
-
     public function getResponse();
     public function setResponse($response);
 }

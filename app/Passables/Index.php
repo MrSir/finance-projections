@@ -9,8 +9,8 @@
 namespace App\Passables;
 
 use App\Interfaces\Passables\Index as PassableIndex;
-use Illuminate\Support\Collection;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Index
