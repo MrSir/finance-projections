@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Category\Store;
+namespace App\Tests\Unit\Pipes\Category\Update;
 
-use App\Http\Requests\Category\Store as RequestStore;
+use App\Http\Requests\Category\Update as RequestUpdate;
 use App\Models\Category;
-use App\Passables\Category\Store;
-use App\Pipes\Category\Store\Create;
-use App\Tests\Unit\Pipes\Store\Create as StoreCreate;
+use App\Passables\Category\Update as PassableUpdate;
+use App\Pipes\Category\Update\Update;
+use App\Tests\Unit\Pipes\Update\Update as PipeUpdate;
 use Exception;
 
 /**
  * Class SearchTest
- * @package App\Tests\Unit\Pipes\Category\Store
+ * @package App\Tests\Unit\Pipes\Category\Update
  */
-class StoreTest extends StoreCreate
+class UpdateTest extends PipeUpdate
 {
     /**
      * SearchTest constructor.
@@ -30,28 +30,29 @@ class StoreTest extends StoreCreate
             $dataName
         );
 
-        $this->setPassable(Store::class);
-        $this->setRequest(RequestStore::class);
-        $this->setPipe(Create::class);
+        $this->setPassable(PassableUpdate::class);
+        $this->setRequest(RequestUpdate::class);
+        $this->setPipe(Update::class);
     }
 
     /**
      * @group App
      * @group App.Pipes
      * @group App.Pipes.Category
-     * @group App.Pipes.Category.Store
-     * @group App.Pipes.Category.Store.Create
-     * @group App.Pipes.Category.Store.Create.Success
+     * @group App.Pipes.Category.Update
+     * @group App.Pipes.Category.Update.Update
+     * @group App.Pipes.Category.Update.Update.Success
      */
-    public function testCreateSuccess()
+    public function testUpdateSuccess()
     {
         $params = [
             'name' => 'Testing',
             'description' => 'A category built for testing',
         ];
         $this->setParams($params);
+        $this->setModel(Category::find(2));
 
-        $responseModel = $this->createSuccess();
+        $responseModel = $this->updateSuccess();
         $dbModel = Category::find($responseModel->id);
 
         $this->assertEquals(
@@ -77,15 +78,15 @@ class StoreTest extends StoreCreate
      * @group                    App
      * @group                    App.Pipes
      * @group                    App.Pipes.Category
-     * @group                    App.Pipes.Category.Store
-     * @group                    App.Pipes.Category.Store.Create
-     * @group                    App.Pipes.Category.Store.Create.Failure
+     * @group                    App.Pipes.Category.Update
+     * @group                    App.Pipes.Category.Update.Update
+     * @group                    App.Pipes.Category.Update.Update.Failure
      * @expectedExceptionCode    500
      * @expectedException Exception
-     * @expectedExceptionMessage Category create failed.
+     * @expectedExceptionMessage Category update failed.
      */
-    public function testCreateFailure()
+    public function testUpdateFailure()
     {
-        $this->createFailure();
+        $this->updateFailure();
     }
 }

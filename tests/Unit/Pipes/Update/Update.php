@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Store;
+namespace App\Tests\Unit\Pipes\Update;
 
 use App\Tests\TestCase;
+use Illuminate\Database\Eloquent\Model;
 
-class Create extends TestCase
+class Update extends TestCase
 {
     /**
      * @var string
@@ -25,6 +26,11 @@ class Create extends TestCase
      * @var array
      */
     protected $params;
+
+    /**
+     * @var Model;
+     */
+    protected $model;
 
     /**
      * @return string
@@ -91,19 +97,37 @@ class Create extends TestCase
     }
 
     /**
-     * Create Success
+     * @return Model
      */
-    public function createSuccess()
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param Model $model
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Update Success
+     */
+    public function updateSuccess()
     {
         $passableClass = $this->getPassable();
         $requestClass = $this->getRequest();
         $pipeClass = $this->getPipe();
         $params = $this->getParams();
+        $model = $this->getModel();
 
         $passable = new $passableClass();
         $passable->setRequest(
             new $requestClass($params)
         );
+        $passable->setModel($model);
 
         $pipe = new $pipeClass();
 
@@ -116,9 +140,9 @@ class Create extends TestCase
     }
 
     /**
-     * Create failure
+     * Update failure
      */
-    public function createFailure()
+    public function updateFailure()
     {
         $passableClass = $this->getPassable();
         $pipeClass = $this->getPipe();
