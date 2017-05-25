@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Account\Index as RequestIndex;
 use App\Http\Requests\Account\Store as RequestStore;
-use App\Http\Requests\Account\UpdateRequest;
+use App\Http\Requests\Account\Update as RequestUpdate;
 use App\Models\Account;
 use App\Pipelines\Account\Index;
 use App\Pipelines\Account\Store;
+use App\Pipelines\Account\Update;
 
 class AccountController extends Controller
 {
@@ -58,21 +59,24 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateRequest $request
-     * @param Account       $account
+     * @param RequestUpdate  $request
+     * @param Account $account
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRequest $request, Account $account)
+    public function update(RequestUpdate $request, Account $account)
     {
-        $account->fill($request->all());
-        $account->save();
+        // instantiate the pipe
+        $pipe = new Update();
+        $pipe->fill($request, $account);
 
-        return response()->json(
-            [
-                'account' => $account,
-            ]
-        );
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
