@@ -59,8 +59,8 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param RequestUpdate  $request
-     * @param Account $account
+     * @param RequestUpdate $request
+     * @param Account       $account
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -68,7 +68,10 @@ class AccountController extends Controller
     {
         // instantiate the pipe
         $pipe = new Update();
-        $pipe->fill($request, $account);
+        $pipe->fill(
+            $request,
+            $account
+        );
 
         // flush the pipe
         $result = $pipe->flush();
