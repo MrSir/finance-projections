@@ -23,7 +23,15 @@ Route::middleware('auth:api')
 
 Route::resource(
     '/account',
-    'AccountController'
+    'AccountController',
+    [
+        'only' => [
+            'index',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
 );
 Route::resource(
     '/category',
