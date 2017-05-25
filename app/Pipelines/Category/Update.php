@@ -8,30 +8,30 @@
 
 namespace App\Pipelines\Category;
 
-use App\Passables\Category\Index as PassableIndex;
+use App\Passables\Category\Update as PassableUpdate;
 use App\Pipelines\Pipeline;
-use App\Pipes\Category\Index\Format;
-use App\Pipes\Category\Index\Paginate;
-use App\Pipes\Category\Index\Search;
-use App\Pipes\Category\Index\Sort;
+use App\Pipes\Category\Update\Update as PipeUpdate;
+use App\Pipes\Category\Update\Format;
 
 /**
- * Class Index
+ * Class Update
  * @package App\Pipelines\Category
  */
-class Index extends Pipeline
+class Update extends Pipeline
 {
     /**
      * This is the fill function, it initializes the pipeline
      *
      * @param $request
+     * @param $category
      *
      * @return $this
      */
-    public function fill($request)
+    public function fill($request, $category)
     {
-        $passable = new PassableIndex();
+        $passable = new PassableUpdate();
         $passable->setRequest($request);
+        $passable->setModel($category);
 
         $this->setPassable($passable);
 
@@ -40,7 +40,6 @@ class Index extends Pipeline
 
     /**
      * This is the flush function, it executes the entire pipe
-     *
      * @return array
      */
     public function flush()
@@ -48,14 +47,12 @@ class Index extends Pipeline
         return $this->send($this->getPassable())
             ->through(
                 [
-                    Search::class,
-                    Sort::class,
-                    Paginate::class,
-                    Format::class
+                    PipeUpdate::class,
+                    Format::class,
                 ]
             )
             ->then(
-                function (PassableIndex $passable) {
+                function (PassableUpdate $passable) {
                     return $passable->getResponse();
                 }
             );

@@ -12,6 +12,10 @@ use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Interfaces\Passables\Base as PassableBase;
 
+/**
+ * Class Base
+ * @package App\Passables
+ */
 class Base implements PassableBase
 {
     /**

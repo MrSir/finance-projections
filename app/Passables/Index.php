@@ -12,6 +12,10 @@ use App\Interfaces\Passables\Index as PassableIndex;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Query\Builder;
 
+/**
+ * Class Index
+ * @package App\Passables
+ */
 class Index extends Base implements PassableIndex
 {
     /**

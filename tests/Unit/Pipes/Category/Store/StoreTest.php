@@ -5,7 +5,7 @@ namespace App\Tests\Unit\Pipes\Category\Store;
 use App\Http\Requests\Category\Store as RequestStore;
 use App\Models\Category;
 use App\Passables\Category\Store;
-use App\Pipes\Category\Store\Create;
+use App\Pipes\Category\Store\Update;
 use App\Tests\Unit\Pipes\Store\Create as StoreCreate;
 use Exception;
 
@@ -32,7 +32,7 @@ class StoreTest extends StoreCreate
 
         $this->setPassable(Store::class);
         $this->setRequest(RequestStore::class);
-        $this->setPipe(Create::class);
+        $this->setPipe(Update::class);
     }
 
     /**

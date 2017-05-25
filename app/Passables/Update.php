@@ -8,14 +8,14 @@
 
 namespace App\Passables;
 
-use App\Interfaces\Passables\Store as PassableStore;
+use App\Interfaces\Passables\Update as PassableUpdate;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Store
+ * Class Update
  * @package App\Passables
  */
-class Store extends Base implements PassableStore
+class Update extends Base implements PassableUpdate
 {
     /**
      * @var Model

@@ -10,6 +10,10 @@ namespace App\Passables\Category;
 
 use App\Passables\Index as PassableIndex;
 
+/**
+ * Class Index
+ * @package App\Passables\Category
+ */
 class Index extends PassableIndex
 {
 

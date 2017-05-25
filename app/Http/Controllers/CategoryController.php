@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\Index as RequestIndex;
 use App\Http\Requests\Category\Store as RequestStore;
-use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Requests\Category\Update as RequestUpdate;
 use App\Models\Category;
 use App\Pipelines\Category\Index;
 use App\Pipelines\Category\Store;
+use App\Pipelines\Category\Update;
 
 class CategoryController extends Controller
 {
@@ -58,21 +59,24 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateRequest $request
-     * @param Category      $category
+     * @param RequestUpdate   $request
+     * @param Category $category
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRequest $request, Category $category)
+    public function update(RequestUpdate $request, Category $category)
     {
-        $category->fill($request->all());
-        $category->save();
+        // instantiate the pipe
+        $pipe = new Update();
+        $pipe->fill($request, $category);
 
-        return response()->json(
-            [
-                'category' => $category,
-            ]
-        );
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**

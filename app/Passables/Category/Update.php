@@ -8,13 +8,13 @@
 
 namespace App\Passables\Category;
 
-use App\Passables\Store as BaseStore;
+use App\Passables\Update as BaseUpdate;
 
 /**
- * Class Store
+ * Class Update
  * @package App\Passables\Category
  */
-class Store extends BaseStore
+class Update extends BaseUpdate
 {
 
 }
