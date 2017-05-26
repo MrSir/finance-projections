@@ -31,3 +31,4 @@ class Format extends Exception
         );
     }
 }
+
