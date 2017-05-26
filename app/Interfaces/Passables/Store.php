@@ -8,8 +8,21 @@
 
 namespace App\Interfaces\Passables;
 
+/**
+ * Interface Store
+ * @package App\Interfaces\Passables
+ */
 interface Store extends Base
 {
+    /**
+     * @param $model
+     *
+     * @return mixed
+     */
     public function setModel($model);
+
+    /**
+     * @return mixed
+     */
     public function getModel();
 }

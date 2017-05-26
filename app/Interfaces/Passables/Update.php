@@ -8,8 +8,21 @@
 
 namespace App\Interfaces\Passables;
 
+/**
+ * Interface Update
+ * @package App\Interfaces\Passables
+ */
 interface Update extends Base
 {
+    /**
+     * @param $model
+     *
+     * @return mixed
+     */
     public function setModel($model);
+
+    /**
+     * @return mixed
+     */
     public function getModel();
 }
