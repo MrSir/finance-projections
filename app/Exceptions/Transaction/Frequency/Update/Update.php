@@ -31,4 +31,3 @@ class Update extends Exception
         );
     }
 }
-
