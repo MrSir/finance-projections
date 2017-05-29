@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Transaction\Frequency\Index as RequestIndex;
 use App\Http\Requests\Transaction\Frequency\Store as RequestStore;
 use App\Http\Requests\Transaction\Frequency\Update as RequestUpdate;
+use App\Http\Requests\Transaction\Frequency\Destroy as RequestDestroy;
 use App\Models\Transaction\Frequency;
 use App\Pipelines\Transaction\Frequency\Index;
 use App\Pipelines\Transaction\Frequency\Store;
 use App\Pipelines\Transaction\Frequency\Update;
+use App\Pipelines\Transaction\Frequency\Destroy;
 
 class FrequencyController extends Controller
 {
@@ -86,18 +88,26 @@ class FrequencyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param RequestDestroy $request
      * @param Frequency $frequency
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Frequency $frequency)
+    public function destroy(RequestDestroy $request, Frequency $frequency)
     {
-        $frequency->delete();
-
-        return response()->json(
-            [
-                'frequency' => $frequency,
-            ]
+        // instantiate the pipe
+        $pipe = new Destroy();
+        $pipe->fill(
+            $request,
+            $frequency
         );
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 }

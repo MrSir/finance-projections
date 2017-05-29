@@ -38,7 +38,7 @@ class Delete extends DestroyDelete
     public function handle(PassableDestroy &$passable, Closure $next)
     {
         try {
-            $this->updateModel($passable);
+            $this->deleteModel($passable);
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 

@@ -6,17 +6,17 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Account\Destroy;
+namespace App\Pipes\Transaction\Frequency\Destroy;
 
-use App\Exceptions\Account\Destroy\Delete as ExceptionDelete;
+use App\Exceptions\Transaction\Frequency\Destroy\Delete as ExceptionDelete;
 use App\Pipes\Destroy\Delete as DestroyDelete;
-use App\Passables\Account\Destroy as PassableDestroy;
+use App\Passables\Transaction\Frequency\Destroy as PassableDestroy;
 use Closure;
 use Throwable;
 
 /**
  * Class Delete
- * @package App\Pipes\Account\Destroy
+ * @package App\Pipes\Transaction\Frequency\Destroy
  */
 class Delete extends DestroyDelete
 {

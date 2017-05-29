@@ -26,7 +26,7 @@ abstract class Delete extends Pipe
     /**
      * @param PassableDestroy $passable
      */
-    public function updateModel(PassableDestroy &$passable)
+    public function deleteModel(PassableDestroy &$passable)
     {
         try {
             $model = $passable->getModel();
