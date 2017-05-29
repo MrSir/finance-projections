@@ -6,17 +6,17 @@
  * Time: 9:57 AM
  */
 
-namespace App\Pipes\Update;
+namespace App\Pipes\Destroy;
 
-use App\Passables\Update as PassableUpdate;
+use App\Passables\Destroy as PassableDestroy;
 use App\Pipes\Pipe;
 use Throwable;
 
 /**
- * Class Create
- * @package App\Pipes\Update
+ * Class Delete
+ * @package App\Pipes\Destroy
  */
-abstract class Update extends Pipe
+abstract class Delete extends Pipe
 {
     /**
      * @var string
@@ -24,16 +24,14 @@ abstract class Update extends Pipe
     protected $model;
 
     /**
-     * @param PassableUpdate $passable
+     * @param PassableDestroy $passable
      */
-    public function updateModel(PassableUpdate &$passable)
+    public function updateModel(PassableDestroy &$passable)
     {
         try {
-            $request = $passable->getRequest();
             $model = $passable->getModel();
 
-            $model->fill($request->all());
-            $model->save();
+            $model->delete();
 
             $passable->setModel($model);
         } catch (Throwable $e) {
