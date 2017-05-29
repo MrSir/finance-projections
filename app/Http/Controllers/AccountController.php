@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Account\Destroy as RequestDestroy;
 use App\Http\Requests\Account\Index as RequestIndex;
 use App\Http\Requests\Account\Store as RequestStore;
 use App\Http\Requests\Account\Update as RequestUpdate;
@@ -9,7 +10,12 @@ use App\Models\Account;
 use App\Pipelines\Account\Index;
 use App\Pipelines\Account\Store;
 use App\Pipelines\Account\Update;
+use App\Pipelines\Account\Destroy;
 
+/**
+ * Class AccountController
+ * @package App\Http\Controllers
+ */
 class AccountController extends Controller
 {
     /**
@@ -85,18 +91,26 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Account $account
+     * @param RequestDestroy $request
+     * @param Account        $account
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Account $account)
+    public function destroy(RequestDestroy $request, Account $account)
     {
-        $account->delete();
-
-        return response()->json(
-            [
-                'account' => $account,
-            ]
+        // instantiate the pipe
+        $pipe = new Destroy();
+        $pipe->fill(
+            $request,
+            $account
         );
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 }

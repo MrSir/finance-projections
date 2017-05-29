@@ -6,16 +6,16 @@
  * Time: 8:18 AM
  */
 
-namespace App\Pipelines\Category;
+namespace App\Pipelines\Account;
 
-use App\Passables\Category\Destroy as PassableDestroy;
+use App\Passables\Account\Destroy as PassableDestroy;
 use App\Pipelines\Pipeline;
-use App\Pipes\Category\Destroy\Delete;
-use App\Pipes\Category\Destroy\Format;
+use App\Pipes\Account\Destroy\Delete;
+use App\Pipes\Account\Destroy\Format;
 
 /**
  * Class Destroy
- * @package App\Pipelines\Category
+ * @package App\Pipelines\Account
  */
 class Destroy extends Pipeline
 {
