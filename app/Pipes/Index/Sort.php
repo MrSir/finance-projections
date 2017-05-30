@@ -36,12 +36,12 @@ abstract class Sort extends Pipe
             $orderColumn = 'id';
             $orderDirection = 'asc';
 
-            if ($request->has('order_column')) {
-                $orderColumn = $request->get('order_column');
+            if ($request->has('orderColumn')) {
+                $orderColumn = $request->get('orderColumn');
             }
 
-            if ($request->has('order_direction')) {
-                $orderDirection = $request->get('order_direction');
+            if ($request->has('orderDirection')) {
+                $orderDirection = $request->get('orderDirection');
             }
 
             // add in the sorter

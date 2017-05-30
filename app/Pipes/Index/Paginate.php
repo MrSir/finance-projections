@@ -37,8 +37,8 @@ abstract class Paginate extends Pipe
             $perPage = 25;
             $page = 1;
 
-            if ($request->has('per_page')) {
-                $perPage = $request->get('per_page');
+            if ($request->has('perPage')) {
+                $perPage = $request->get('perPage');
             }
 
             if ($request->has('page')) {

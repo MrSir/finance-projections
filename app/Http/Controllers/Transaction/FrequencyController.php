@@ -12,7 +12,12 @@ use App\Pipelines\Transaction\Frequency\Index;
 use App\Pipelines\Transaction\Frequency\Store;
 use App\Pipelines\Transaction\Frequency\Update;
 use App\Pipelines\Transaction\Frequency\Destroy;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * Class FrequencyController
+ * @package App\Http\Controllers\Transaction
+ */
 class FrequencyController extends Controller
 {
     /**
@@ -20,7 +25,7 @@ class FrequencyController extends Controller
      *
      * @param RequestIndex $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(RequestIndex $request)
     {
@@ -42,7 +47,7 @@ class FrequencyController extends Controller
      *
      * @param RequestStore $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(RequestStore $request)
     {
@@ -65,7 +70,7 @@ class FrequencyController extends Controller
      * @param RequestUpdate $request
      * @param Frequency     $frequency
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(RequestUpdate $request, Frequency $frequency)
     {
@@ -91,7 +96,7 @@ class FrequencyController extends Controller
      * @param RequestDestroy $request
      * @param Frequency $frequency
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy(RequestDestroy $request, Frequency $frequency)
     {

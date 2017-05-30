@@ -10,7 +10,11 @@ namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexRequest extends FormRequest
+/**
+ * Class Index
+ * @package App\Http\Requests\Transaction
+ */
+class Index extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,8 +36,21 @@ class IndexRequest extends FormRequest
         return [
             'name' => 'string',
             'description' => 'string',
-            'createdFrom' => 'date',
-            'createdTo' => 'date'
+
+            'accountId' => 'integer',
+            'destinationAccountId' => 'integer',
+            'categoryId' => 'integer',
+            'transactionFrequencyId' => 'integer',
+
+            'occurredAtFrom' => 'date',
+            'occurredAtTo' => 'date',
+
+            'createdAtFrom' => 'date',
+            'createdAtTo' => 'date',
+            'perPage' => 'integer',
+            'page' => 'integer',
+            'orderColumn' => 'string',
+            'orderDirection' => 'string',
         ];
     }
 }

@@ -32,8 +32,13 @@ class Index extends FormRequest
         return [
             'name' => 'string',
             'description' => 'string',
-            'createdFrom' => 'date',
-            'createdTo' => 'date'
+            
+            'createdAtFrom' => 'date',
+            'createdAtTo' => 'date',
+            'perPage' => 'integer',
+            'page' => 'integer',
+            'orderColumn' => 'string',
+            'orderDirection' => 'string',
         ];
     }
 }
