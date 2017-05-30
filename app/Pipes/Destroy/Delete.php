@@ -19,11 +19,6 @@ use Throwable;
 abstract class Delete extends Pipe
 {
     /**
-     * @var string
-     */
-    protected $model;
-
-    /**
      * @param PassableDestroy $passable
      */
     public function deleteModel(PassableDestroy &$passable)
@@ -39,21 +34,5 @@ abstract class Delete extends Pipe
 
             throw new $exceptionType($e);
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * @param string $model
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
     }
 }

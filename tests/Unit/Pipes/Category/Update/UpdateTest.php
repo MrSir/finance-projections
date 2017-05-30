@@ -16,7 +16,7 @@ use Exception;
 class UpdateTest extends PipeUpdate
 {
     /**
-     * SearchTest constructor.
+     * UpdateTest constructor.
      *
      * @param null   $name
      * @param array  $data

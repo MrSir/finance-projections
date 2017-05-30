@@ -2,7 +2,7 @@
 
 function usage {
     echo
-    echo "Usage: $0 <group> <db> <config>"
+    echo "Usage: $0 <group> <config>"
     echo
     echo " group:  phpunit group (default: App.Pipes)"
     echo " config: phpunit config (default: tdd.xml)"

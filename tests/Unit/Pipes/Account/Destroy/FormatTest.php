@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Account\Update;
+namespace App\Tests\Unit\Pipes\Account\Destroy;
 
 use App\Models\Account;
-use App\Passables\Account\Update;
-use App\Pipes\Account\Update\Format as PipeFormat;
-use App\Tests\Unit\Pipes\Update\Format;
+use App\Passables\Account\Destroy;
+use App\Pipes\Account\Destroy\Format as PipeFormat;
+use App\Tests\Unit\Pipes\Destroy\Format;
 use Exception;
 
 /**
  * Class FormatTest
- * @package App\Tests\Unit\Pipes\Account\Update
+ * @package App\Tests\Unit\Pipes\Account\Destroy
  */
 class FormatTest extends Format
 {
@@ -29,7 +29,7 @@ class FormatTest extends Format
             $dataName
         );
 
-        $this->setPassable(Update::class);
+        $this->setPassable(Destroy::class);
         $this->setPipe(PipeFormat::class);
         $this->setModel(Account::class);
     }
@@ -38,9 +38,9 @@ class FormatTest extends Format
      * @group App
      * @group App.Pipes
      * @group App.Pipes.Account
-     * @group App.Pipes.Account.Update
-     * @group App.Pipes.Account.Update.Format
-     * @group App.Pipes.Account.Update.Format.Success
+     * @group App.Pipes.Account.Destroy
+     * @group App.Pipes.Account.Destroy.Format
+     * @group App.Pipes.Account.Destroy.Format.Success
      */
     public function testFormatSuccess()
     {
@@ -51,9 +51,9 @@ class FormatTest extends Format
      * @group                    App
      * @group                    App.Pipes
      * @group                    App.Pipes.Account
-     * @group                    App.Pipes.Account.Update
-     * @group                    App.Pipes.Account.Update.Format
-     * @group                    App.Pipes.Account.Update.Format.Failure
+     * @group                    App.Pipes.Account.Destroy
+     * @group                    App.Pipes.Account.Destroy.Format
+     * @group                    App.Pipes.Account.Destroy.Format.Failure
      * @expectedExceptionCode    500
      * @expectedException Exception
      * @expectedExceptionMessage Account format failed.

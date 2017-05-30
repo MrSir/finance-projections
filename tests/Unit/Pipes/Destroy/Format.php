@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Update;
+namespace App\Tests\Unit\Pipes\Destroy;
 
 use App\Tests\TestCase;
 use Exception;
 
 /**
  * Class Format
- * @package App\Tests\Unit\Pipes\Update
+ * @package App\Tests\Unit\Pipes\Destroy
  */
 class Format extends TestCase
 {

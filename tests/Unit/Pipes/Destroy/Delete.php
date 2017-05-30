@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Update;
+namespace App\Tests\Unit\Pipes\Destroy;
 
 use App\Tests\TestCase;
-use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
- * Class Format
- * @package App\Tests\Unit\Pipes\Update
+ * Class Delete
+ * @package App\Tests\Unit\Pipes\Destroy
  */
-class Format extends TestCase
+class Delete extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * @var string
      */
@@ -23,6 +26,11 @@ class Format extends TestCase
 
     /**
      * @var string
+     */
+    protected $request;
+
+    /**
+     * @var Model;
      */
     protected $model;
 
@@ -61,13 +69,29 @@ class Format extends TestCase
     /**
      * @return string
      */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param string $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @return Model
+     */
     public function getModel()
     {
         return $this->model;
     }
 
     /**
-     * @param string $model
+     * @param Model $model
      */
     public function setModel($model)
     {
@@ -75,58 +99,47 @@ class Format extends TestCase
     }
 
     /**
-     * Format Success
+     * Delete Success
      */
-    public function formatSuccess()
+    public function deleteSuccess()
     {
         $passableClass = $this->getPassable();
+        $requestClass = $this->getRequest();
         $pipeClass = $this->getPipe();
-        $modelClass = $this->getModel();
+        $model = $this->getModel();
 
         $passable = new $passableClass();
-        $passable->setModel($modelClass::find(2));
+        $passable->setRequest(
+            new $requestClass()
+        );
+        $passable->setModel($model);
 
         $pipe = new $pipeClass();
 
-        $pipe->handle(
+        return $pipe->handle(
             $passable,
             function ($passable) {
-                $results = $passable->getResponse();
-
-                $this->assertEquals(
-                    200,
-                    $results['code']
-                );
-                $this->assertEquals(
-                    2,
-                    $results['results']->id
-                );
+                return $passable->getModel();
             }
         );
     }
 
     /**
-     * Format Failure
+     * Delete failure
      */
-    public function formatFailure()
+    public function deleteFailure()
     {
         $passableClass = $this->getPassable();
         $pipeClass = $this->getPipe();
 
         $passable = new $passableClass();
 
-        // force the page getter to throw an exception
-        $passable->setModel(
-            function () {
-                throw new Exception('test');
-            }
-        );
-
         $pipe = new $pipeClass();
+
         $pipe->handle(
             $passable,
             function ($passable) {
-                //do nothing
+                // do nothing
             }
         );
     }

@@ -15,7 +15,7 @@ use Exception;
 class FormatTest extends Format
 {
     /**
-     * SearchTest constructor.
+     * FormatTest constructor.
      *
      * @param null   $name
      * @param array  $data

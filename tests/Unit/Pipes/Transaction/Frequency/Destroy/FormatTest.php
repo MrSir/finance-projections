@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Transaction\Frequency\Update;
+namespace App\Tests\Unit\Pipes\Transaction\Frequency\Destroy;
 
 use App\Models\Transaction\Frequency;
-use App\Passables\Transaction\Frequency\Update;
-use App\Pipes\Transaction\Frequency\Update\Format as PipeFormat;
-use App\Tests\Unit\Pipes\Update\Format;
+use App\Passables\Transaction\Frequency\Destroy;
+use App\Pipes\Transaction\Frequency\Destroy\Format as PipeFormat;
+use App\Tests\Unit\Pipes\Destroy\Format;
 use Exception;
 
 /**
  * Class FormatTest
- * @package App\Tests\Unit\Pipes\Transaction\Frequency\Update
+ * @package App\Tests\Unit\Pipes\Transaction\Frequency\Destroy
  */
 class FormatTest extends Format
 {
     /**
-     * UpdateTest constructor.
+     * FormatTest constructor.
      *
      * @param null   $name
      * @param array  $data
@@ -29,7 +29,7 @@ class FormatTest extends Format
             $dataName
         );
 
-        $this->setPassable(Update::class);
+        $this->setPassable(Destroy::class);
         $this->setPipe(PipeFormat::class);
         $this->setModel(Frequency::class);
     }
@@ -39,9 +39,9 @@ class FormatTest extends Format
      * @group App.Pipes
      * @group App.Pipes.Transaction
      * @group App.Pipes.Transaction.Frequency
-     * @group App.Pipes.Transaction.Frequency.Update
-     * @group App.Pipes.Transaction.Frequency.Update.Format
-     * @group App.Pipes.Transaction.Frequency.Update.Format.Success
+     * @group App.Pipes.Transaction.Frequency.Destroy
+     * @group App.Pipes.Transaction.Frequency.Destroy.Format
+     * @group App.Pipes.Transaction.Frequency.Destroy.Format.Success
      */
     public function testFormatSuccess()
     {
@@ -53,9 +53,9 @@ class FormatTest extends Format
      * @group                    App.Pipes
      * @group                    App.Pipes.Transaction
      * @group                    App.Pipes.Transaction.Frequency
-     * @group                    App.Pipes.Transaction.Frequency.Update
-     * @group                    App.Pipes.Transaction.Frequency.Update.Format
-     * @group                    App.Pipes.Transaction.Frequency.Update.Format.Failure
+     * @group                    App.Pipes.Transaction.Frequency.Destroy
+     * @group                    App.Pipes.Transaction.Frequency.Destroy.Format
+     * @group                    App.Pipes.Transaction.Frequency.Destroy.Format.Failure
      * @expectedExceptionCode    500
      * @expectedException Exception
      * @expectedExceptionMessage Frequency format failed.

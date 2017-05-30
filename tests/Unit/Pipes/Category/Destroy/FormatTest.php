@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Tests\Unit\Pipes\Account\Update;
+namespace App\Tests\Unit\Pipes\Category\Destroy;
 
-use App\Models\Account;
-use App\Passables\Account\Update;
-use App\Pipes\Account\Update\Format as PipeFormat;
-use App\Tests\Unit\Pipes\Update\Format;
+use App\Models\Category;
+use App\Passables\Category\Destroy;
+use App\Pipes\Category\Destroy\Format as PipeFormat;
+use App\Tests\Unit\Pipes\Destroy\Format;
 use Exception;
 
 /**
  * Class FormatTest
- * @package App\Tests\Unit\Pipes\Account\Update
+ * @package App\Tests\Unit\Pipes\Category\Destroy
  */
 class FormatTest extends Format
 {
@@ -29,18 +29,18 @@ class FormatTest extends Format
             $dataName
         );
 
-        $this->setPassable(Update::class);
+        $this->setPassable(Destroy::class);
         $this->setPipe(PipeFormat::class);
-        $this->setModel(Account::class);
+        $this->setModel(Category::class);
     }
 
     /**
      * @group App
      * @group App.Pipes
-     * @group App.Pipes.Account
-     * @group App.Pipes.Account.Update
-     * @group App.Pipes.Account.Update.Format
-     * @group App.Pipes.Account.Update.Format.Success
+     * @group App.Pipes.Category
+     * @group App.Pipes.Category.Destroy
+     * @group App.Pipes.Category.Destroy.Format
+     * @group App.Pipes.Category.Destroy.Format.Success
      */
     public function testFormatSuccess()
     {
@@ -50,13 +50,13 @@ class FormatTest extends Format
     /**
      * @group                    App
      * @group                    App.Pipes
-     * @group                    App.Pipes.Account
-     * @group                    App.Pipes.Account.Update
-     * @group                    App.Pipes.Account.Update.Format
-     * @group                    App.Pipes.Account.Update.Format.Failure
+     * @group                    App.Pipes.Category
+     * @group                    App.Pipes.Category.Destroy
+     * @group                    App.Pipes.Category.Destroy.Format
+     * @group                    App.Pipes.Category.Destroy.Format.Failure
      * @expectedExceptionCode    500
      * @expectedException Exception
-     * @expectedExceptionMessage Account format failed.
+     * @expectedExceptionMessage Category format failed.
      */
     public function testFormatFailure()
     {
