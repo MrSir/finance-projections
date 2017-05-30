@@ -3,9 +3,12 @@
 namespace App\Tests\Unit\Pipes\Store;
 
 use App\Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class Create extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * @var string
      */

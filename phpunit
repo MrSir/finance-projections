@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function usage {
+    echo
+    echo "Usage: $0 <group> <db> <config>"
+    echo
+    echo " group:  phpunit group (default: App.Pipes)"
+    echo " config: phpunit config (default: tdd.xml)"
+    echo
+    exit 1
+}
+
+# check that they gave a group argument
+if [ ! -z "$1" ]; then
+    if [ "$1" == "help" -o "$1" == "--help" -o "$1" == "-h" ]; then
+        usage
+    fi
+fi
+
+# grab args
+if [ ! -z "$1" ]; then
+    group=$1
+else
+    group="App"
+fi
+
+if [ ! -z "$2" ]; then
+    config=$2
+else
+    config="tdd.xml"
+fi
+
+# defaults
+init="DB.Init"
+
+# wrap it in time
+/usr/bin/env time -f "Total time: %E" bash -c " 
+    vendor/bin/phpunit -c tdd.xml --group=$init
+    vendor/bin/phpunit -c $config --group=$group
+"

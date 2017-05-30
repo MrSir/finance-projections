@@ -4,9 +4,16 @@ namespace App\Tests\Unit\Pipes\Update;
 
 use App\Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+ * Class Update
+ * @package App\Tests\Unit\Pipes\Update
+ */
 class Update extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * @var string
      */
