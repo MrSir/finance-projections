@@ -59,5 +59,13 @@ Route::resource(
 );
 Route::resource(
     '/transaction',
-    'TransactionController'
+    'TransactionController',
+    [
+        'only' => [
+            'index',
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]
 );

@@ -10,7 +10,7 @@ namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class Store extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,18 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'description' => 'required|string'
+            'account_id' => 'integer',
+            'destination_account_id' => 'integer',
+            'category_id' => 'integer',
+            'transaction_frequency_id' => 'integer',
+            'is_credit' => 'boolean',
+            'is_debit' => 'boolean',
+            'name' => 'string',
+            'description' => 'string',
+            'amount' => 'numeric',
+            'occurred_at' => 'date',
+            'repeat_start_at' => 'date',
+            'repeat_end_at' => 'date',
         ];
     }
 }

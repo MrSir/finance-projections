@@ -50,7 +50,17 @@ class TransactionController extends Controller
      */
     public function store(RequestStore $request)
     {
-        //
+        // instantiate the pipe
+        $pipe = new Store();
+        $pipe->fill($request);
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
