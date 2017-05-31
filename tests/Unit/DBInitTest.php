@@ -32,6 +32,7 @@ class DBInitTest extends TestCase
         $this->artisan('migrate');
         $this->artisan('db:seed');
         $this->artisan('db:seed', ['--class' => 'AccountSeeder']);
+        $this->artisan('db:seed', ['--class' => 'TransactionSeeder']);
 
         $this->assertTrue(true);
     }

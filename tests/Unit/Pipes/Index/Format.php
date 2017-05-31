@@ -85,7 +85,7 @@ class Format extends TestCase
 
         $results = collect(
             [
-                $modelClass::find(2),
+                $modelClass::find(1),
             ]
         );
 
@@ -119,7 +119,7 @@ class Format extends TestCase
                     $results['page']
                 );
                 $this->assertEquals(
-                    2,
+                    1,
                     $results['results'][0]->id
                 );
             }

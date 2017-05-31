@@ -32,7 +32,7 @@ class Index extends FormRequest
         return [
             'name' => 'string',
             'description' => 'string',
-            
+
             'createdAtFrom' => 'date',
             'createdAtTo' => 'date',
             'perPage' => 'integer',
