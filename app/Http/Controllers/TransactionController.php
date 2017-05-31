@@ -50,6 +50,7 @@ class TransactionController extends Controller
      */
     public function store(RequestStore $request)
     {
+        \Log::critical('wtf');
         // instantiate the pipe
         $pipe = new Store();
         $pipe->fill($request);

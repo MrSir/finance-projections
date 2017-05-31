@@ -28,7 +28,7 @@ class Create extends StoreCreate
     {
         parent::__construct(ExceptionCreate::class);
 
-        $this->setModel(Frequency::class);
+        $this->setModel(Transaction::class);
     }
 
     /**

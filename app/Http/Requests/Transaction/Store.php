@@ -29,6 +29,7 @@ class Store extends FormRequest
      */
     public function rules()
     {
+        \Log::critical('request');
         return [
             'account_id' => 'integer',
             'destination_account_id' => 'integer',
