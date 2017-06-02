@@ -22,9 +22,6 @@ class Paginate extends IndexPaginate
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionPaginate::class,
-            'Category paginate failed.'
-        );
+        parent::__construct(ExceptionPaginate::class);
     }
 }

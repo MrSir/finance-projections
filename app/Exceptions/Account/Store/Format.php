@@ -9,8 +9,25 @@
 namespace App\Exceptions\Account\Store;
 
 use Exception;
+use Throwable;
 
+/**
+ * Class Format
+ * @package App\Exceptions\Account\Store
+ */
 class Format extends Exception
 {
-
+    /**
+     * Format constructor.
+     *
+     * @param Throwable|null $previous
+     */
+    public function __construct(Throwable $previous = null)
+    {
+        parent::__construct(
+            'Account format failed.',
+            500,
+            $previous
+        );
+    }
 }

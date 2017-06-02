@@ -144,7 +144,7 @@ class Sort extends TestCase
         $passable->setRequest(
             new $requestClass(
                 [
-                    'order_column' => 'name',
+                    'orderColumn' => 'name',
                 ]
             )
         );
@@ -184,7 +184,7 @@ class Sort extends TestCase
         $passable->setRequest(
             new $requestClass(
                 [
-                    'order_direction' => 'desc',
+                    'orderDirection' => 'desc',
                 ]
             )
         );

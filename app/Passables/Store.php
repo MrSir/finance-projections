@@ -10,9 +10,11 @@ namespace App\Passables;
 
 use App\Interfaces\Passables\Store as PassableStore;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Query\Builder;
 
+/**
+ * Class Store
+ * @package App\Passables
+ */
 class Store extends Base implements PassableStore
 {
     /**

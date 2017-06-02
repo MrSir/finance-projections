@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./phpunit App phpunit.xml
+./vendor/bin/analyze --coverage=./build/clover.xml --tests=./build/junit.xml analyze ./app

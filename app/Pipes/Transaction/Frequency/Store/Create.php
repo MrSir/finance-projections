@@ -26,10 +26,7 @@ class Create extends StoreCreate
      */
     public function __construct()
     {
-        parent::__construct(
-            ExceptionCreate::class,
-            'Frequency create failed.'
-        );
+        parent::__construct(ExceptionCreate::class);
 
         $this->setModel(Frequency::class);
     }
@@ -48,11 +45,7 @@ class Create extends StoreCreate
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 
-            throw new $exceptionType(
-                $this->getExceptionMessage(),
-                500,
-                $e
-            );
+            throw new $exceptionType($e);
         }
 
         return $next($passable);

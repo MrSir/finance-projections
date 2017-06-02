@@ -14,7 +14,7 @@ use App\Pipes\Category\Store\Create;
 use App\Pipes\Category\Store\Format;
 
 /**
- * Class Index
+ * Class Store
  * @package App\Pipelines\Category
  */
 class Store extends Pipeline
@@ -38,7 +38,8 @@ class Store extends Pipeline
 
     /**
      * This is the flush function, it executes the entire pipe
-     * @return PassableStore
+     *
+     * @return array
      */
     public function flush()
     {

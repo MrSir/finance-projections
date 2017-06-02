@@ -9,8 +9,25 @@
 namespace App\Exceptions\Transaction\Frequency\Index;
 
 use Exception;
+use Throwable;
 
+/**
+ * Class Paginate
+ * @package App\Exceptions\Transaction\Frequency\Index
+ */
 class Paginate extends Exception
 {
-
+    /**
+     * Paginate constructor.
+     *
+     * @param Throwable|null $previous
+     */
+    public function __construct(Throwable $previous = null)
+    {
+        parent::__construct(
+            'Frequency paginate failed.',
+            500,
+            $previous
+        );
+    }
 }

@@ -9,8 +9,25 @@
 namespace App\Exceptions\Category\Index;
 
 use Exception;
+use Throwable;
 
+/**
+ * Class Sort
+ * @package App\Exceptions\Category\Index
+ */
 class Sort extends Exception
 {
-
+    /**
+     * Sort constructor.
+     *
+     * @param Throwable|null $previous
+     */
+    public function __construct(Throwable $previous = null)
+    {
+        parent::__construct(
+            'Category sort failed.',
+            500,
+            $previous
+        );
+    }
 }

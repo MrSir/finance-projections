@@ -34,19 +34,19 @@ abstract class Search extends Pipe
             $model = $this->getModel();
             $query = $model::query();
 
-            if ($request->has('created_at_from')) {
+            if ($request->has('createdAtFrom')) {
                 $query->where(
                     'created_at',
                     '>=',
-                    $request->get('created_at_from') . ' 00:00:00'
+                    $request->get('createdAtFrom') . ' 00:00:00'
                 );
             }
 
-            if ($request->has('created_at_to')) {
+            if ($request->has('createdAtTo')) {
                 $query->where(
                     'created_at',
                     '<=',
-                    $request->get('created_at_to') . ' 23:59:59'
+                    $request->get('createdAtTo') . ' 23:59:59'
                 );
             }
 
@@ -54,11 +54,7 @@ abstract class Search extends Pipe
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 
-            throw new $exceptionType(
-                $this->getExceptionMessage(),
-                500,
-                $e
-            );
+            throw new $exceptionType($e);
         }
     }
 

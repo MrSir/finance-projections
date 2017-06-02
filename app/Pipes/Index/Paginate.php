@@ -37,8 +37,8 @@ abstract class Paginate extends Pipe
             $perPage = 25;
             $page = 1;
 
-            if ($request->has('per_page')) {
-                $perPage = $request->get('per_page');
+            if ($request->has('perPage')) {
+                $perPage = $request->get('perPage');
             }
 
             if ($request->has('page')) {
@@ -56,11 +56,7 @@ abstract class Paginate extends Pipe
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 
-            throw new $exceptionType(
-                $this->getExceptionMessage(),
-                500,
-                $e
-            );
+            throw new $exceptionType($e);
         }
 
         return $next($passable);

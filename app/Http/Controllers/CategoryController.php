@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category\Destroy as RequestDestroy;
 use App\Http\Requests\Category\Index as RequestIndex;
 use App\Http\Requests\Category\Store as RequestStore;
-use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Requests\Category\Update as RequestUpdate;
 use App\Models\Category;
+use App\Pipelines\Category\Destroy;
 use App\Pipelines\Category\Index;
 use App\Pipelines\Category\Store;
+use App\Pipelines\Category\Update;
 
+/**
+ * Class CategoryController
+ * @package App\Http\Controllers
+ */
 class CategoryController extends Controller
 {
     /**
@@ -21,11 +28,11 @@ class CategoryController extends Controller
     public function index(RequestIndex $request)
     {
         // instantiate the pipe
-        $pipe = new Index();
-        $pipe->fill($request);
+        $pipeline = new Index();
+        $pipeline->fill($request);
 
         // flush the pipe
-        $result = $pipe->flush();
+        $result = $pipeline->flush();
 
         // handle the response
         return response()
@@ -43,11 +50,11 @@ class CategoryController extends Controller
     public function store(RequestStore $request)
     {
         // instantiate the pipe
-        $pipe = new Store();
-        $pipe->fill($request);
+        $pipeline = new Store();
+        $pipeline->fill($request);
 
         // flush the pipe
-        $result = $pipe->flush();
+        $result = $pipeline->flush();
 
         // handle the response
         return response()
@@ -58,38 +65,52 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateRequest $request
+     * @param RequestUpdate $request
      * @param Category      $category
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateRequest $request, Category $category)
+    public function update(RequestUpdate $request, Category $category)
     {
-        $category->fill($request->all());
-        $category->save();
-
-        return response()->json(
-            [
-                'category' => $category,
-            ]
+        // instantiate the pipe
+        $pipeline = new Update();
+        $pipeline->fill(
+            $request,
+            $category
         );
+
+        // flush the pipe
+        $result = $pipeline->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Category $category
+     * @param RequestDestroy $request
+     * @param Category       $category
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Category $category)
+    public function destroy(RequestDestroy $request, Category $category)
     {
-        $category->delete();
-
-        return response()->json(
-            [
-                'category' => $category,
-            ]
+        // instantiate the pipe
+        $pipeline = new Destroy();
+        $pipeline->fill(
+            $request,
+            $category
         );
+
+        // flush the pipe
+        $result = $pipeline->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 }

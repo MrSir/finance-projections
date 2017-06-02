@@ -22,20 +22,13 @@ abstract class Pipe
     protected $exceptionType = Exception::class;
 
     /**
-     * @var string
-     */
-    protected $exceptionMessage = 'Failed.';
-
-    /**
      * Pipe constructor.
      *
      * @param $exceptionType
-     * @param $exceptionMessage
      */
-    public function __construct($exceptionType, $exceptionMessage)
+    public function __construct($exceptionType)
     {
         $this->setExceptionType($exceptionType);
-        $this->setExceptionMessage($exceptionMessage);
     }
 
     /**
@@ -52,21 +45,5 @@ abstract class Pipe
     public function setExceptionType($exceptionType)
     {
         $this->exceptionType = $exceptionType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExceptionMessage()
-    {
-        return $this->exceptionMessage;
-    }
-
-    /**
-     * @param string $exceptionMessage
-     */
-    public function setExceptionMessage($exceptionMessage)
-    {
-        $this->exceptionMessage = $exceptionMessage;
     }
 }

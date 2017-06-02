@@ -2,118 +2,110 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Requests\Transaction\IndexRequest;
+use App\Http\Requests\Transaction\Destroy as RequestDestroy;
+use App\Http\Requests\Transaction\Index as RequestIndex;
+use App\Http\Requests\Transaction\Store as RequestStore;
+use App\Http\Requests\Transaction\Update as RequestUpdate;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Pipelines\Transaction\Destroy;
+use App\Pipelines\Transaction\Index;
+use App\Pipelines\Transaction\Store;
+use App\Pipelines\Transaction\Update;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * Class TransactionController
+ * @package App\Http\Controllers
+ */
 class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(IndexRequest $request)
-    {
-        $transactions = Transaction::query();
-
-        if ($request->has('name')) {
-            $transactions = $transactions->where('name', 'LIKE', '%' . $request->get('name') . '%');
-        }
-
-        if ($request->has('description')) {
-            $transactions = $transactions->where('description', 'LIKE', '%' . $request->get('description') . '%');
-        }
-
-        if ($request->has('createdFrom')) {
-            $transactions = $transactions->where('created_at', '>=', $request->get('createdFrom') . ' 00:00:00');
-        }
-
-        if ($request->has('createdAt')) {
-            $transactions = $transactions->where('created_at', '<=', $request->get('createdTo') . ' 23:59:59');
-        }
-
-        $transactions = $transactions->get()
-            ->load(
-                [
-                    'account',
-                    'destinationAccount',
-                    'category',
-                    'frequency'
-                ]
-            );
-
-        return response()->json(['transactions' => $transactions]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * @param RequestIndex $request
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function create()
+    public function index(RequestIndex $request)
     {
-        //
+        // instantiate the pipe
+        $pipe = new Index();
+        $pipe->fill($request);
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $transaction = new Transaction($request->all());
-        $transaction->save();
-
-        return Redirect::to('/');
-    }
-
-    /**
-     * Display the specified resource.
+     * @param  RequestStore $request
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function store(RequestStore $request)
     {
-        //
-    }
+        // instantiate the pipe
+        $pipe = new Store();
+        $pipe->fill($request);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param RequestUpdate $request
+     * @param Transaction   $transaction
+     *
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(RequestUpdate $request, Transaction $transaction)
     {
-        //
+        // instantiate the pipe
+        $pipe = new Update();
+        $pipe->fill($request, $transaction);
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param RequestDestroy $request
+     * @param Transaction    $transaction
+     *
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(RequestDestroy $request, Transaction $transaction)
     {
-        //
+        // instantiate the pipe
+        $pipe = new Destroy();
+        $pipe->fill($request, $transaction);
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 }

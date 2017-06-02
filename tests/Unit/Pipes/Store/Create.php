@@ -3,9 +3,12 @@
 namespace App\Tests\Unit\Pipes\Store;
 
 use App\Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class Create extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * @var string
      */
@@ -91,7 +94,7 @@ class Create extends TestCase
     }
 
     /**
-     * Search Success
+     * Create Success
      */
     public function createSuccess()
     {
@@ -116,7 +119,7 @@ class Create extends TestCase
     }
 
     /**
-     * Search failure
+     * Create failure
      */
     public function createFailure()
     {

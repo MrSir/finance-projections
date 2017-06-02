@@ -9,8 +9,25 @@
 namespace App\Exceptions\Transaction\Frequency\Index;
 
 use Exception;
+use Throwable;
 
+/**
+ * Class Sort
+ * @package App\Exceptions\Transaction\Frequency\Index
+ */
 class Sort extends Exception
 {
-
+    /**
+     * Sort constructor.
+     *
+     * @param Throwable|null $previous
+     */
+    public function __construct(Throwable $previous = null)
+    {
+        parent::__construct(
+            'Frequency sort failed.',
+            500,
+            $previous
+        );
+    }
 }

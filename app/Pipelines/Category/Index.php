@@ -41,7 +41,7 @@ class Index extends Pipeline
     /**
      * This is the flush function, it executes the entire pipe
      *
-     * @return PassableIndex
+     * @return array
      */
     public function flush()
     {

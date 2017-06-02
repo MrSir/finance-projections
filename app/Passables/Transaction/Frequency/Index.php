@@ -10,7 +10,16 @@ namespace App\Passables\Transaction\Frequency;
 
 use App\Passables\Index as PassableIndex;
 
+/**
+ * Class Index
+ * @package App\Passables\Transaction\Frequency
+ */
 class Index extends PassableIndex
 {
-
+    /**
+     * Index constructor.
+     */
+    public function __construct()
+    {
+    }
 }

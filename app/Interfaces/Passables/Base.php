@@ -8,17 +8,33 @@
 
 namespace App\Interfaces\Passables;
 
+/**
+ * Interface Base
+ * @package App\Interfaces\Passables
+ */
 interface Base
 {
+    /**
+     * @return mixed
+     */
     public function getRequest();
+
+    /**
+     * @param $request
+     *
+     * @return mixed
+     */
     public function setRequest($request);
 
-    public function getStatus();
-    public function setStatus($status);
-
-    public function getException();
-    public function setException($exception);
-
+    /**
+     * @return mixed
+     */
     public function getResponse();
+
+    /**
+     * @param $response
+     *
+     * @return mixed
+     */
     public function setResponse($response);
 }

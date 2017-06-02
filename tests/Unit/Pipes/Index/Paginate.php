@@ -141,7 +141,7 @@ class Paginate extends TestCase
         $passable->setRequest(
             new $requestClass(
                 [
-                    'per_page' => 10,
+                    'perPage' => 10,
                 ]
             )
         );
