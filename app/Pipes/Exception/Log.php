@@ -8,6 +8,7 @@
 
 namespace App\Pipes\Exception;
 
+use Log as LaravelLog;
 use Closure;
 use Exception;
 
@@ -25,7 +26,10 @@ class Log
      */
     public function handle(Exception $e, Closure $next)
     {
-        //TODO implement logging
+        LaravelLog::critical(
+            $e->getMessage(),
+            $e->getTrace()
+        );
 
         return $next($e);
     }
