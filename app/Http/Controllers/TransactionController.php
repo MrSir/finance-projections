@@ -50,7 +50,6 @@ class TransactionController extends Controller
      */
     public function store(RequestStore $request)
     {
-        \Log::critical('wtf');
         // instantiate the pipe
         $pipe = new Store();
         $pipe->fill($request);
@@ -74,7 +73,17 @@ class TransactionController extends Controller
      */
     public function update(RequestUpdate $request, Transaction $transaction)
     {
-        //
+        // instantiate the pipe
+        $pipe = new Update();
+        $pipe->fill($request, $transaction);
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 
     /**

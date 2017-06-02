@@ -10,7 +10,7 @@ namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class Update extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,18 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required|string',
-            'description' => 'sometimes|required|string'
+            'account_id' => 'integer',
+            'destination_account_id' => 'integer',
+            'category_id' => 'integer',
+            'transaction_frequency_id' => 'integer',
+            'is_credit' => 'boolean',
+            'is_debit' => 'boolean',
+            'name' => 'string',
+            'description' => 'string',
+            'amount' => 'numeric',
+            'occurred_at' => 'date',
+            'repeat_start_at' => 'date',
+            'repeat_end_at' => 'date',
         ];
     }
 }

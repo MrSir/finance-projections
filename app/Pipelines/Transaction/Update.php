@@ -6,16 +6,16 @@
  * Time: 8:18 AM
  */
 
-namespace App\Pipelines\Transaction\Frequency;
+namespace App\Pipelines\Transaction;
 
-use App\Passables\Transaction\Frequency\Update as PassableUpdate;
+use App\Passables\Transaction\Update as PassableUpdate;
 use App\Pipelines\Pipeline;
-use App\Pipes\Transaction\Frequency\Update\Update as PipeUpdate;
-use App\Pipes\Transaction\Frequency\Update\Format;
+use App\Pipes\Transaction\Update\Update as PipeUpdate;
+use App\Pipes\Transaction\Update\Format;
 
 /**
  * Class Update
- * @package App\Pipelines\Transaction\Frequency
+ * @package App\Pipelines\Transaction
  */
 class Update extends Pipeline
 {
@@ -23,15 +23,15 @@ class Update extends Pipeline
      * This is the fill function, it initializes the pipeline
      *
      * @param $request
-     * @param $frequency
+     * @param $transaction
      *
      * @return $this
      */
-    public function fill($request, $frequency)
+    public function fill($request, $transaction)
     {
         $passable = new PassableUpdate();
         $passable->setRequest($request);
-        $passable->setModel($frequency);
+        $passable->setModel($transaction);
 
         $this->setPassable($passable);
 

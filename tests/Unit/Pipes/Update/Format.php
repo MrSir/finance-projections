@@ -84,7 +84,7 @@ class Format extends TestCase
         $modelClass = $this->getModel();
 
         $passable = new $passableClass();
-        $passable->setModel($modelClass::find(2));
+        $passable->setModel($modelClass::find(1));
 
         $pipe = new $pipeClass();
 
@@ -98,7 +98,7 @@ class Format extends TestCase
                     $results['code']
                 );
                 $this->assertEquals(
-                    2,
+                    1,
                     $results['results']->id
                 );
             }
