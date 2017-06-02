@@ -41,7 +41,7 @@ class Update extends UpdateUpdate
             $this->updateModel($passable);
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
-\Log::critical($e->getMessage());
+
             throw new $exceptionType($e);
         }
 

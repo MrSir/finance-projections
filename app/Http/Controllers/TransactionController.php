@@ -96,6 +96,16 @@ class TransactionController extends Controller
      */
     public function destroy(RequestDestroy $request, Transaction $transaction)
     {
-        //
+        // instantiate the pipe
+        $pipe = new Destroy();
+        $pipe->fill($request, $transaction);
+
+        // flush the pipe
+        $result = $pipe->flush();
+
+        // handle the response
+        return response()
+            ->json($result)
+            ->setStatusCode($result['code']);
     }
 }
