@@ -46,7 +46,7 @@
     methods: {
       searchCategories: function () {
         this.$http.get(
-          'http://local-finance-projections.com/api/transaction',
+          'http://local.finance-projections.com/api/transaction',
           {
             params: this.search
           }

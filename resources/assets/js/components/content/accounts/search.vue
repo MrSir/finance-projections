@@ -46,7 +46,7 @@
     methods: {
       searchAccounts: function () {
         this.$http.get(
-          'http://local-finance-projections.com/api/account',
+          'http://local.finance-projections.com/api/account',
           {
             params: this.search
           }

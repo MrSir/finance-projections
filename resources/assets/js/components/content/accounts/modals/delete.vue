@@ -18,7 +18,7 @@
     methods: {
       destroyAccount: function () {
         this.$http.delete(
-            'http://local-finance-projections.com/api/account/' + this.$parent.deletingAccount.id
+            'http://local.finance-projections.com/api/account/' + this.$parent.deletingAccount.id
           )
           .then(
             function (successResponse) {

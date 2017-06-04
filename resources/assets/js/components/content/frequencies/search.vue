@@ -46,7 +46,7 @@
     methods: {
       searchFrequencies: function () {
         this.$http.get(
-          'http://local-finance-projections.com/api/frequency',
+          'http://local.finance-projections.com/api/frequency',
           {
             params: this.search
           }

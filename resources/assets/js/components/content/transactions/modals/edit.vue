@@ -25,7 +25,7 @@
     methods: {
       updateTransaction: function () {
         this.$http.put(
-            'http://local-finance-projections.com/api/transaction/' + this.$parent.editingTransaction.id,
+            'http://local.finance-projections.com/api/transaction/' + this.$parent.editingTransaction.id,
             this.$parent.editingTransaction
           )
           .then(

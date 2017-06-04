@@ -15,7 +15,7 @@
   // the main code
   export default {
     mounted() {
-      this.$http.get('http://local-finance-projections.com/api/transaction')
+      this.$http.get('http://local.finance-projections.com/api/transaction')
         .then(
           function (successResponse) {
             this.loading = false;

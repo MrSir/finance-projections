@@ -71,7 +71,7 @@
   export default {
     mounted() {
       // load the accounts
-      this.$http.get('http://local-finance-projections.com/api/account')
+      this.$http.get('http://local.finance-projections.com/api/account')
         .then(
           function (successResponse) {
             this.accounts = successResponse.body.accounts;
@@ -82,7 +82,7 @@
         );
 
       // load the categories
-      this.$http.get('http://local-finance-projections.com/api/category')
+      this.$http.get('http://local.finance-projections.com/api/category')
         .then(
           function (successResponse) {
             this.categories = successResponse.body.categories;
@@ -93,7 +93,7 @@
         );
 
       // load the frequencies
-      this.$http.get('http://local-finance-projections.com/api/frequency')
+      this.$http.get('http://local.finance-projections.com/api/frequency')
         .then(
           function (successResponse) {
             this.frequencies = successResponse.body.frequencies;
@@ -106,7 +106,7 @@
     methods: {
       storeTransaction: function () {
         this.$http.post(
-          'http://local-finance-projections.com/api/transaction',
+          'http://local.finance-projections.com/api/transaction',
           this.transaction
           )
           .then(

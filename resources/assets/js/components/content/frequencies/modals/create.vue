@@ -25,7 +25,7 @@
     methods: {
       storeCategory: function () {
         this.$http.post(
-          'http://local-finance-projections.com/api/frequency',
+          'http://local.finance-projections.com/api/frequency',
           this.frequency
           )
           .then(

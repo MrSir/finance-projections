@@ -25,7 +25,7 @@
     methods: {
       storeAccount: function () {
         this.$http.post(
-          'http://local-finance-projections.com/api/account',
+          'http://local.finance-projections.com/api/account',
           this.account
           )
           .then(

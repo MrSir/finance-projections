@@ -18,7 +18,7 @@
     methods: {
       destroyCategory: function () {
         this.$http.delete(
-            'http://local-finance-projections.com/api/category/' + this.$parent.deletingCategory.id
+            'http://local.finance-projections.com/api/category/' + this.$parent.deletingCategory.id
           )
           .then(
             function (successResponse) {
