@@ -15,7 +15,7 @@ apt-get update
 apt-get -y install vim curl nginx sqlite
 
 # install php and enable it should be v7.0#
-apt-get -y install php7.0 php-mcrypt php-curl php-gd php-imap php-xml php-mbstring php-zip php-soap php7.0-sqlite php7.0-bcmath
+apt-get -y install php7.0 php-mcrypt php-curl php-gd php-imap php-xdebug php-xml php-mbstring php-zip php-soap php7.0-sqlite php7.0-bcmath
 phpenmod mcrypt
 phpenmod gd
 phpenmod imap
@@ -28,6 +28,13 @@ sed -i "s/post_max_size = 8M/post_max_size = 128M/" /etc/php/7.0/cli/php.ini
 
 service php7.0-fpm restart
 service nginx restart
+
+echo "xdebug.remote_enable = 1" >> /etc/php/7.0/mods-available/xdebug.ini
+echo "xdebug.remote_connect_back = 1" >> /etc/php/7.0/mods-available/xdebug.ini
+echo "xdebug.remote_port = 9000" >> /etc/php/7.0/mods-available/xdebug.ini
+echo "xdebug.scream=0" >> /etc/php/7.0/mods-available/xdebug.ini
+echo "xdebug.cli_color=1" >> /etc/php/7.0/mods-available/xdebug.ini
+echo "xdebug.show_local_vars=1" >> /etc/php/7.0/mods-available/xdebug.ini
 
 # install mysql-server #
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password Test1234'

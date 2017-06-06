@@ -21,10 +21,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "../", "/var/www", nfs: true
 
   config.vm.provider "virtualbox" do |vb|
+    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-	vb.customize ["modifyvm", :id, "--name", "finance-projections"]
-	vb.customize ["modifyvm", :id, "--memory", "1024"]
-	vb.customize ["modifyvm", :id, "--vram", "128"]
+    vb.customize ["modifyvm", :id, "--name", "finance-projections"]
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--vram", "128"]
   end
 
   config.vm.provision :shell, :path=>"base_script.sh"
