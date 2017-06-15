@@ -27,7 +27,8 @@ class TransactionSeeder extends Seeder
                     'transaction_frequency_id' => Frequency::whereName('Once')->first()->id,
                     'name' => 'Mortgage',
                     'description' => 'Where the money goes.',
-                    'amount' => 100,
+                    'is_debit' => true,
+                    'amount' => -1600,
                     'occurred_at' => Carbon::now(),
                 ],
             ]
