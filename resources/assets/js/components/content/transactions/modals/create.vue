@@ -105,9 +105,23 @@
     },
     methods: {
       storeTransaction: function () {
+        let params = this.transaction;
+
+        if(params.destination_account_id.selected === 0){
+          delete params.destination_account_id;
+        }
+
+        if(!params.repeat_start_at){
+          delete params.repeat_start_at;
+        }
+
+        if(!params.repeat_end_at){
+          delete params.repeat_end_at;
+        }
+
         this.$http.post(
           'http://local.finance-projections.com/api/transaction',
-          this.transaction
+          params
           )
           .then(
             function (successResponse) {
@@ -121,15 +135,12 @@
 
         this.transaction = {
           account_id: 0,
-          destination_account_id: 0,
           category_id: 0,
           transaction_frequency_id: 0,
           name: '',
           description: '',
           amount: 0,
           occurred_at: null,
-          repeat_start_at: null,
-          repeat_end_at: null
         };
       }
     },

@@ -30,18 +30,16 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'account_id' => 'integer',
-            'destination_account_id' => 'integer',
-            'category_id' => 'integer',
-            'transaction_frequency_id' => 'integer',
-            'is_credit' => 'boolean',
-            'is_debit' => 'boolean',
-            'name' => 'string',
-            'description' => 'string',
-            'amount' => 'numeric',
-            'occurred_at' => 'date',
-            'repeat_start_at' => 'date',
-            'repeat_end_at' => 'date',
+            'account_id' => 'required|integer|exists:accounts,id',
+            'destination_account_id' => 'sometimes|required|integer|exists:accounts,id',
+            'category_id' => 'required|integer|exists:categories,id',
+            'transaction_frequency_id' => 'required|integer|exists:transaction_frequencies,id',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'amount' => 'required|numeric',
+            'occurred_at' => 'required|date',
+            'repeat_start_at' => 'required|date',
+            'repeat_end_at' => 'sometimes|required|date',
         ];
     }
 }

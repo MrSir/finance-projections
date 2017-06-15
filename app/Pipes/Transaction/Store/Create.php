@@ -42,6 +42,16 @@ class Create extends StoreCreate
     {
         try {
             $this->storeModel($passable);
+            $transaction = $passable->getModel();
+
+            if ($transaction->amount >= 0) {
+                $transaction->is_credit = true;
+            } else if($transaction->amount < 0) {
+                $transaction->is_debit = true;
+            }
+            $transaction->save();
+
+            $passable->setModel($transaction);
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 

@@ -46,9 +46,11 @@ mysql -uroot -pTest1234 -e "CREATE USER 'root'@'%' IDENTIFIED BY 'Test1234'; GRA
 
 # create promo2016 db #
 mysql -uroot -pTest1234 -e "CREATE DATABASE finance_projections CHARSET utf8 COLLATE utf8_unicode_ci;"
+mysql -uroot -pTest1234 -e "CREATE DATABASE finance_projections_testing CHARSET utf8 COLLATE utf8_unicode_ci;"
 
 # add permissions to root for promo2016 tables #
 mysql -uroot -pTest1234 -e "GRANT ALL PRIVILEGES ON finance_projections.* TO 'root'@'localhost';"
+mysql -uroot -pTest1234 -e "GRANT ALL PRIVILEGES ON finance_projections_testing.* TO 'root'@'localhost';"
 
 # change mysql config  #
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf

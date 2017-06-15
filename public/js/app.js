@@ -2831,7 +2831,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     storeTransaction: function storeTransaction() {
-      this.$http.post('http://local.finance-projections.com/api/transaction', this.transaction).then(function (successResponse) {
+      var params = this.transaction;
+
+      if (params.destination_account_id.selected === 0) {
+        delete params.destination_account_id;
+      }
+
+      if (!params.repeat_start_at) {
+        delete params.repeat_start_at;
+      }
+
+      if (!params.repeat_end_at) {
+        delete params.repeat_end_at;
+      }
+
+      this.$http.post('http://local.finance-projections.com/api/transaction', params).then(function (successResponse) {
         this.$parent.$parent.transactions.push(successResponse.body.results);
         $('#create-transaction-modal').modal('hide');
       }, function (failedResponse) {
@@ -2840,15 +2854,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.transaction = {
         account_id: 0,
-        destination_account_id: 0,
         category_id: 0,
         transaction_frequency_id: 0,
         name: '',
         description: '',
         amount: 0,
-        occurred_at: null,
-        repeat_start_at: null,
-        repeat_end_at: null
+        occurred_at: null
       };
     }
   },
