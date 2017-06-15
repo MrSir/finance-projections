@@ -25,12 +25,12 @@
     methods: {
       storeCategory: function () {
         this.$http.post(
-          'http://local.finance-projections.com/api/frequency',
+          'http://local.finance-projections.com/api/transaction/frequency',
           this.frequency
           )
           .then(
             function (successResponse) {
-              this.$parent.$parent.frequencies.push(successResponse.body.frequency);
+              this.$parent.$parent.frequencies.push(successResponse.body.results);
               $('#create-frequency-modal').modal('hide');
             },
             function (failedResponse) {

@@ -1755,7 +1755,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     storeAccount: function storeAccount() {
       this.$http.post('http://local.finance-projections.com/api/account', this.account).then(function (successResponse) {
-        this.$parent.$parent.accounts.push(successResponse.body.account);
+        console.log(successResponse.body.results);
+        this.$parent.$parent.accounts.push(successResponse.body.results);
         $('#create-account-modal').modal('hide');
       }, function (failedResponse) {
         console.log(failedResponse);
@@ -1965,7 +1966,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$http.get('http://local.finance-projections.com/api/account', {
         params: this.search
       }).then(function (successResponse) {
-        this.$parent.accounts = successResponse.body.accounts;
+        this.$parent.accounts = successResponse.body.results;
       }, function (failedResponse) {
         console.log(failedResponse);
       });
@@ -2302,7 +2303,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$http.get('http://local.finance-projections.com/api/category', {
         params: this.search
       }).then(function (successResponse) {
-        this.$parent.categories = successResponse.body.categories;
+        this.$parent.categories = successResponse.body.results;
       }, function (failedResponse) {
         console.log(failedResponse);
       });
@@ -2426,8 +2427,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     storeCategory: function storeCategory() {
-      this.$http.post('http://local.finance-projections.com/api/frequency', this.frequency).then(function (successResponse) {
-        this.$parent.$parent.frequencies.push(successResponse.body.frequency);
+      this.$http.post('http://local.finance-projections.com/api/transaction/frequency', this.frequency).then(function (successResponse) {
+        this.$parent.$parent.frequencies.push(successResponse.body.results);
         $('#create-frequency-modal').modal('hide');
       }, function (failedResponse) {
         console.log(failedResponse);
@@ -2521,7 +2522,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     updateCategory: function updateCategory() {
-      this.$http.put('http://local.finance-projections.com/api/frequency/' + this.$parent.editingCategory.id, this.$parent.editingCategory).then(function (successResponse) {
+      this.$http.put('http://local.finance-projections.com/api/transaction/frequency/' + this.$parent.editingCategory.id, this.$parent.editingCategory).then(function (successResponse) {
         $('#edit-frequency-modal').modal('hide');
       }, function (failedResponse) {
         console.log(failedResponse);
@@ -2634,10 +2635,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     searchFrequencies: function searchFrequencies() {
-      this.$http.get('http://local.finance-projections.com/api/frequency', {
+      this.$http.get('http://local.finance-projections.com/api/transaction/frequency', {
         params: this.search
       }).then(function (successResponse) {
-        this.$parent.frequencies = successResponse.body.frequencies;
+        this.$parent.frequencies = successResponse.body.results;
       }, function (failedResponse) {
         console.log(failedResponse);
       });
@@ -2808,21 +2809,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     // load the accounts
     this.$http.get('http://local.finance-projections.com/api/account').then(function (successResponse) {
-      this.accounts = successResponse.body.accounts;
+      this.accounts = successResponse.body.results;
     }, function (failedResponse) {
       console.log(failedResponse);
     });
 
     // load the categories
     this.$http.get('http://local.finance-projections.com/api/category').then(function (successResponse) {
-      this.categories = successResponse.body.categories;
+      this.categories = successResponse.body.results;
     }, function (failedResponse) {
       console.log(failedResponse);
     });
 
     // load the frequencies
-    this.$http.get('http://local.finance-projections.com/api/frequency').then(function (successResponse) {
-      this.frequencies = successResponse.body.frequencies;
+    this.$http.get('http://local.finance-projections.com/api/transaction/frequency').then(function (successResponse) {
+      this.frequencies = successResponse.body.results;
     }, function (failedResponse) {
       console.log(failedResponse);
     });
@@ -2831,7 +2832,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     storeTransaction: function storeTransaction() {
       this.$http.post('http://local.finance-projections.com/api/transaction', this.transaction).then(function (successResponse) {
-        this.$parent.$parent.transactions.push(successResponse.body.transaction);
+        this.$parent.$parent.transactions.push(successResponse.body.results);
         $('#create-transaction-modal').modal('hide');
       }, function (failedResponse) {
         console.log(failedResponse);
@@ -2994,7 +2995,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     this.$http.get('http://local.finance-projections.com/api/transaction').then(function (successResponse) {
       this.loading = false;
-      this.transactions = successResponse.body.transactions;
+      this.transactions = successResponse.body.results;
     }, function (failedResponse) {
       console.log(failedResponse);
     });
@@ -3072,7 +3073,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$http.get('http://local.finance-projections.com/api/transaction', {
         params: this.search
       }).then(function (successResponse) {
-        this.$parent.transactions = successResponse.body.transactions;
+        this.$parent.transactions = successResponse.body.results;
       }, function (failedResponse) {
         console.log(failedResponse);
       });
@@ -3147,6 +3148,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // the main code
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['transactions'],
   data: function data() {
     return {
       loading: false,
@@ -36207,8 +36209,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-refresh fa-spin"
   }) : _vm._e(), (!_vm.loading) ? _c('table', {
     staticClass: "table table-bordered table-striped"
-  }, [_vm._m(0), _c('tbody', [_vm._l((_vm.$parent.transactions), function(transaction) {
-    return (_vm.$parent.transactions.length > 0) ? _c('tr', [_c('td', [_vm._v(_vm._s(transaction.name))]), _c('td', [_vm._v(_vm._s(transaction.description))]), _c('td', [_vm._v(_vm._s(transaction.category.name))]), _c('td', [_vm._v(_vm._s(transaction.account.name))]), _c('td', [_vm._v(_vm._s(transaction.destinationAccount.name))]), _c('td', [_vm._v(_vm._s(transaction.frequency.name))]), (transaction.is_credit) ? _c('td', {
+  }, [_vm._m(0), _c('tbody', [_vm._l((_vm.transactions), function(transaction) {
+    return (_vm.transactions) ? _c('tr', [_c('td', [_vm._v(_vm._s(transaction.name))]), _c('td', [_vm._v(_vm._s(transaction.description))]), _c('td', [_vm._v(_vm._s(transaction.category_id))]), _c('td', [_vm._v(_vm._s(transaction.account_id))]), _c('td', [_vm._v(_vm._s(transaction.destinationAccount_id))]), _c('td', [_vm._v(_vm._s(transaction.transaction_frequency_id))]), (transaction.is_credit) ? _c('td', {
       staticClass: "danger"
     }, [_vm._v(_vm._s(transaction.amount))]) : _vm._e(), (transaction.is_debit) ? _c('td', {
       staticClass: "success"
@@ -36625,7 +36627,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('search'), _c('div', {
     staticClass: "box"
-  }, [_vm._m(0), _c('transactions-table')], 1)], 1)
+  }, [_vm._m(0), _c('transactions-table', {
+    attrs: {
+      "transactions": _vm.transactions
+    }
+  })], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "box-header with-border"

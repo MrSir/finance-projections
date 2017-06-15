@@ -53,7 +53,7 @@
           )
           .then(
             function (successResponse) {
-              this.$parent.transactions = successResponse.body.transactions;
+              this.$parent.transactions = successResponse.body.results;
             },
             function (failedResponse) {
               console.log(failedResponse);

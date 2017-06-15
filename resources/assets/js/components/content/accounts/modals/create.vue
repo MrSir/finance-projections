@@ -30,7 +30,8 @@
           )
           .then(
             function (successResponse) {
-              this.$parent.$parent.accounts.push(successResponse.body.account);
+              console.log(successResponse.body.results);
+              this.$parent.$parent.accounts.push(successResponse.body.results);
               $('#create-account-modal').modal('hide');
             },
             function (failedResponse) {

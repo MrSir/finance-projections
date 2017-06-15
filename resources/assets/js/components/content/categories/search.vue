@@ -53,7 +53,7 @@
           )
           .then(
             function (successResponse) {
-              this.$parent.categories = successResponse.body.categories;
+              this.$parent.categories = successResponse.body.results;
             },
             function (failedResponse) {
               console.log(failedResponse);

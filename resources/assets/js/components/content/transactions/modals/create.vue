@@ -74,7 +74,7 @@
       this.$http.get('http://local.finance-projections.com/api/account')
         .then(
           function (successResponse) {
-            this.accounts = successResponse.body.accounts;
+            this.accounts = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
@@ -85,7 +85,7 @@
       this.$http.get('http://local.finance-projections.com/api/category')
         .then(
           function (successResponse) {
-            this.categories = successResponse.body.categories;
+            this.categories = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
@@ -93,10 +93,10 @@
         );
 
       // load the frequencies
-      this.$http.get('http://local.finance-projections.com/api/frequency')
+      this.$http.get('http://local.finance-projections.com/api/transaction/frequency')
         .then(
           function (successResponse) {
-            this.frequencies = successResponse.body.frequencies;
+            this.frequencies = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
@@ -111,7 +111,7 @@
           )
           .then(
             function (successResponse) {
-              this.$parent.$parent.transactions.push(successResponse.body.transaction);
+              this.$parent.$parent.transactions.push(successResponse.body.results);
               $('#create-transaction-modal').modal('hide');
             },
             function (failedResponse) {

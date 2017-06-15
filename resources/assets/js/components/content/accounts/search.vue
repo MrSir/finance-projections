@@ -53,7 +53,7 @@
           )
           .then(
             function (successResponse) {
-              this.$parent.accounts = successResponse.body.accounts;
+              this.$parent.accounts = successResponse.body.results;
             },
             function (failedResponse) {
               console.log(failedResponse);

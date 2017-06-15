@@ -16,13 +16,13 @@
             th Created At
             th Actions
         tbody
-          tr(v-if='$parent.transactions.length > 0', v-for='transaction in $parent.transactions')
+          tr(v-if='transactions', v-for='transaction in transactions')
             td {{ transaction.name }}
             td {{ transaction.description }}
-            td {{ transaction.category.name }}
-            td {{ transaction.account.name }}
-            td {{ transaction.destinationAccount.name }}
-            td {{ transaction.frequency.name }}
+            td {{ transaction.category_id }}
+            td {{ transaction.account_id }}
+            td {{ transaction.destinationAccount_id }}
+            td {{ transaction.transaction_frequency_id }}
             td.danger(v-if='transaction.is_credit') {{ transaction.amount }}
             td.success(v-if='transaction.is_debit') {{ transaction.amount }}
             td {{ transaction.occurred_at }}
@@ -48,6 +48,9 @@
 
   // the main code
   export default {
+    props: [
+      'transactions'
+    ],
     data() {
       return {
         loading: false,

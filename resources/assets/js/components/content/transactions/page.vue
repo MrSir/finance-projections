@@ -4,7 +4,7 @@
     .box
       .box-header.with-border
         h3.box-title Transactions
-      transactions-table
+      transactions-table(:transactions="transactions")
 </template>
 
 <script>
@@ -19,7 +19,7 @@
         .then(
           function (successResponse) {
             this.loading = false;
-            this.transactions = successResponse.body.transactions;
+            this.transactions = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
