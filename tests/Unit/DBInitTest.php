@@ -19,15 +19,15 @@ class DBInitTest extends TestCase
         // reset mysql db
         DB::connection()
             ->getPdo()
-            ->exec("DROP DATABASE IF EXISTS `finance_projections`;");
+            ->exec("DROP DATABASE IF EXISTS `finance_projections_testing`;");
 
         DB::connection()
             ->getPdo()
-            ->exec("CREATE SCHEMA `finance_projections`;");
+            ->exec("CREATE SCHEMA `finance_projections_testing`;");
 
         DB::connection()
             ->getPdo()
-            ->exec("USE `finance_projections`;");
+            ->exec("USE `finance_projections_testing`;");
 
         $this->artisan('migrate');
         $this->artisan('db:seed');

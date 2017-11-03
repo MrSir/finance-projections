@@ -25,7 +25,7 @@
     methods: {
       updateCategory: function () {
         this.$http.put(
-            'http://local-finance-projections.com/api/frequency/' + this.$parent.editingCategory.id,
+            'http://local.finance-projections.com/api/transaction/frequency/' + this.$parent.editingCategory.id,
             this.$parent.editingCategory
           )
           .then(

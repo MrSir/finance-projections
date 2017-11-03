@@ -18,7 +18,7 @@
     methods: {
       destroyTransaction: function () {
         this.$http.delete(
-            'http://local-finance-projections.com/api/transaction/' + this.$parent.deletingTransaction.id
+            'http://local.finance-projections.com/api/transaction/' + this.$parent.deletingTransaction.id
           )
           .then(
             function (successResponse) {

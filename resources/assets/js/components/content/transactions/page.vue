@@ -4,7 +4,7 @@
     .box
       .box-header.with-border
         h3.box-title Transactions
-      transactions-table
+      transactions-table(:transactions="transactions")
 </template>
 
 <script>
@@ -15,11 +15,11 @@
   // the main code
   export default {
     mounted() {
-      this.$http.get('http://local-finance-projections.com/api/transaction')
+      this.$http.get('http://local.finance-projections.com/api/transaction')
         .then(
           function (successResponse) {
             this.loading = false;
-            this.transactions = successResponse.body.transactions;
+            this.transactions = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);

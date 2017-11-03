@@ -18,7 +18,7 @@
     methods: {
       destroyFrequency: function () {
         this.$http.delete(
-            'http://local-finance-projections.com/api/transaction/frequency/' + this.$parent.deletingFrequency.id
+            'http://local.finance-projections.com/api/transaction/frequency/' + this.$parent.deletingFrequency.id
           )
           .then(
             function (successResponse) {

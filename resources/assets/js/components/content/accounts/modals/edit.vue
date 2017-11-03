@@ -25,7 +25,7 @@
     methods: {
       updateAccount: function () {
         this.$http.put(
-            'http://local-finance-projections.com/api/account/' + this.$parent.editingAccount.id,
+            'http://local.finance-projections.com/api/account/' + this.$parent.editingAccount.id,
             this.$parent.editingAccount
           )
           .then(

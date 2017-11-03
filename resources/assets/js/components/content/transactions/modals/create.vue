@@ -71,10 +71,10 @@
   export default {
     mounted() {
       // load the accounts
-      this.$http.get('http://local-finance-projections.com/api/account')
+      this.$http.get('http://local.finance-projections.com/api/account')
         .then(
           function (successResponse) {
-            this.accounts = successResponse.body.accounts;
+            this.accounts = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
@@ -82,10 +82,10 @@
         );
 
       // load the categories
-      this.$http.get('http://local-finance-projections.com/api/category')
+      this.$http.get('http://local.finance-projections.com/api/category')
         .then(
           function (successResponse) {
-            this.categories = successResponse.body.categories;
+            this.categories = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
@@ -93,10 +93,10 @@
         );
 
       // load the frequencies
-      this.$http.get('http://local-finance-projections.com/api/frequency')
+      this.$http.get('http://local.finance-projections.com/api/transaction/frequency')
         .then(
           function (successResponse) {
-            this.frequencies = successResponse.body.frequencies;
+            this.frequencies = successResponse.body.results;
           },
           function (failedResponse) {
             console.log(failedResponse);
@@ -105,13 +105,27 @@
     },
     methods: {
       storeTransaction: function () {
+        let params = this.transaction;
+
+        if(params.destination_account_id.selected === 0){
+          delete params.destination_account_id;
+        }
+
+        if(!params.repeat_start_at){
+          delete params.repeat_start_at;
+        }
+
+        if(!params.repeat_end_at){
+          delete params.repeat_end_at;
+        }
+
         this.$http.post(
-          'http://local-finance-projections.com/api/transaction',
-          this.transaction
+          'http://local.finance-projections.com/api/transaction',
+          params
           )
           .then(
             function (successResponse) {
-              this.$parent.$parent.transactions.push(successResponse.body.transaction);
+              this.$parent.$parent.transactions.push(successResponse.body.results);
               $('#create-transaction-modal').modal('hide');
             },
             function (failedResponse) {
@@ -121,15 +135,12 @@
 
         this.transaction = {
           account_id: 0,
-          destination_account_id: 0,
           category_id: 0,
           transaction_frequency_id: 0,
           name: '',
           description: '',
           amount: 0,
           occurred_at: null,
-          repeat_start_at: null,
-          repeat_end_at: null
         };
       }
     },

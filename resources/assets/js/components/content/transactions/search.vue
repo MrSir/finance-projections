@@ -46,14 +46,14 @@
     methods: {
       searchCategories: function () {
         this.$http.get(
-          'http://local-finance-projections.com/api/transaction',
+          'http://local.finance-projections.com/api/transaction',
           {
             params: this.search
           }
           )
           .then(
             function (successResponse) {
-              this.$parent.transactions = successResponse.body.transactions;
+              this.$parent.transactions = successResponse.body.results;
             },
             function (failedResponse) {
               console.log(failedResponse);
