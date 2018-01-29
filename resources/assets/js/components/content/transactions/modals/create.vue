@@ -73,10 +73,8 @@
       storeTransaction: function () {
         let params = this.transaction;
 
-        if(params.destination_account_id) {
-          if (params.destination_account_id.selected === 0) {
-            delete params.destination_account_id;
-          }
+        if(params.destination_account_id == null || params.destination_account_id.selected === 0) {
+          delete params.destination_account_id;
         }
 
         if(!params.repeat_start_at){

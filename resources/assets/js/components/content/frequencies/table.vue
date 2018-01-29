@@ -16,7 +16,7 @@
             td {{ frequency.created_at }}
             td.center
               span.glyphicon.glyphicon-edit.action-icon(v-on:click='editFrequency(frequency)')
-              span.glyphicon.glyphicon-remove.action-icon(v-on:click='deleteFrequency(frequency)')
+              span.glyphicon.glyphicon-trash.action-icon(v-on:click='deleteFrequency(frequency)')
           tr(v-if='$parent.frequencies.length == 0')
             td(colspan='4') There are no Frequencies in the system.
     .box-footer

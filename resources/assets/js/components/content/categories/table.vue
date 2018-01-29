@@ -16,7 +16,7 @@
             td {{ category.created_at }}
             td.center
               span.glyphicon.glyphicon-edit.action-icon(v-on:click='editCategory(category)')
-              span.glyphicon.glyphicon-remove.action-icon(v-on:click='deleteCategory(category)')
+              span.glyphicon.glyphicon-trash.action-icon(v-on:click='deleteCategory(category)')
           tr(v-if='$parent.categories.length == 0')
             td(colspan='4') There are no Categories in the system.
     .box-footer

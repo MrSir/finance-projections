@@ -1945,8 +1945,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 // the main code
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2254,8 +2252,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -2617,8 +2613,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 // the main code
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2856,10 +2850,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     storeTransaction: function storeTransaction() {
       var params = this.transaction;
 
-      if (params.destination_account_id) {
-        if (params.destination_account_id.selected === 0) {
-          delete params.destination_account_id;
-        }
+      if (params.destination_account_id == null || params.destination_account_id.selected === 0) {
+        delete params.destination_account_id;
       }
 
       if (!params.repeat_start_at) {
@@ -3043,7 +3035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     updateTransaction: function updateTransaction() {
       var theTransaction = Object.assign({}, this.$parent.editingTransaction);
 
-      if (theTransaction.destination_account_id == null) {
+      if (theTransaction.destination_account_id == null || theTransaction.destination_account_id === 0) {
         delete theTransaction.destination_account_id;
       }
 
@@ -3120,8 +3112,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -3279,7 +3269,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       editingTransaction: {
         id: 0,
         account_id: 0,
-        destination_account_id: 0,
+        destination_account_id: null,
         category_id: 0,
         transaction_frequency_id: 0,
         name: '',
@@ -3301,6 +3291,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     deleteTransaction: function deleteTransaction(transaction) {
       this.deletingTransaction = transaction;
       $('#delete-transaction-modal').modal('show');
+    },
+    roundNumbers: function roundNumbers(number) {
+      return parseFloat(Math.round(number * 100) / 100).toFixed(2);
+    },
+    getCategoryName: function getCategoryName(id) {
+      var theCategory = this.categories.find(function (category) {
+        return category.id === id;
+      });
+
+      return theCategory.name;
+    },
+    getAccountName: function getAccountName(id) {
+      if (id == null) {
+        return '';
+      }
+
+      var theAccount = this.accounts.find(function (account) {
+        return account.id === id;
+      });
+
+      return theAccount.name;
+    },
+    getFrequencyName: function getFrequencyName(id) {
+      var theFrequency = this.frequencies.find(function (frequency) {
+        return frequency.id === id;
+      });
+
+      return theFrequency.name;
     }
   },
   components: {
@@ -34419,7 +34437,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "box-header with-border"
   }, [_c('h3', {
     staticClass: "box-title"
-  }, [_vm._v("Accountss")])])
+  }, [_vm._v("Accounts")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -34560,7 +34578,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "box box-info",
+    staticClass: "box box-info collapsed-box",
     attrs: {
       "id": "categoriesSearchTemplate"
     }
@@ -34709,15 +34727,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-widget": "collapse"
     }
   }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })]), _c('button', {
-    staticClass: "btn btn-box-tool",
-    attrs: {
-      "type": "button",
-      "data-widget": "remove"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-times"
+    staticClass: "fa fa-plus"
   })])])])
 }]}
 module.exports.render._withStripped = true
@@ -34754,7 +34764,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }), _c('span', {
-      staticClass: "glyphicon glyphicon-remove action-icon",
+      staticClass: "glyphicon glyphicon-trash action-icon",
       on: {
         "click": function($event) {
           _vm.deleteFrequency(frequency)
@@ -34941,14 +34951,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-plus"
-  })]), _c('button', {
-    staticClass: "btn btn-box-tool",
-    attrs: {
-      "type": "button",
-      "data-widget": "remove"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-times"
   })])])])
 }]}
 module.exports.render._withStripped = true
@@ -35024,7 +35026,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "box box-info",
+    staticClass: "box box-info collapsed-box",
     attrs: {
       "id": "accountsSearchTemplate"
     }
@@ -35173,15 +35175,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-widget": "collapse"
     }
   }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })]), _c('button', {
-    staticClass: "btn btn-box-tool",
-    attrs: {
-      "type": "button",
-      "data-widget": "remove"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-times"
+    staticClass: "fa fa-plus"
   })])])])
 }]}
 module.exports.render._withStripped = true
@@ -35468,7 +35462,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }), _c('span', {
-      staticClass: "glyphicon glyphicon-remove action-icon",
+      staticClass: "glyphicon glyphicon-trash action-icon",
       on: {
         "click": function($event) {
           _vm.deleteAccount(account)
@@ -36659,11 +36653,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e(), (!_vm.loading) ? _c('table', {
     staticClass: "table table-bordered table-striped"
   }, [_vm._m(0), _c('tbody', [_vm._l((_vm.transactions), function(transaction) {
-    return (_vm.transactions) ? _c('tr', [_c('td', [_vm._v(_vm._s(transaction.name))]), _c('td', [_vm._v(_vm._s(transaction.description))]), _c('td', [_vm._v(_vm._s(transaction.category_id))]), _c('td', [_vm._v(_vm._s(transaction.account_id))]), _c('td', [_vm._v(_vm._s(transaction.destination_account_id))]), _c('td', [_vm._v(_vm._s(transaction.transaction_frequency_id))]), (transaction.amount < 0) ? _c('td', {
-      staticClass: "danger"
-    }, [_vm._v(_vm._s(transaction.amount))]) : _vm._e(), (transaction.amount >= 0) ? _c('td', {
-      staticClass: "success"
-    }, [_vm._v(_vm._s(transaction.amount))]) : _vm._e(), _c('td', [_vm._v(_vm._s(transaction.occurred_at))]), _c('td', [_vm._v(_vm._s(transaction.created_at))]), _c('td', {
+    return (_vm.transactions) ? _c('tr', [_c('td', [_vm._v(_vm._s(transaction.name))]), _c('td', [_vm._v(_vm._s(transaction.description))]), _c('td', [_vm._v(_vm._s(_vm.getCategoryName(transaction.category_id)))]), _c('td', [_vm._v(_vm._s(_vm.getAccountName(transaction.account_id)))]), _c('td', [_vm._v(_vm._s(_vm.getAccountName(transaction.destination_account_id)))]), _c('td', [_vm._v(_vm._s(_vm.getFrequencyName(transaction.transaction_frequency_id)))]), (transaction.amount < 0) ? _c('td', {
+      staticClass: "text-right danger"
+    }, [_vm._v("$" + _vm._s(_vm.roundNumbers(transaction.amount)))]) : _vm._e(), (transaction.amount >= 0) ? _c('td', {
+      staticClass: "text-right success"
+    }, [_vm._v("$" + _vm._s(_vm.roundNumbers(transaction.amount)))]) : _vm._e(), _c('td', [_vm._v(_vm._s(transaction.occurred_at))]), _c('td', [_vm._v(_vm._s(transaction.created_at))]), _c('td', {
       staticClass: "center"
     }, [_c('span', {
       staticClass: "glyphicon glyphicon-edit action-icon",
@@ -36673,7 +36667,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }), _c('span', {
-      staticClass: "glyphicon glyphicon-remove action-icon",
+      staticClass: "glyphicon glyphicon-trash action-icon",
       on: {
         "click": function($event) {
           _vm.deleteTransaction(transaction)
@@ -36694,7 +36688,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Create Transaction")]) : _vm._e(), _c('modals-create'), _c('modals-edit'), _c('modals-delete')], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("Name")]), _c('th', [_vm._v("Description")]), _c('th', [_vm._v("Category")]), _c('th', [_vm._v("Account")]), _c('th', [_vm._v("Destination Account")]), _c('th', [_vm._v("Frequency")]), _c('th', [_vm._v("Amount")]), _c('th', [_vm._v("Occurred At")]), _c('th', [_vm._v("Created At")]), _c('th', [_vm._v("Actions")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Name")]), _c('th', [_vm._v("Description")]), _c('th', [_vm._v("Category")]), _c('th', [_vm._v("Account")]), _c('th', [_vm._v("Destination Account")]), _c('th', [_vm._v("Frequency")]), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("Amount")]), _c('th', [_vm._v("Occurred At")]), _c('th', [_vm._v("Created At")]), _c('th', [_vm._v("Actions")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -36865,7 +36861,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "box box-info",
+    staticClass: "box box-info collapsed-box",
     attrs: {
       "id": "frequenciesSearchTemplate"
     }
@@ -37014,15 +37010,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-widget": "collapse"
     }
   }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })]), _c('button', {
-    staticClass: "btn btn-box-tool",
-    attrs: {
-      "type": "button",
-      "data-widget": "remove"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-times"
+    staticClass: "fa fa-plus"
   })])])])
 }]}
 module.exports.render._withStripped = true
@@ -37149,7 +37137,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }), _c('span', {
-      staticClass: "glyphicon glyphicon-remove action-icon",
+      staticClass: "glyphicon glyphicon-trash action-icon",
       on: {
         "click": function($event) {
           _vm.deleteCategory(category)

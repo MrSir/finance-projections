@@ -3,7 +3,7 @@
     search
     .box
       .box-header.with-border
-        h3.box-title Accountss
+        h3.box-title Accounts
       accounts-table
 </template>
 

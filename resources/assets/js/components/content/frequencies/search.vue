@@ -5,8 +5,6 @@
       .box-tools.pull-right
         button.btn.btn-box-tool(type='button', data-widget='collapse')
           i.fa.fa-plus
-        button.btn.btn-box-tool(type='button', data-widget='remove')
-          i.fa.fa-times
     .box-body
       span.fa.fa-refresh.fa-spin(v-if='loading')
       #searchForm(v-if='!loading')

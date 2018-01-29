@@ -16,7 +16,7 @@
             td {{ account.created_at }}
             td.center
               span.glyphicon.glyphicon-edit.action-icon(v-on:click='editAccount(account)')
-              span.glyphicon.glyphicon-remove.action-icon(v-on:click='deleteAccount(account)')
+              span.glyphicon.glyphicon-trash.action-icon(v-on:click='deleteAccount(account)')
           tr(v-if='$parent.accounts.length == 0')
             td(colspan='4') There are no Accounts in the system.
     .box-footer

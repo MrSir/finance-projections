@@ -73,7 +73,7 @@
       updateTransaction: function () {
         let theTransaction = Object.assign({}, this.$parent.editingTransaction);
 
-        if (theTransaction.destination_account_id == null) {
+        if (theTransaction.destination_account_id == null || theTransaction.destination_account_id === 0) {
           delete theTransaction.destination_account_id;
         }
 
