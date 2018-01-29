@@ -29,12 +29,12 @@ class FrequencyController extends Controller
      */
     public function index(RequestIndex $request)
     {
-        // instantiate the pipe
-        $pipe = new Index();
-        $pipe->fill($request);
+        // instantiate the pipeline
+        $pipeline = new Index();
+        $pipeline->fill($request);
 
-        // flush the pipe
-        $result = $pipe->flush();
+        // flush the pipeline
+        $result = $pipeline->flush();
 
         // handle the response
         return response()
@@ -51,12 +51,12 @@ class FrequencyController extends Controller
      */
     public function store(RequestStore $request)
     {
-        // instantiate the pipe
-        $pipe = new Store();
-        $pipe->fill($request);
+        // instantiate the pipeline
+        $pipeline = new Store();
+        $pipeline->fill($request);
 
-        // flush the pipe
-        $result = $pipe->flush();
+        // flush the pipeline
+        $result = $pipeline->flush();
 
         // handle the response
         return response()
@@ -74,15 +74,15 @@ class FrequencyController extends Controller
      */
     public function update(RequestUpdate $request, Frequency $frequency)
     {
-        // instantiate the pipe
-        $pipe = new Update();
-        $pipe->fill(
+        // instantiate the pipeline
+        $pipeline = new Update();
+        $pipeline->fill(
             $request,
             $frequency
         );
 
-        // flush the pipe
-        $result = $pipe->flush();
+        // flush the pipeline
+        $result = $pipeline->flush();
 
         // handle the response
         return response()
@@ -100,15 +100,15 @@ class FrequencyController extends Controller
      */
     public function destroy(RequestDestroy $request, Frequency $frequency)
     {
-        // instantiate the pipe
-        $pipe = new Destroy();
-        $pipe->fill(
+        // instantiate the pipeline
+        $pipeline = new Destroy();
+        $pipeline->fill(
             $request,
             $frequency
         );
 
-        // flush the pipe
-        $result = $pipe->flush();
+        // flush the pipeline
+        $result = $pipeline->flush();
 
         // handle the response
         return response()

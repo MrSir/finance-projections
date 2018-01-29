@@ -20,22 +20,22 @@
                   .form-group
                     label(for='category') Category
                     select#category.form-control(name='category', v-model='transaction.category_id')
-                      option(v-bind:value='category.id', v-for='category in categories')
+                      option(v-bind:value='category.id', v-for='category in $parent.categories')
                         | {{ category.name }}
                   .form-group
                     label(for='category') Account
                     select#account.form-control(name='account', v-model='transaction.account_id')
-                      option(v-bind:value='account.id', v-for='account in accounts')
+                      option(v-bind:value='account.id', v-for='account in $parent.accounts')
                         | {{ account.name }}
                   .form-group(v-if='transaction.category_id == 1')
                     label(for='category') Destination Account
-                    select#category.form-control(name='category', v-model='transaction.destination_account_id')
-                      option(v-bind:value='account.id', v-for='account in accounts')
+                    select#destination_account_id.form-control(name='category', v-model='transaction.destination_account_id')
+                      option(v-bind:value='account.id', v-for='account in $parent.accounts')
                         | {{ account.name }}
                   .form-group
                     label(for='frequency') Frequency
                     select#frequency.form-control(name='frequency', v-model='transaction.transaction_frequency_id')
-                      option(v-bind:value='frequency.id', v-for='frequency in frequencies')
+                      option(v-bind:value='frequency.id', v-for='frequency in $parent.frequencies')
                         | {{ frequency.name }}
                 .col-lg-6
                   .form-group
@@ -69,46 +69,14 @@
 
 <script>
   export default {
-    mounted() {
-      // load the accounts
-      this.$http.get('http://local.finance-projections.com/api/account')
-        .then(
-          function (successResponse) {
-            this.accounts = successResponse.body.results;
-          },
-          function (failedResponse) {
-            console.log(failedResponse);
-          }
-        );
-
-      // load the categories
-      this.$http.get('http://local.finance-projections.com/api/category')
-        .then(
-          function (successResponse) {
-            this.categories = successResponse.body.results;
-          },
-          function (failedResponse) {
-            console.log(failedResponse);
-          }
-        );
-
-      // load the frequencies
-      this.$http.get('http://local.finance-projections.com/api/transaction/frequency')
-        .then(
-          function (successResponse) {
-            this.frequencies = successResponse.body.results;
-          },
-          function (failedResponse) {
-            console.log(failedResponse);
-          }
-        );
-    },
     methods: {
       storeTransaction: function () {
         let params = this.transaction;
 
-        if(params.destination_account_id.selected === 0){
-          delete params.destination_account_id;
+        if(params.destination_account_id) {
+          if (params.destination_account_id.selected === 0) {
+            delete params.destination_account_id;
+          }
         }
 
         if(!params.repeat_start_at){
@@ -135,6 +103,7 @@
 
         this.transaction = {
           account_id: 0,
+          destination_account_id: null,
           category_id: 0,
           transaction_frequency_id: 0,
           name: '',

@@ -25,8 +25,6 @@ class Transaction extends Model
         'destination_account_id',
         'category_id',
         'transaction_frequency_id',
-        'is_credit',
-        'is_debit',
         'name',
         'description',
         'amount',

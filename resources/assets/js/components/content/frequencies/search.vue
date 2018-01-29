@@ -1,10 +1,10 @@
 <template lang="pug">
-  #frequenciesSearchTemplate.box.box-info
+  #frequenciesSearchTemplate.box.box-info.collapsed-box
     .box-header.with-border
       h3.box-title Search
       .box-tools.pull-right
         button.btn.btn-box-tool(type='button', data-widget='collapse')
-          i.fa.fa-minus
+          i.fa.fa-plus
         button.btn.btn-box-tool(type='button', data-widget='remove')
           i.fa.fa-times
     .box-body

@@ -24,9 +24,6 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('transaction_frequency_id')
                 ->index('transactions_transaction_frequency_id_foreign');
 
-            $table->boolean('is_credit')->default(false);
-            $table->boolean('is_debit')->default(false);
-
             $table->string('name');
             $table->string('description');
             $table->float('amount',10, 2);

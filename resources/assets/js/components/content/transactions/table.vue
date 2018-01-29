@@ -21,10 +21,10 @@
             td {{ transaction.description }}
             td {{ transaction.category_id }}
             td {{ transaction.account_id }}
-            td {{ transaction.destinationAccount_id }}
+            td {{ transaction.destination_account_id }}
             td {{ transaction.transaction_frequency_id }}
-            td.danger(v-if='transaction.is_credit') {{ transaction.amount }}
-            td.success(v-if='transaction.is_debit') {{ transaction.amount }}
+            td.danger(v-if='transaction.amount < 0') {{ transaction.amount }}
+            td.success(v-if='transaction.amount >= 0') {{ transaction.amount }}
             td {{ transaction.occurred_at }}
             td {{ transaction.created_at }}
             td.center
@@ -48,12 +48,49 @@
 
   // the main code
   export default {
+    mounted() {
+      // load the accounts
+      this.$http.get('http://local.finance-projections.com/api/account')
+      .then(
+        function (successResponse) {
+          this.accounts = successResponse.body.results;
+        },
+        function (failedResponse) {
+          console.log(failedResponse);
+        }
+      );
+
+      // load the categories
+      this.$http.get('http://local.finance-projections.com/api/category')
+        .then(
+          function (successResponse) {
+            this.categories = successResponse.body.results;
+          },
+          function (failedResponse) {
+            console.log(failedResponse);
+          }
+        );
+
+      // load the frequencies
+      this.$http.get('http://local.finance-projections.com/api/transaction/frequency')
+        .then(
+          function (successResponse) {
+            this.frequencies = successResponse.body.results;
+          },
+          function (failedResponse) {
+            console.log(failedResponse);
+          }
+        );
+    },
     props: [
       'transactions'
     ],
     data() {
       return {
         loading: false,
+        accounts: [],
+        categories: [],
+        frequencies: [],
         editingTransaction: {
           id: 0,
           account_id: 0,
