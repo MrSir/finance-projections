@@ -27,10 +27,6 @@ class FrequencySeeder extends Seeder
                     'description' => 'This is used for repeating transactions on a bi-weekly basis.'
                 ],
                 [
-                    'name' => 'Semi-Monthly',
-                    'description' => 'This is used for repeating transactions on a semi-monthly basis.'
-                ],
-                [
                     'name' => 'Monthly',
                     'description' => 'This is used for repeating transactions on a monthly basis.'
                 ],
