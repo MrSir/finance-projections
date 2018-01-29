@@ -9,7 +9,9 @@
 namespace App\Pipes\Account\Index;
 
 use App\Exceptions\Account\Index\Format as ExceptionFormat;
+use App\Interfaces\Passables\Index;
 use App\Pipes\Index\Format as IndexFormat;
+use Closure;
 
 /**
  * Class Format
@@ -23,5 +25,35 @@ class Format extends IndexFormat
     public function __construct()
     {
         parent::__construct(ExceptionFormat::class);
+    }
+
+    /**
+     * @param Index $passable
+     * @param Closure $next
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function handle(Index &$passable, Closure $next)
+    {
+        $result = $passable->getResults();
+
+        $result->each(
+            function (&$account) {
+                $account->account_balances = $account->accountBalances()
+                    ->orderBy(
+                        'posted_at',
+                        'desc'
+                    )
+                    ->get();
+            }
+        );
+
+        $passable->setResults($result);
+
+        return parent::handle(
+            $passable,
+            $next
+        );
     }
 }

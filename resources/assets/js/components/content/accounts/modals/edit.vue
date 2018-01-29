@@ -15,6 +15,13 @@
               .form-group
                 label(for='description') Description
                 input#description.form-control(type='text', name='description', placeholder='Description', v-model='$parent.editingAccount.description')
+              .form-group
+                label(for='balance') Balance
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-dollar
+                  input#balance.form-control(type='text', name='balance', placeholder='$1000.00', v-model='$parent.editingAccount.balance')
+                | Last Updated: {{ $parent.editingAccount.balanceLastUpdated }}
         .modal-footer
           button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') Close
           button.btn.btn-success(type='button', v-on:click='updateAccount') Save

@@ -11,6 +11,7 @@ namespace App\Pipes\Account\Update;
 use App\Exceptions\Account\Update\Update as ExceptionUpdate;
 use App\Pipes\Update\Update as UpdateUpdate;
 use App\Passables\Account\Update as PassableUpdate;
+use Carbon\Carbon;
 use Closure;
 use Throwable;
 
@@ -39,6 +40,16 @@ class Update extends UpdateUpdate
     {
         try {
             $this->updateModel($passable);
+
+            $balance = $passable->getRequest()->get('balance');
+            $account = $passable->getModel();
+
+            $account->accountBalances()->create(
+                [
+                    'balance' => $balance,
+                    'posted_at' => Carbon::now()
+                ]
+            );
         } catch (Throwable $e) {
             $exceptionType = $this->getExceptionType();
 

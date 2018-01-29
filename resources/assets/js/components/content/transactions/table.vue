@@ -14,7 +14,7 @@
             th.text-right Amount
             th Occurred At
             th Created At
-            th Actions
+            th.text-center Actions
         tbody
           tr(v-if='transactions', v-for='transaction in transactions')
             td {{ transaction.name }}
@@ -27,8 +27,9 @@
             td.text-right.success(v-if='transaction.amount >= 0') ${{ roundNumbers(transaction.amount) }}
             td {{ transaction.occurred_at }}
             td {{ transaction.created_at }}
-            td.center
+            td.text-center
               span.glyphicon.glyphicon-edit.action-icon(v-on:click='editTransaction(transaction)')
+              | &nbsp;
               span.glyphicon.glyphicon-trash.action-icon(v-on:click='deleteTransaction(transaction)')
           tr(v-if='$parent.transactions.length == 0')
             td(colspan='10') There are no Transactions in the system.
@@ -130,7 +131,7 @@
       },
       getAccountName: function(id) {
         if (id == null) {
-          return '';
+          return 'N/A';
         }
 
         const theAccount = this.accounts.find(

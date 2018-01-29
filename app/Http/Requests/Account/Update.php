@@ -31,7 +31,8 @@ class Update extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string',
-            'description' => 'sometimes|required|string'
+            'description' => 'sometimes|required|string',
+            'balance' => 'sometimes|required|numeric',
         ];
     }
 }
