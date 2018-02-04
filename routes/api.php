@@ -69,3 +69,11 @@ Route::resource(
         ]
     ]
 );
+Route::group(
+    [
+        'prefix' => '/report'
+    ],
+    function () {
+        Route::get('/monthly', 'ReportController@monthly');
+    }
+);

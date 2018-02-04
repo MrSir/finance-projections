@@ -2,12 +2,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{ title_case(Route::currentRouteName()) }}
+            {{ Route::currentRouteName() }}
             <small>Where all the transactions live.</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">{{ title_case(Route::currentRouteName()) }}</li>
+            <li class="active">{{ Route::currentRouteName() }}</li>
         </ol>
     </section>
 

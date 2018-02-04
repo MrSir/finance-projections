@@ -16,6 +16,18 @@ Vue.component(
   require('./components/sidebar/left/menu.vue'),
 )
 
+// Home
+Vue.component(
+  'content-home',
+  require('./components/content/home/page.vue'),
+)
+
+// Transactions
+Vue.component(
+  'content-transactions',
+  require('./components/content/transactions/page.vue'),
+)
+
 // Accounts
 Vue.component(
   'content-accounts',
@@ -34,16 +46,10 @@ Vue.component(
   require('./components/content/frequencies/page.vue'),
 )
 
-// Transactions
+// Frequencies
 Vue.component(
-  'content-transactions',
-  require('./components/content/transactions/page.vue'),
-)
-
-// Home
-Vue.component(
-  'content-home',
-  require('./components/content/home/page.vue'),
+  'content-report-monthly',
+  require('./components/content/report/monthly/page.vue'),
 )
 
 const app = new Vue(

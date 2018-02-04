@@ -23,7 +23,8 @@
     "squizlabs/php_codesniffer": "2.9.1",
     "theseer/phpdox": "0.9.0",
     "phploc/phploc": "3.0.1",
-    "sebastian/phpcpd": "2.0.4"
+    "sebastian/phpcpd": "2.0.4",
+    "barryvdh/laravel-ide-helper": "2.4.1"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

@@ -8,3 +8,4 @@ storage/
 .env.php
 .env
 build
+_ide_helper.php
