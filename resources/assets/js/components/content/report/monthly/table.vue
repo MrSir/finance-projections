@@ -25,8 +25,13 @@
             td.text-right.success(v-if='transaction.amount >= 0') ${{ roundNumbers(transaction.amount) }}
             td {{ transaction.occurred_at }}
             td {{ transaction.created_at }}
-          tr
-            td(colspan='9') There are no Transactions in the system.
+          tr.text-bold.success
+            td.text-right(colspan="5") Total Accounts Summary
+            td.text-right
+              span.fa.fa-arrow-up
+              | {{ changeAmount }}
+            td.text-right {{ summaryAmount }}
+            td(colspan="2")
     .box-footer
 </template>
 
@@ -34,7 +39,9 @@
   // the main code
   export default {
     props: [
-      'transactions'
+      'transactions',
+      'changeAmount',
+      'summaryAmount'
     ],
     methods: {
       roundNumbers: function(number) {

@@ -50,6 +50,6 @@ class Transaction extends Model
 
     public function frequency()
     {
-        return $this->belongsTo(Transaction\Frequency::class);
+        return $this->belongsTo(Transaction\Frequency::class, 'transaction_frequency_id', 'id');
     }
 }

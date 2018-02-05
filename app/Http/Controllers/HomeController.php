@@ -227,8 +227,7 @@ class HomeController extends Controller
      * @param $savingsBalance
      * @return array
      */
-    private function
-    generatePeriods(
+    private function generatePeriods(
         Carbon $currentStart,
         Carbon $currentEnd,
         Carbon $startDate,
@@ -238,8 +237,7 @@ class HomeController extends Controller
         $checkingBalance,
         $savingsBalance,
         $rrspBalance
-    )
-    {
+    ) {
         $result = [];
         $trigger = true;
         $period['change'] = 0;

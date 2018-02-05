@@ -19,6 +19,6 @@ class Frequency extends Model
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'transaction_frequency_id', 'id');
     }
 }

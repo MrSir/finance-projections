@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use test\last;
@@ -13,21 +14,30 @@ class ReportController extends Controller
 {
     public function monthly(Request $request)
     {
+        setlocale(
+            LC_MONETARY,
+            'en_US'
+        );
+
         $periods = [];
 
         $startDate = Carbon::now()
             ->startOfMonth();
 
         $accounts = Account::all();
+        $summaryAmount = 0.00;
         $accounts->each(
-            function (Account &$account) use (&$startDate) {
-                $accountBalance = $account->accountBalances;
+            function (Account &$account) use (&$startDate, &$summaryAmount) {
+                $accountBalance = $account->accountBalances()
+                    ->first();
 
                 if ($accountBalance) {
-                    //if ($startDate->greaterThan($accountBalance->posted_at)) {
-                    //
-                    //    $startDate = $accountBalance->posted_at;
-                    //}
+                    $summaryAmount += $accountBalance->balance;
+
+                    if ($startDate->greaterThan($accountBalance->posted_at)) {
+                        $startDate = $accountBalance->posted_at->copy()
+                            ->startOfMonth();
+                    }
                 }
             }
         );
@@ -35,15 +45,6 @@ class ReportController extends Controller
         $endDate = $startDate->copy()
             ->addYear()
             ->endOfMonth();
-
-        $transactions = Transaction::all()
-            ->load(
-                [
-                    'account',
-                    'category',
-                    'frequency',
-                ]
-            );
 
         $isLastPeriod = false;
 
@@ -58,15 +59,20 @@ class ReportController extends Controller
                 $endDate
             );
 
+            $previousSummary = $summaryAmount;
+
             $periodTransactions = $this->computeTransactionsForPeriod(
                 $periodStartDate,
-                $periodEndDate
+                $periodEndDate,
+                $summaryAmount
             );
 
             $periods[] = [
                 'startDate' => $periodStartDate,
                 'endDate' => $periodEndDate,
                 'transactions' => $periodTransactions,
+                'changeAmount' => $summaryAmount - $previousSummary,
+                'summaryAmount' => $summaryAmount,
             ];
 
             $startDate = $periodEndDate->copy()
@@ -82,11 +88,64 @@ class ReportController extends Controller
             ->setStatusCode(200);
     }
 
-    public function computeTransactionsForPeriod(Carbon $startDate, Carbon $endDate)
+    public function computeTransactionsForPeriod(Carbon $startDate, Carbon $endDate, float &$summaryAmount)
     {
         $periodTransactions = [];
 
         // add Once transactions
+        $this->getOnceTransactions(
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions
+        );
+
+        // add weekly Transactions
+        $this->getWeeklyTransactions(
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions
+        );
+
+        // add Bi-weekly Transactions
+        $this->getBiWeeklyTransactions(
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions
+        );
+
+        // add Monthly Transactions
+        $this->getMonthlyTransactions(
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions
+        );
+
+        $periodTransactions = collect($periodTransactions)
+            ->sortBy('occurred_at')
+            ->values()
+            ->all();
+
+        return $periodTransactions;
+    }
+
+    /**
+     * This function grabs the once transactions for this period
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     * @param float  $summaryAmount
+     * @param array  $periodTransactions
+     */
+    public function getOnceTransactions(
+        Carbon $startDate,
+        Carbon $endDate,
+        float &$summaryAmount,
+        array &$periodTransactions
+    ) {
         $onceFrequency = Transaction\Frequency::whereName('once')
             ->first();
         $onceTransactions = Transaction::query()
@@ -106,35 +165,159 @@ class ReportController extends Controller
                 $endDate
             )
             ->get();
+
         foreach ($onceTransactions as $onceTransaction) {
             $periodTransactions[] = $onceTransaction;
+            $summaryAmount += $onceTransaction->amount;
         }
+    }
 
-        // add Monthly Transactions
-        $monthlyFrequency = Transaction\Frequency::whereName('monthly')
+    /**
+     * This function grabs the weekly transactions for this period
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     * @param float  $summaryAmount
+     * @param array  $periodTransactions
+     */
+    public function getWeeklyTransactions(
+        Carbon $startDate,
+        Carbon $endDate,
+        float &$summaryAmount,
+        array &$periodTransactions
+    ) {
+        $frequency = Transaction\Frequency::whereName('weekly')
             ->first();
-        $monthlyTransactions = Transaction::query()
-            ->where(
-                'transaction_frequency_id',
-                '=',
-                $monthlyFrequency->id
-            )
+        $this->getTransactions(
+            $frequency,
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions,
+            function (Carbon $date) {
+                return $date->addWeek();
+            }
+        );
+    }
+
+    /**
+     * This function grabs the bi-weekly transactions for this period
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     * @param float  $summaryAmount
+     * @param array  $periodTransactions
+     */
+    public function getBiWeeklyTransactions(
+        Carbon $startDate,
+        Carbon $endDate,
+        float &$summaryAmount,
+        array &$periodTransactions
+    ) {
+        $frequency = Transaction\Frequency::whereName('bi-weekly')
+            ->first();
+        $this->getTransactions(
+            $frequency,
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions,
+            function (Carbon $date) {
+                return $date->addWeeks(2);
+            }
+        );
+    }
+
+    /**
+     * This function grabs the monthly transactions for this period
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     * @param float  $summaryAmount
+     * @param array  $periodTransactions
+     */
+    public function getMonthlyTransactions(
+        Carbon $startDate,
+        Carbon $endDate,
+        float &$summaryAmount,
+        array &$periodTransactions
+    ) {
+        $frequency = Transaction\Frequency::whereName('monthly')
+            ->first();
+
+        $this->getTransactions(
+            $frequency,
+            $startDate,
+            $endDate,
+            $summaryAmount,
+            $periodTransactions,
+            function (Carbon $date) {
+                return $date->addMonth();
+            }
+        );
+    }
+
+    /**
+     * This function computes how many times the transaction appears in the period
+     *
+     * @param Transaction\Frequency $frequency
+     * @param Carbon                $startDate
+     * @param Carbon                $endDate
+     * @param float                 $summaryAmount
+     * @param array                 $periodTransactions
+     * @param Closure               $dateIncrementFunction
+     */
+    public function getTransactions(
+        Transaction\Frequency $frequency,
+        Carbon $startDate,
+        Carbon $endDate,
+        float &$summaryAmount,
+        array &$periodTransactions,
+        Closure $dateIncrementFunction
+    ) {
+        $transactions = $frequency->transactions()
             ->get();
 
-        foreach ($monthlyTransactions as $monthlyTransaction) {
-            $periodCheck = $this->checkRepeatingPeriod(
-                $monthlyTransaction->repeat_start_at,
-                $monthlyTransaction->repeat_end_at,
-                $startDate,
-                $endDate
-            );
+        foreach ($transactions as $transaction) {
+            $repeatingStartDate = $transaction->repeat_start_at;
+            $repeatingEndDate = $transaction->repeat_end_at;
+            if (is_null($repeatingEndDate)) {
+                $repeatingEndDate = $endDate;
+            }
 
-            if ($periodCheck) {
-                $periodTransactions[] = $monthlyTransaction;
+            $currentDate = $transaction->occurred_at;
+
+            $trig = true;
+
+            while ($trig) {
+                $repeatingCondition = $currentDate->between(
+                    $repeatingStartDate,
+                    $repeatingEndDate
+                );
+
+                $periodCondition = $currentDate->between(
+                    $startDate,
+                    $endDate
+                );
+
+                if (!$repeatingCondition && !$periodCondition) {
+                    $trig = false;
+                }
+
+                if ($repeatingCondition && $periodCondition) {
+                    $transaction->occurred_at = $currentDate;
+
+                    $periodTransactions[] = $transaction;
+                    $summaryAmount += $transaction->amount;
+
+                    $currentDate = $dateIncrementFunction($currentDate);
+
+                    continue;
+                }
+
+                $currentDate = $dateIncrementFunction($currentDate);
             }
         }
-
-        return $periodTransactions;
     }
 
     /**
@@ -142,7 +325,7 @@ class ReportController extends Controller
      *
      * @param Carbon      $repeatingStartDate
      * @param Carbon|null $repeatingEndDate
-     * @param Carbon      $starDate
+     * @param Carbon      $startDate
      * @param Carbon      $endDate
      *
      * @return bool
@@ -150,26 +333,29 @@ class ReportController extends Controller
     public function checkRepeatingPeriod(
         Carbon $repeatingStartDate,
         $repeatingEndDate,
-        Carbon $starDate,
+        Carbon $startDate,
         Carbon $endDate
     ) {
-        $startDateCondition = $starDate->greaterThan($repeatingStartDate);
+        // check if repeating start date is before the start date
+        if ($repeatingStartDate->lessThan($startDate)) {
+            if (!is_null($repeatingEndDate)) {
+                // has repeating period ended
+                if ($repeatingEndDate->lessThan($startDate)) {
+                    return false;
+                }
 
-        $endDateCondition = true;
+                return true;
+            }
 
-        if (!is_null($repeatingEndDate)) {
-            $startDateCondition = $starDate->between(
-                $repeatingStartDate,
-                $repeatingEndDate
-            );
-
-            $endDateCondition = $endDate->between(
-                $repeatingStartDate,
-                $repeatingEndDate
-            );
+            return true;
         }
 
-        return $startDateCondition && $endDateCondition;
+        // the transaction should start repeating outside of the period
+        if ($repeatingStartDate->greaterThan($endDate)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -194,7 +380,7 @@ class ReportController extends Controller
                 break;
         }
 
-        if ($periodEndDate > greaterThan($endDate)) {
+        if ($periodEndDate->greaterThan($endDate)) {
             $periodEndDate = $endDate;
         }
 

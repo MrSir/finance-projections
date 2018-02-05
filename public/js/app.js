@@ -2835,6 +2835,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 // import the modals
 
@@ -2842,14 +2843,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // the main code
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    // load the periods
-    this.$http.get('http://local.finance-projections.com/api/report/monthly').then(function (successResponse) {
-      this.loading = false;
-      this.periods = successResponse.body;
-    }, function (failedResponse) {
-      console.log(failedResponse);
-    });
-
     // load the accounts
     this.$http.get('http://local.finance-projections.com/api/account').then(function (successResponse) {
       this.accounts = successResponse.body.results;
@@ -2867,6 +2860,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // load the frequencies
     this.$http.get('http://local.finance-projections.com/api/transaction/frequency').then(function (successResponse) {
       this.frequencies = successResponse.body.results;
+    }, function (failedResponse) {
+      console.log(failedResponse);
+    });
+
+    // load the periods
+    this.$http.get('http://local.finance-projections.com/api/report/monthly').then(function (successResponse) {
+      this.loading = false;
+      this.periods = successResponse.body;
     }, function (failedResponse) {
       console.log(failedResponse);
     });
@@ -2927,10 +2928,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 // the main code
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['transactions'],
+  props: ['transactions', 'changeAmount', 'summaryAmount'],
   methods: {
     roundNumbers: function roundNumbers(number) {
       return parseFloat(Math.round(number * 100) / 100).toFixed(2);
@@ -34520,19 +34526,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("$" + _vm._s(_vm.roundNumbers(transaction.amount)))]) : _vm._e(), (transaction.amount >= 0) ? _c('td', {
       staticClass: "text-right success"
     }, [_vm._v("$" + _vm._s(_vm.roundNumbers(transaction.amount)))]) : _vm._e(), _c('td', [_vm._v(_vm._s(transaction.occurred_at))]), _c('td', [_vm._v(_vm._s(transaction.created_at))])]) : _vm._e()
-  }), _vm._m(1)], 2)])]), _c('div', {
+  }), _c('tr', {
+    staticClass: "text-bold success"
+  }, [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": "5"
+    }
+  }, [_vm._v("Total Accounts Summary")]), _c('td', {
+    staticClass: "text-right"
+  }, [_c('span', {
+    staticClass: "fa fa-arrow-up"
+  }), _vm._v(_vm._s(_vm.changeAmount))]), _c('td', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.summaryAmount))]), _c('td', {
+    attrs: {
+      "colspan": "2"
+    }
+  })])], 2)])]), _c('div', {
     staticClass: "box-footer"
   })])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Name")]), _c('th', [_vm._v("Description")]), _c('th', [_vm._v("Category")]), _c('th', [_vm._v("Account")]), _c('th', [_vm._v("Destination Account")]), _c('th', [_vm._v("Frequency")]), _c('th', {
     staticClass: "text-right"
   }, [_vm._v("Amount")]), _c('th', [_vm._v("Occurred At")]), _c('th', [_vm._v("Created At")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', {
-    attrs: {
-      "colspan": "9"
-    }
-  }, [_vm._v("There are no Transactions in the system.")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -35790,7 +35807,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "monthlyReportPageTemplate"
     }
-  }, _vm._l((_vm.periods), function(period) {
+  }, [(_vm.loading) ? _c('span', {
+    staticClass: "fa fa-refresh fa-spin"
+  }) : _vm._e(), _vm._l((_vm.periods), function(period) {
     return _c('div', {
       staticClass: "box"
     }, [_c('div', {
@@ -35799,10 +35818,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "box-title"
     }, [_vm._v("Period " + _vm._s(period.startDate.date) + " - " + _vm._s(period.endDate.date))])]), _c('report-monthly-table', {
       attrs: {
-        "transactions": period.transactions
+        "transactions": period.transactions,
+        "summaryAmount": period.summaryAmount,
+        "changeAmount": period.changeAmount
       }
     })], 1)
-  }))
+  })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
