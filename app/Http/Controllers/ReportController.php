@@ -12,6 +12,11 @@ use test\last;
 
 class ReportController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return $this
+     */
     public function monthly(Request $request)
     {
         setlocale(
@@ -20,6 +25,7 @@ class ReportController extends Controller
         );
 
         $periods = [];
+        $accountSummaries = [];
 
         $startDate = Carbon::now()
             ->startOfMonth();
@@ -27,12 +33,14 @@ class ReportController extends Controller
         $accounts = Account::all();
         $summaryAmount = 0.00;
         $accounts->each(
-            function (Account &$account) use (&$startDate, &$summaryAmount) {
+            function (Account &$account) use (&$startDate, &$summaryAmount, &$accountSummaries) {
+                $accountSummaries[$account->name] = 0;
                 $accountBalance = $account->accountBalances()
                     ->first();
 
                 if ($accountBalance) {
                     $summaryAmount += $accountBalance->balance;
+                    $accountSummaries[$account->name] = $accountBalance->balance;
 
                     if ($startDate->greaterThan($accountBalance->posted_at)) {
                         $startDate = $accountBalance->posted_at->copy()
@@ -64,7 +72,8 @@ class ReportController extends Controller
             $periodTransactions = $this->computeTransactionsForPeriod(
                 $periodStartDate,
                 $periodEndDate,
-                $summaryAmount
+                $summaryAmount,
+                $accountSummaries
             );
 
             $periods[] = [
@@ -73,6 +82,7 @@ class ReportController extends Controller
                 'transactions' => $periodTransactions,
                 'changeAmount' => $summaryAmount - $previousSummary,
                 'summaryAmount' => $summaryAmount,
+                'accountSummaries' => $accountSummaries,
             ];
 
             $startDate = $periodEndDate->copy()
@@ -88,8 +98,22 @@ class ReportController extends Controller
             ->setStatusCode(200);
     }
 
-    public function computeTransactionsForPeriod(Carbon $startDate, Carbon $endDate, float &$summaryAmount)
-    {
+    /**
+     * This function computes the transactions for the given period
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     * @param float  $summaryAmount
+     * @param array  $accountSummaries
+     *
+     * @return array
+     */
+    public function computeTransactionsForPeriod(
+        Carbon $startDate,
+        Carbon $endDate,
+        float &$summaryAmount,
+        array &$accountSummaries
+    ) {
         $periodTransactions = [];
 
         // add Once transactions
@@ -97,7 +121,8 @@ class ReportController extends Controller
             $startDate,
             $endDate,
             $summaryAmount,
-            $periodTransactions
+            $periodTransactions,
+            $accountSummaries
         );
 
         // add weekly Transactions
@@ -105,7 +130,8 @@ class ReportController extends Controller
             $startDate,
             $endDate,
             $summaryAmount,
-            $periodTransactions
+            $periodTransactions,
+            $accountSummaries
         );
 
         // add Bi-weekly Transactions
@@ -113,7 +139,8 @@ class ReportController extends Controller
             $startDate,
             $endDate,
             $summaryAmount,
-            $periodTransactions
+            $periodTransactions,
+            $accountSummaries
         );
 
         // add Monthly Transactions
@@ -121,7 +148,8 @@ class ReportController extends Controller
             $startDate,
             $endDate,
             $summaryAmount,
-            $periodTransactions
+            $periodTransactions,
+            $accountSummaries
         );
 
         $periodTransactions = collect($periodTransactions)
@@ -139,12 +167,14 @@ class ReportController extends Controller
      * @param Carbon $endDate
      * @param float  $summaryAmount
      * @param array  $periodTransactions
+     * @param array  $accountSummaries
      */
     public function getOnceTransactions(
         Carbon $startDate,
         Carbon $endDate,
         float &$summaryAmount,
-        array &$periodTransactions
+        array &$periodTransactions,
+        array &$accountSummaries
     ) {
         $onceFrequency = Transaction\Frequency::whereName('once')
             ->first();
@@ -169,6 +199,7 @@ class ReportController extends Controller
         foreach ($onceTransactions as $onceTransaction) {
             $periodTransactions[] = $onceTransaction;
             $summaryAmount += $onceTransaction->amount;
+            $accountSummaries[$onceTransaction->account->name] += $onceTransaction->amount;
         }
     }
 
@@ -179,12 +210,14 @@ class ReportController extends Controller
      * @param Carbon $endDate
      * @param float  $summaryAmount
      * @param array  $periodTransactions
+     * @param array  $accountSummaries
      */
     public function getWeeklyTransactions(
         Carbon $startDate,
         Carbon $endDate,
         float &$summaryAmount,
-        array &$periodTransactions
+        array &$periodTransactions,
+        array &$accountSummaries
     ) {
         $frequency = Transaction\Frequency::whereName('weekly')
             ->first();
@@ -196,7 +229,8 @@ class ReportController extends Controller
             $periodTransactions,
             function (Carbon $date) {
                 return $date->addWeek();
-            }
+            },
+            $accountSummaries
         );
     }
 
@@ -207,12 +241,14 @@ class ReportController extends Controller
      * @param Carbon $endDate
      * @param float  $summaryAmount
      * @param array  $periodTransactions
+     * @param array  $accountSummaries
      */
     public function getBiWeeklyTransactions(
         Carbon $startDate,
         Carbon $endDate,
         float &$summaryAmount,
-        array &$periodTransactions
+        array &$periodTransactions,
+        array &$accountSummaries
     ) {
         $frequency = Transaction\Frequency::whereName('bi-weekly')
             ->first();
@@ -224,7 +260,8 @@ class ReportController extends Controller
             $periodTransactions,
             function (Carbon $date) {
                 return $date->addWeeks(2);
-            }
+            },
+            $accountSummaries
         );
     }
 
@@ -235,12 +272,14 @@ class ReportController extends Controller
      * @param Carbon $endDate
      * @param float  $summaryAmount
      * @param array  $periodTransactions
+     * @param array  $accountSummaries
      */
     public function getMonthlyTransactions(
         Carbon $startDate,
         Carbon $endDate,
         float &$summaryAmount,
-        array &$periodTransactions
+        array &$periodTransactions,
+        array &$accountSummaries
     ) {
         $frequency = Transaction\Frequency::whereName('monthly')
             ->first();
@@ -253,7 +292,8 @@ class ReportController extends Controller
             $periodTransactions,
             function (Carbon $date) {
                 return $date->addMonth();
-            }
+            },
+            $accountSummaries
         );
     }
 
@@ -266,6 +306,7 @@ class ReportController extends Controller
      * @param float                 $summaryAmount
      * @param array                 $periodTransactions
      * @param Closure               $dateIncrementFunction
+     * @param array                 $accountSummaries
      */
     public function getTransactions(
         Transaction\Frequency $frequency,
@@ -273,7 +314,8 @@ class ReportController extends Controller
         Carbon $endDate,
         float &$summaryAmount,
         array &$periodTransactions,
-        Closure $dateIncrementFunction
+        Closure $dateIncrementFunction,
+        array &$accountSummaries
     ) {
         $transactions = $frequency->transactions()
             ->get();
@@ -309,6 +351,7 @@ class ReportController extends Controller
 
                     $periodTransactions[] = $transaction;
                     $summaryAmount += $transaction->amount;
+                    $accountSummaries[$transaction->account->name] += $transaction->amount;
 
                     $currentDate = $dateIncrementFunction($currentDate);
 

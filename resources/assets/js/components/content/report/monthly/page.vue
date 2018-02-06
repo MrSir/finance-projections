@@ -1,19 +1,21 @@
 <template lang="pug">
   #monthlyReportPageTemplate
     span.fa.fa-refresh.fa-spin(v-if='loading')
+    report-monthly-projections(v-if='periods.length > 0 && accounts.length > 0', :periods='periods', :accounts='accounts')
     .box(v-for='period in periods')
       .box-header.with-border
-        h3.box-title Period {{ period.startDate.date }} - {{ period.endDate.date }}
+        h3.box-title Period {{ formatDate(period.startDate.date) }} - {{ formatDate(period.endDate.date) }}
       report-monthly-table(:transactions='period.transactions', :summaryAmount='period.summaryAmount', :changeAmount='period.changeAmount')
 </template>
 
 <script>
-  // import the modals
-  import Table from './table.vue';
+  // import the components
+  import ReportMonthlyTable from './table';
+  import ReportMonthlyProjections from './projections'
 
   // the main code
   export default {
-    mounted() {
+    created() {
       // load the accounts
       this.$http.get('http://local.finance-projections.com/api/account')
         .then(
@@ -71,8 +73,14 @@
         periods: []
       };
     },
+    methods: {
+      formatDate: function (dateString) {
+        return moment(dateString).format('MMMM Do, YYYY');
+      }
+    },
     components: {
-      'report-monthly-table': Table
+      ReportMonthlyProjections,
+      ReportMonthlyTable
     }
   }
 </script>

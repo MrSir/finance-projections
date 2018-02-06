@@ -23,8 +23,8 @@
             td {{ getFrequencyName(transaction.transaction_frequency_id) }}
             td.text-right.danger(v-if='transaction.amount < 0') ${{ roundNumbers(transaction.amount) }}
             td.text-right.success(v-if='transaction.amount >= 0') ${{ roundNumbers(transaction.amount) }}
-            td {{ transaction.occurred_at }}
-            td {{ transaction.created_at }}
+            td {{ $parent.formatDate(transaction.occurred_at) }}
+            td {{ $parent.formatDate(transaction.created_at) }}
           tr.text-bold.success
             td.text-right(colspan="5") Total Accounts Summary
             td.text-right
