@@ -38,7 +38,7 @@ class Store extends FormRequest
             'description' => 'required|string',
             'amount' => 'required|numeric',
             'occurred_at' => 'required|date',
-            'repeat_start_at' => 'required|date',
+            'repeat_start_at' => 'sometimes|required|date',
             'repeat_end_at' => 'sometimes|required|date',
         ];
     }

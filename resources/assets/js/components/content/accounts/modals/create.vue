@@ -15,6 +15,9 @@
               .form-group
                 label(for='description') Description
                 input#description.form-control(type='text', name='description', placeholder='Description', v-model='account.description')
+              .form-group
+                label(for='color') Color
+                input#color.form-control(type='text', name='color', placeholder='#FF00AA', v-model='account.color')
         .modal-footer
           button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') Close
           button.btn.btn-success(type='button', v-on:click='storeAccount') Create
@@ -49,7 +52,8 @@
       return {
         account: {
           name: '',
-          description: ''
+          description: '',
+          color: ''
         }
       };
     }

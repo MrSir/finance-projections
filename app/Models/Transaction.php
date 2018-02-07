@@ -25,8 +25,6 @@ class Transaction extends Model
         'destination_account_id',
         'category_id',
         'transaction_frequency_id',
-        'is_credit',
-        'is_debit',
         'name',
         'description',
         'amount',
@@ -52,6 +50,6 @@ class Transaction extends Model
 
     public function frequency()
     {
-        return $this->belongsTo(Transaction\Frequency::class);
+        return $this->belongsTo(Transaction\Frequency::class, 'transaction_frequency_id', 'id');
     }
 }

@@ -1,12 +1,10 @@
 <template lang="pug">
-  #transactionsSearchTemplate.box.box-info
+  #transactionsSearchTemplate.box.box-info.collapsed-box
     .box-header.with-border
       h3.box-title Search
       .box-tools.pull-right
         button.btn.btn-box-tool(type='button', data-widget='collapse')
-          i.fa.fa-minus
-        button.btn.btn-box-tool(type='button', data-widget='remove')
-          i.fa.fa-times
+          i.fa.fa-plus
     .box-body
       span.fa.fa-refresh.fa-spin(v-if='loading')
       #searchForm(v-if='!loading')

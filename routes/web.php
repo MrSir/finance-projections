@@ -11,22 +11,42 @@
 |
 */
 
-Route::name('home')->get('/', function () {
+Route::name('Home')->get('/', function () {
     return view('home');
 });
 
-Route::name('transactions')->get('/transactions', function () {
+Route::name('Transactions')->get('/transactions', function () {
     return view('transactions');
 });
 
-Route::name('accounts')->get('/accounts', function () {
+Route::name('Accounts')->get('/accounts', function () {
     return view('accounts');
 });
 
-Route::name('categories')->get('/categories', function () {
+Route::name('Categories')->get('/categories', function () {
     return view('categories');
 });
 
-Route::name('frequencies')->get('/frequencies', function () {
+Route::name('Frequencies')->get('/frequencies', function () {
     return view('frequencies');
 });
+
+Route::group(
+    [
+        'prefix' => '/report'
+    ],
+    function () {
+        Route::name('Weekly Report')->get('/weekly', function () {
+            return view('reports.weekly');
+        });
+
+        Route::name('Bi-Weekly Report')->get('/bi-weekly', function () {
+            return view('reports.bi-weekly');
+        });
+
+        Route::name('Monthly Report')->get('/monthly', function () {
+            return view('reports.monthly');
+        });
+    }
+);
+

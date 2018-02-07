@@ -11,25 +11,26 @@
             th Account
             th Destination Account
             th Frequency
-            th Amount
+            th.text-right Amount
             th Occurred At
             th Created At
-            th Actions
+            th.text-center Actions
         tbody
           tr(v-if='transactions', v-for='transaction in transactions')
             td {{ transaction.name }}
             td {{ transaction.description }}
-            td {{ transaction.category_id }}
-            td {{ transaction.account_id }}
-            td {{ transaction.destinationAccount_id }}
-            td {{ transaction.transaction_frequency_id }}
-            td.danger(v-if='transaction.is_credit') {{ transaction.amount }}
-            td.success(v-if='transaction.is_debit') {{ transaction.amount }}
+            td {{ getCategoryName(transaction.category_id) }}
+            td {{ getAccountName(transaction.account_id) }}
+            td {{ getAccountName(transaction.destination_account_id) }}
+            td {{ getFrequencyName(transaction.transaction_frequency_id) }}
+            td.text-right.danger(v-if='transaction.amount < 0') ${{ roundNumbers(transaction.amount) }}
+            td.text-right.success(v-if='transaction.amount >= 0') ${{ roundNumbers(transaction.amount) }}
             td {{ transaction.occurred_at }}
             td {{ transaction.created_at }}
-            td.center
+            td.text-center
               span.glyphicon.glyphicon-edit.action-icon(v-on:click='editTransaction(transaction)')
-              span.glyphicon.glyphicon-remove.action-icon(v-on:click='deleteTransaction(transaction)')
+              | &nbsp;
+              span.glyphicon.glyphicon-trash.action-icon(v-on:click='deleteTransaction(transaction)')
           tr(v-if='$parent.transactions.length == 0')
             td(colspan='10') There are no Transactions in the system.
     .box-footer
@@ -48,16 +49,53 @@
 
   // the main code
   export default {
+    mounted() {
+      // load the accounts
+      this.$http.get('http://local.finance-projections.com/api/account')
+      .then(
+        function (successResponse) {
+          this.accounts = successResponse.body.results;
+        },
+        function (failedResponse) {
+          console.log(failedResponse);
+        }
+      );
+
+      // load the categories
+      this.$http.get('http://local.finance-projections.com/api/category')
+        .then(
+          function (successResponse) {
+            this.categories = successResponse.body.results;
+          },
+          function (failedResponse) {
+            console.log(failedResponse);
+          }
+        );
+
+      // load the frequencies
+      this.$http.get('http://local.finance-projections.com/api/transaction/frequency')
+        .then(
+          function (successResponse) {
+            this.frequencies = successResponse.body.results;
+          },
+          function (failedResponse) {
+            console.log(failedResponse);
+          }
+        );
+    },
     props: [
       'transactions'
     ],
     data() {
       return {
         loading: false,
+        accounts: [],
+        categories: [],
+        frequencies: [],
         editingTransaction: {
           id: 0,
           account_id: 0,
-          destination_account_id: 0,
+          destination_account_id: null,
           category_id: 0,
           transaction_frequency_id: 0,
           name: '',
@@ -78,6 +116,40 @@
       deleteTransaction: function (transaction) {
         this.deletingTransaction = transaction;
         $('#delete-transaction-modal').modal('show');
+      },
+      roundNumbers: function(number) {
+        return parseFloat(Math.round(number * 100) / 100).toFixed(2);
+      },
+      getCategoryName: function(id) {
+        const theCategory = this.categories.find(
+          function (category) {
+            return category.id === id;
+          }
+        );
+
+        return theCategory.name;
+      },
+      getAccountName: function(id) {
+        if (id == null) {
+          return 'N/A';
+        }
+
+        const theAccount = this.accounts.find(
+          function (account) {
+            return account.id === id;
+          }
+        );
+
+        return theAccount.name;
+      },
+      getFrequencyName: function(id) {
+        const theFrequency = this.frequencies.find(
+          function (frequency) {
+            return frequency.id === id;
+          }
+        );
+
+        return theFrequency.name;
       }
     },
     components: {

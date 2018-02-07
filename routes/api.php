@@ -69,3 +69,15 @@ Route::resource(
         ]
     ]
 );
+Route::group(
+    [
+        'prefix' => '/report'
+    ],
+    function () {
+        Route::get('/weekly', 'ReportController@weekly');
+
+        Route::get('/bi-weekly', 'ReportController@biWeekly');
+
+        Route::get('/monthly', 'ReportController@monthly');
+    }
+);

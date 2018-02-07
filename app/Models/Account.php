@@ -14,12 +14,20 @@ class Account extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'color'
     ];
 
-    public function accountBalances()
+    public function accountBalances($current = true)
     {
-        return $this->hasMany(Balance::class);
+        $baseQuery = $this->hasMany(Balance::class);
+
+        if ($current) {
+            $baseQuery->orderBy('posted_at', 'DESC')
+                ->take(1);
+        }
+
+        return $baseQuery;
     }
 
     public function transactions()

@@ -8,15 +8,16 @@
             th Name
             th Description
             th Created At
-            th Actions
+            th.text-center Actions
         tbody
           tr(v-if='$parent.frequencies.length > 0', v-for='frequency in $parent.frequencies')
             td {{ frequency.name }}
             td {{ frequency.description }}
             td {{ frequency.created_at }}
-            td.center
+            td.text-center
               span.glyphicon.glyphicon-edit.action-icon(v-on:click='editFrequency(frequency)')
-              span.glyphicon.glyphicon-remove.action-icon(v-on:click='deleteFrequency(frequency)')
+              | &nbsp;
+              span.glyphicon.glyphicon-trash.action-icon(v-on:click='deleteFrequency(frequency)')
           tr(v-if='$parent.frequencies.length == 0')
             td(colspan='4') There are no Frequencies in the system.
     .box-footer
