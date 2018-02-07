@@ -254,6 +254,7 @@ trait ReportGeneration
                 $repeatingEndDate = $endDate;
             }
 
+            /** @var Carbon $currentDate */
             $currentDate = $transaction->occurred_at;
 
             $trig = true;

@@ -50,7 +50,7 @@ class ReportController extends Controller
         );
 
         $endDate = $startDate->copy()
-            ->addYear()
+            ->addMonths(6)
             ->endOfMonth();
 
         $isLastPeriod = false;
@@ -136,7 +136,7 @@ class ReportController extends Controller
         );
 
         $endDate = $startDate->copy()
-            ->addYear()
+            ->addMonths(6)
             ->endOfMonth();
 
         $isLastPeriod = false;
@@ -222,7 +222,7 @@ class ReportController extends Controller
         );
 
         $endDate = $startDate->copy()
-            ->addYear()
+            ->addMonths(6)
             ->endOfMonth();
 
         $isLastPeriod = false;
