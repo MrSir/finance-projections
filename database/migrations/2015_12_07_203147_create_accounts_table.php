@@ -18,6 +18,7 @@ class CreateAccountsTable extends Migration
 
             $table->string('name');
             $table->string('description');
+            $table->string('color');
 
             $table->timestamps();
             $table->softDeletes();

@@ -20,7 +20,7 @@
       a(href='/frequencies')
         i.fa.fa-calendar
         span Frequencies
-    li.treeview(v-bind:class="{ active: active_route == 'Monthly Report' }")
+    li.treeview(v-bind:class="{ active: active_route == 'Monthly Report' || active_route == 'Weekly Report'}")
       a(href='#')
         i.fa.fa-link
         span Reports
@@ -31,8 +31,14 @@
           a(href='/report/monthly')
             i.fa.fa-calendar
             span Monthly Report
-        li
-          a(href='#') Report 2
+        li(v-bind:class="{ active: active_route == 'Bi-Weekly Report' }")
+          a(href='/report/bi-weekly')
+            i.fa.fa-calendar
+            span Bi-Weekly Report
+        li(v-bind:class="{ active: active_route == 'Weekly Report' }")
+          a(href='/report/weekly')
+            i.fa.fa-calendar
+            span Weekly Report
 </template>
 
 <script>

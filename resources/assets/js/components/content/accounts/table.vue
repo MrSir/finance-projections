@@ -46,7 +46,8 @@
         editingAccount: {
           id: 0,
           name: '',
-          description: ''
+          description: '',
+          color: ''
         },
         deletingAccount: {}
       };

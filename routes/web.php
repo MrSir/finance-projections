@@ -36,6 +36,14 @@ Route::group(
         'prefix' => '/report'
     ],
     function () {
+        Route::name('Weekly Report')->get('/weekly', function () {
+            return view('reports.weekly');
+        });
+
+        Route::name('Bi-Weekly Report')->get('/bi-weekly', function () {
+            return view('reports.bi-weekly');
+        });
+
         Route::name('Monthly Report')->get('/monthly', function () {
             return view('reports.monthly');
         });

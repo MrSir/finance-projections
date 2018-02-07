@@ -16,6 +16,9 @@
                 label(for='description') Description
                 input#description.form-control(type='text', name='description', placeholder='Description', v-model='$parent.editingAccount.description')
               .form-group
+                label(for='color') Color
+                input#color.form-control(type='text', name='color', placeholder='#FF00AA', v-model='$parent.editingAccount.color')
+              .form-group
                 label(for='balance') Balance
                 .input-group
                   span.input-group-addon

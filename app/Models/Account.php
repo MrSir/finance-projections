@@ -14,7 +14,8 @@ class Account extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'color'
     ];
 
     public function accountBalances($current = true)

@@ -46,11 +46,20 @@ Vue.component(
   require('./components/content/frequencies/page.vue'),
 )
 
-// Frequencies
+// Reports
+Vue.component(
+  'content-report-weekly',
+  require('./components/content/report/weekly/page.vue'),
+)
+Vue.component(
+  'content-report-bi-weekly',
+  require('./components/content/report/bi-weekly/page.vue'),
+)
 Vue.component(
   'content-report-monthly',
   require('./components/content/report/monthly/page.vue'),
 )
+
 
 const app = new Vue(
   {
